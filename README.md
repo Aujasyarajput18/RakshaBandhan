@@ -1,54 +1,85 @@
-# 🪔 Raksha Bandhan 3D Digital Gift Experience & Client Scalability Engine
+# 🪔 Premium Raksha Bandhan Interactive Sibling Story Experience
 
-A high-performance, emotionally rich **3D Digital Raksha Bandhan Web Application** built with pure HTML5, CSS3, Vanilla JavaScript, and Three.js. Designed with traditional Indian aesthetics (Royal Maroon, Marigold Saffron, Imperial Gold, and Kundan Ivory) and a **100% Free-Tier, Zero-Failure Multi-Client Architecture** to manage 150+ clients seamlessly at ₹0 cost.
+An art-directed, motion-designed, highly emotional **Raksha Bandhan Digital Experience & Storytelling Template** built with pure HTML5, CSS3, and Vanilla JavaScript. 
 
----
-
-## ✨ Features & User Journey
-
-1. **3D Memory Tunnel (`Three.js`)**: Infinite gold-and-marigold neon tube tunnel with floating moli-framed memory slabs, glowing diya fog, and interactive *"Hold to Enter Sister's World 🪔"*.
-2. **Scroll Story & Kinetic Typography**: Smooth viewport-driven Devanagari & English text animations powered by `StringTune` with an ornate golden Mandala halo hero portrait and marigold petal rain physics.
-3. **Sibling Banter & Dodging "NO" Button**: Playful brother-sister humor where the "NO" button dodges mouse/touch with witty sibling dialogue (*"Tujhe remote nahi dungi! 📺"*, *"Chocolates sab meri! 🍫"*, *"Mom ko bata dungi! 🤫"*).
-4. **Festive Gift Hub**:
-   - 💌 **Prem Patra**: Royal maroon wax-sealed envelope opening into a handmade parchment scrapbook with 4 polaroid memories bound with sacred red-gold Moli threads.
-   - 🍬 **Mithai Thali Builder**: Interactive brass puja plate builder to curate traditional Indian sweets (*Kaju Katli*, *Motichoor Laddoo*, *Gulab Jamun*, *Rasgulla*, *Aarti Diya* & *Roli-Chawal*).
-   - 🎡 **Sibling Promise Wheel**: Sun-mandala astrology wheel offering fun sibling vouchers (*"Midnight Maggi 🍜"*, *"Shopping Spree 🛍️"*, *"Remote Control Pass 📺"*).
-   - 🪔 **Virtual Rakhi Ceremony**: Interactive Rakhi tying on wrist accompanied by 360° rotating Aarti Diya, sacred Sanskrit Shloka blessing, and golden confetti burst.
-5. **Grand Finale & Musical Tribute**: Diya bokeh particles, photo slideshow carousel, heartfelt emotional quote, vinyl festive audio player, and 1-click WhatsApp card share.
-6. **Built-in Gift Studio (`customize.html`)**: In-browser image compressor & LZ-String URL generator to customize any gift in 30 seconds.
+Designed specifically as a **turnkey digital product to be sold to customers** who want to send a bespoke, interactive tribute to their brother or sister.
 
 ---
 
-## 🚀 100% Free-Tier, Zero-Failure Multi-Client Architecture
+## ✨ The 5-Act Emotional Story Journey
 
-To scale to 150+ (or 10,000+) clients with ₹0 cost and ZERO risk of database outages:
+1. **Act I — Curiosity**:
+   - **Cinematic Opening Sequence**: Dark room, glowing thread forming a circular Rakhi, kinetic typography (*"A bond doesn't need words... but this one deserves a story"*).
+   - **Hero Poster**: Layered depth sibling portrait, luxury Roman typography, Devanagari & Gurmukhi script emblems.
+   - **Signature Interactive Rakhi**: 3D-like rotating Rakhi responding to cursor & touch with expanding golden thread auras.
 
-| Mode | How it Works | Server Cost | Reliability |
-| :--- | :--- | :--- | :--- |
-| **URL Hash Payload (`#data=...`)** | Recipient name, custom letter, promises, and compressed WebP photos are encoded directly in the URL hash via LZ-String. | **₹0 (Serverless)** | **100% (Never goes down)** |
-| **Static JSON (`?g=x7Kp9`)** | Save client data as `/gifts/x7Kp9.json` in your repository. | **₹0 (Cloudflare/Vercel/GitHub)** | **100% CDN cached** |
-| **Default Demo Fallback** | Fallback dataset loads instantly if no parameters are provided. | **₹0** | **100%** |
+2. **Act II — Playfulness**:
+   - **Interactive Puja Thali**: Tap/hover Rakhi (*"A promise"*), Diya (*"A light"*), Kumkum (*"A blessing"*), Sweets (*"A little sweetness"*), and Flowers (*"A lifetime of memories"*).
+   - **"Before We Grew Up" Childhood Gallery**: Horizontal scrolling childhood photo memories with handwritten captions.
+   - **Continuous Memory Timeline**: Vertical golden Rakhi thread spine connecting childhood to the present era.
+   - **Sibling Game ("Who Is More Likely?")**: Interactive quiz with real-time voting, scoring, and witty commentary.
 
-### How to Create & Deliver a Gift for a Client:
-1. Open `customize.html`.
-2. Enter the Sister & Brother's names, upload up to 6 photos (they are compressed in-browser automatically), and personalize the letter.
-3. Click **"Generate 3D Rakhi Gift Link"**.
-4. Click **"Send via WhatsApp"** or copy the link to deliver immediately to the customer!
+3. **Act III — Emotion**:
+   - **"Things I Don't Say Enough"**: Full-screen cinematic dark scroll pause with sentence-by-sentence emotional confessions.
+   - **Royal Prem Patra**: Crimson wax-sealed envelope that opens with audio fracture haptics, sliding out a personalized deckle-edge parchment letter.
+   - **Draggable Polaroids**: Interactive draggable physical polaroid memories.
+   - **Distance Bridge (Optional)**: Connecting siblings living across different cities/countries (*"Different cities. Different lives. Same bond"*).
+
+4. **Act IV — Climax**:
+   - **Cinematic Transition**: Screen darkens into glowing gold: *"No matter how much life changes... some things stay forever."*
+   - **Signature "Tie the Rakhi" Ceremony**: Drag/tap Rakhi onto the wrist, 360° rotating Aarti Diya, Vedic Sanskrit Shlokas (*ॐ येन बद्धो बली राजा...*), and golden marigold confetti explosion!
+
+5. **Act V — Afterglow**:
+   - **Lifelong Sibling Vows**: Golden cards with unbreakable brother/sister promises.
+   - **Grand Festival Finale**: Floating mandalas, audio player with equalizer, 1-Click WhatsApp delivery, and HD Keepsake Card download.
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ How Customers Customize This Template
 
-- **Frontend**: HTML5, Vanilla CSS3 (Custom Design System), JavaScript (ES6+)
-- **3D Graphics**: Three.js r128
-- **Kinetic Text**: StringTune 1.2.1
-- **Celebration Effects**: Canvas-Confetti 1.6.0
-- **Compression**: LZ-String URI-safe encoding
+### Method 1: The In-Browser Story Studio (`customize.html`)
+1. Open `customize.html` in your browser.
+2. Edit sibling names, letter, and upload photos (automatically compressed in-browser).
+3. Click **"Generate Client Story Link"**.
+4. Send via WhatsApp or copy the permanent, serverless link!
+
+### Method 2: Direct Code Customization (`js/config.js`)
+All content is centralized in **`js/config.js`**:
+```js
+window.rakhiConfig = {
+    names: {
+        sister: "Ananya",
+        brother: "Aarav"
+    },
+    hero: {
+        tagline: "Some bonds are tied by a thread.",
+        subtagline: "Ours was tied long before the Rakhi."
+    },
+    letter: {
+        salutation: "Dearest Ananya,",
+        bodyParagraphs: [
+            "We've grown up. We've changed. We've argued. We've laughed...",
+            "Whenever the world feels overwhelming, knowing that I have you gives me quiet strength."
+        ],
+        signoff: "Forever your loving brother ❤️, Aarav"
+    },
+    childhoodPhotos: [
+        { url: "assets/images/demo/img1.svg", caption: "The unstoppable duo." },
+        { url: "assets/images/demo/img2.svg", caption: "Who started this fight?" }
+    ],
+    // ...
+};
+```
 
 ---
 
-## 📦 Deployment (1-Click ₹0 Hosting)
+## 🚀 100% Free-Tier Deployment (Zero Backend Needed)
 
-Deploy to **Cloudflare Pages**, **Vercel**, or **GitHub Pages**:
-- **Build Command**: *(None needed - Pure Static)*
+Deploy for ₹0 cost on **Vercel**, **Netlify**, **Cloudflare Pages**, or **GitHub Pages**:
+- **Build Command**: *(None needed - Pure Static HTML/CSS/JS)*
 - **Output Directory**: `.` (Root)
+
+---
+
+## 📄 License
+Commercial Template & Digital Product License.

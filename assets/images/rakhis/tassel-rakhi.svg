@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 350" width="600" height="350">
+  <defs>
+    <!-- Sacred red-yellow thread -->
+    <linearGradient id="tasselMoli" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#881313"/>
+      <stop offset="15%"  stop-color="#c62828"/>
+      <stop offset="30%"  stop-color="#e65100"/>
+      <stop offset="50%"  stop-color="#fbc02d"/>
+      <stop offset="70%"  stop-color="#e65100"/>
+      <stop offset="85%"  stop-color="#c62828"/>
+      <stop offset="100%" stop-color="#881313"/>
+    </linearGradient>
+    <radialGradient id="tasselGold" cx="35%" cy="30%" r="65%">
+      <stop offset="0%"   stop-color="#fffde7"/>
+      <stop offset="40%"  stop-color="#ffd54f"/>
+      <stop offset="75%"  stop-color="#c69214"/>
+      <stop offset="100%" stop-color="#734e00"/>
+    </radialGradient>
+    <radialGradient id="redPompom" cx="35%" cy="30%" r="65%">
+      <stop offset="0%"   stop-color="#ff8a80"/>
+      <stop offset="35%"  stop-color="#d32f2f"/>
+      <stop offset="75%"  stop-color="#801313"/>
+      <stop offset="100%" stop-color="#400505"/>
+    </radialGradient>
+    <radialGradient id="greenBead" cx="35%" cy="30%" r="65%">
+      <stop offset="0%"   stop-color="#b9f6ca"/>
+      <stop offset="40%"  stop-color="#2e7d32"/>
+      <stop offset="80%"  stop-color="#1b5e20"/>
+      <stop offset="100%" stop-color="#09280d"/>
+    </radialGradient>
+    <linearGradient id="tasselSilkRed" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#b71c1c"/>
+      <stop offset="60%" stop-color="#e53935"/>
+      <stop offset="100%" stop-color="#7f0000"/>
+    </linearGradient>
+    <linearGradient id="tasselSilkGreen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1b5e20"/>
+      <stop offset="60%" stop-color="#388e3c"/>
+      <stop offset="100%" stop-color="#0d3311"/>
+    </linearGradient>
+    <filter id="softGlow">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="rgba(0,0,0,0.5)"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#softGlow)">
+    <!-- ═══ Left & Right Wrist Binding Threads ═══ -->
+    <path d="M 0,110 C 80,125 180,95 250,110" stroke="url(#tasselMoli)" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M 0,105 C 80,95 180,120 250,105" stroke="#ffe082" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.85"/>
+    <path d="M 350,110 C 420,95 520,125 600,110" stroke="url(#tasselMoli)" stroke-width="7" stroke-linecap="round" fill="none"/>
+    <path d="M 350,105 C 420,120 520,95 600,105" stroke="#ffe082" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.85"/>
+
+    <!-- Left & Right Gold Spacers -->
+    <circle cx="140" cy="108" r="6" fill="url(#tasselGold)"/>
+    <circle cx="175" cy="107" r="8" fill="url(#greenBead)"/>
+    <circle cx="210" cy="108" r="7" fill="url(#tasselGold)"/>
+
+    <circle cx="460" cy="108" r="6" fill="url(#tasselGold)"/>
+    <circle cx="425" cy="107" r="8" fill="url(#greenBead)"/>
+    <circle cx="390" cy="108" r="7" fill="url(#tasselGold)"/>
+
+    <!-- ═══ Center Woven Band & Pompoms ═══ -->
+    <g transform="translate(300,110)">
+      <!-- Base braided ring -->
+      <circle cx="0" cy="0" r="48" fill="#5c0f16" stroke="#d4af37" stroke-width="3"/>
+      <!-- Woolen Red Pompom cluster -->
+      <circle cx="0" cy="0" r="38" fill="url(#redPompom)"/>
+      <circle cx="-16" cy="-12" r="14" fill="url(#redPompom)"/>
+      <circle cx="16" cy="-12" r="14" fill="url(#redPompom)"/>
+      <circle cx="-18" cy="10" r="12" fill="url(#redPompom)"/>
+      <circle cx="18" cy="10" r="12" fill="url(#redPompom)"/>
+
+      <!-- Gold Zari filigree center -->
+      <circle cx="0" cy="0" r="20" fill="url(#tasselGold)" stroke="#ffe082" stroke-width="2"/>
+      <circle cx="0" cy="0" r="10" fill="#b71c1c"/>
+      <circle cx="0" cy="0" r="4" fill="#fffde7"/>
+
+      <!-- Tiny Gold Ghungroo beads around rim -->
+      <circle cx="-32" cy="-28" r="4" fill="url(#tasselGold)"/>
+      <circle cx="0" cy="-44" r="4.5" fill="url(#tasselGold)"/>
+      <circle cx="32" cy="-28" r="4" fill="url(#tasselGold)"/>
+      <circle cx="-42" cy="0" r="4" fill="url(#tasselGold)"/>
+      <circle cx="42" cy="0" r="4" fill="url(#tasselGold)"/>
+      <circle cx="-32" cy="28" r="4" fill="url(#tasselGold)"/>
+      <circle cx="32" cy="28" r="4" fill="url(#tasselGold)"/>
+
+      <!-- ═══ Hanging Tassels with Gold Caps (Like in reference photo) ═══ -->
+      <!-- Left Red Tassel -->
+      <g transform="translate(-10, 42)">
+        <path d="M 0,0 L 0,35" stroke="#d4af37" stroke-width="2.5"/>
+        <path d="M -7,35 C -7,28 7,28 7,35 Z" fill="url(#tasselGold)"/>
+        <path d="M -6,35 Q -14,105 -18,125 Q 0,135 18,125 Q 14,105 6,35 Z" fill="url(#tasselSilkRed)"/>
+        <rect x="-7" y="44" width="14" height="4" rx="2" fill="#ffd54f"/>
+      </g>
+
+      <!-- Right Forest Green Tassel -->
+      <g transform="translate(14, 46)">
+        <path d="M 0,0 L 0,45" stroke="#d4af37" stroke-width="2.5"/>
+        <path d="M -6,45 C -6,39 6,39 6,45 Z" fill="url(#tasselGold)"/>
+        <path d="M -5,45 Q -12,110 -15,130 Q 0,138 15,130 Q 12,110 5,45 Z" fill="url(#tasselSilkGreen)"/>
+        <rect x="-6" y="53" width="12" height="4" rx="2" fill="#ffd54f"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,640 +1,511 @@
 /**
- * script.js  — SUPREME v2.0
- * Main Interaction & Screen Router for Raksha Bandhan 3D Web Experience
- * Includes: Golden cursor sparkles · Ambient twinkling · Enhanced scroll physics
+ * ==========================================================================
+ * script.js — MASTER SIBLING STORYTELLING & INTERACTIVE MOTION ENGINE
+ * Features: Lenis Smooth Scroll, GSAP ScrollTrigger, 3D Tilt Physics,
+ * Particle Canvas, Audio Synthesizer, Quiz Duel, Wax Seal Letter, Virtual Rakhi.
+ * ==========================================================================
  */
 
-/* ── Subtle Golden Cursor Trail (dignified, not disco) ─────────── */
-(function() {
-    const container = document.getElementById('sparkle-container');
-    if (!container) return;
-    document.addEventListener('mousemove', (e) => {
-        if (Math.random() > 0.12) return; // very sparse — only 12% chance
-        const el = document.createElement('div');
-        el.className = 'sparkle';
-        const size = Math.random() * 5 + 3;
-        el.style.cssText = `
-            left:${e.clientX - size/2}px;
-            top:${e.clientY - size/2}px;
-            width:${size}px;height:${size}px;
-            background:#d4af37;
-            box-shadow:0 0 ${size*1.5}px rgba(212,175,55,0.7);
-        `;
-        container.appendChild(el);
-        setTimeout(() => el.remove(), 800);
-    });
-})();
-
-/* ── Ambient Twinkle (very subtle, like temple lamps) ───────────── */
-(function() {
-    setInterval(() => {
-        const container = document.getElementById('sparkle-container');
-        if (!container) return;
-        const el = document.createElement('div');
-        el.className = 'sparkle';
-        const size = Math.random() * 3 + 2;
-        el.style.cssText = `
-            left:${Math.random()*100}vw;
-            top:${Math.random()*100}vh;
-            width:${size}px;height:${size}px;
-            background:#d4af37;
-            box-shadow:0 0 8px rgba(212,175,55,0.6);
-        `;
-        container.appendChild(el);
-        setTimeout(() => el.remove(), 700);
-    }, 600); // Much slower — every 600ms not 220ms
-})();
+// ── Web Audio Synthesizer Engine (100% Zero-Dependency Reliable Sound FX) ──
+const SoundFX = {
+    ctx: null,
+    init() {
+        if (!this.ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) this.ctx = new AudioCtx();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+        }
+    },
+    playChime() {
+        this.init();
+        if (!this.ctx) return;
+        const notes = [528, 792, 1056];
+        notes.forEach((freq, idx) => {
+            const t = this.ctx.currentTime + (idx * 0.04);
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, t);
+            gain.gain.setValueAtTime(0.3, t);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 1.8);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(t);
+            osc.stop(t + 1.85);
+        });
+    },
+    playWaxCrack() {
+        this.init();
+        if (!this.ctx) return;
+        const t = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(180, t);
+        osc.frequency.exponentialRampToValueAtTime(35, t + 0.18);
+        gain.gain.setValueAtTime(0.6, t);
+        gain.gain.exponentialRampToValueAtTime(0.01, t + 0.18);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.19);
+    },
+    playPop() {
+        this.init();
+        if (!this.ctx) return;
+        const t = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(340, t);
+        osc.frequency.exponentialRampToValueAtTime(920, t + 0.08);
+        gain.gain.setValueAtTime(0.35, t);
+        gain.gain.exponentialRampToValueAtTime(0.01, t + 0.09);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.1);
+    }
+};
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Load Dynamic Config from URL Hash (#data=...), JSON (?g=...), or Demo Defaults
+    // 1. Initialize Lenis Smooth Scrolling
+    let lenis = null;
+    if (typeof Lenis !== 'undefined') {
+        lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            touchMultiplier: 2
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        if (typeof ScrollTrigger !== 'undefined') {
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+            });
+            gsap.ticker.lagSmoothing(0);
+        }
+    }
+
+    // 2. Load and Hydrate Dynamic Config
     const config = await loadRakhiConfig();
-    applyConfigToDOM(config);
+    hydrateStoryDOM(config);
 
-    window.isTunnelActive = true;
+    // 3. Setup Custom Cursor & Background Particles
+    setupCustomCursor();
+    setupParticleCanvas();
 
-    // Prevent scrolling while 3D tunnel is active
-    window.addEventListener('wheel', (e) => {
-        if (window.isTunnelActive) {
-            e.stopPropagation();
-            e.preventDefault();
-        }
-    }, { passive: false, capture: true });
+    // 4. Setup Intro Screen Gate
+    setupIntroGate();
 
-    window.addEventListener('touchmove', (e) => {
-        if (window.isTunnelActive) {
-            e.stopPropagation();
-        }
-    }, { passive: false, capture: true });
+    // 5. Setup Interactive Quiz
+    setupSiblingQuiz(config);
 
-    window.scrollTo(0, 0);
+    // 6. Setup Interactive Puja Thali
+    setupThaliInteractions(config);
 
-    // Initialize StringTune for Kinetic Scroll Text
-    if (window.StringTune && typeof StringTune.StringTune !== 'undefined') {
-        try {
-            const stringTune = StringTune.StringTune.getInstance();
-            window.StringTuneContext = stringTune;
-            stringTune.use(StringTune.StringSplit);
-            stringTune.use(StringTune.StringProgress);
-            stringTune.start(0);
-        } catch (err) {
-            console.warn("StringTune init notice:", err);
-        }
-    }
+    // 7. Setup Royal Wax Seal Letter
+    setupWaxSealLetter();
 
-    // Interactive Modules Init
-    if (typeof initThaliBuilder === 'function') initThaliBuilder();
-    if (typeof initRakhiCeremony === 'function') initRakhiCeremony();
+    // 8. Setup Signature "Tie The Rakhi" Ceremony
+    setupTieRakhiCeremony();
 
-    // DOM Elements
-    const screen0 = document.getElementById('screen-0');
-    const screen1 = document.getElementById('screen-1');
-    const screen2 = document.getElementById('screen-2');
-    const screen3 = document.getElementById('screen-3');
-    const screenLetter = document.getElementById('screen-letter');
-    const screenReadLetter = document.getElementById('screen-read-letter');
-    const screenThali = document.getElementById('screen-thali');
-    const screenThaliServe = document.getElementById('screen-thali-serve');
-    const screenWheel = document.getElementById('screen-wheel');
-    const screenCeremony = document.getElementById('screen-ceremony');
-    const screenFinale = document.getElementById('screen-finale');
+    // 9. Setup Audio & Export Handlers
+    setupAudioSystem(config);
+    setupExportAndSharing(config, lenis);
 
-    const scrollContainer = document.getElementById('scroll-container');
-    const btnOpenGiftBox = document.getElementById('btn-open-gift-box');
-    const btnYes = document.getElementById('btn-yes');
-    const btnNo = document.getElementById('btn-no');
-
-    // Envelope & Letters
-    const envelopeWrapper = document.getElementById('envelope-wrapper');
-    const envelopeBox = document.getElementById('envelope-box');
-    const btnNextScrapbook = document.getElementById('btn-next-scrapbook');
-
-    // Wheel
-    const spinWheel = document.getElementById('spin-wheel');
-    const btnSpinWheel = document.getElementById('btn-spin-wheel');
-    const wheelResultContainer = document.getElementById('wheel-result-container');
-    const wheelResultText = document.getElementById('wheel-result-text');
-    const btnNextWheel = document.getElementById('btn-next-wheel');
-
-    // Next Buttons
-    const btnNextThaliCelebrate = document.getElementById('btn-next-thali-celebrate');
-    const btnNextCeremony = document.getElementById('btn-next-ceremony');
-
-    // Back Buttons
-    const btnBackEnvelope = document.getElementById('btn-back-envelope');
-    const btnBackScrapbook = document.getElementById('btn-back-scrapbook');
-    const btnBackThali = document.getElementById('btn-back-thali');
-    const btnBackThaliServe = document.getElementById('btn-back-thali-serve');
-    const btnBackWheel = document.getElementById('btn-back-wheel');
-    const btnBackCeremony = document.getElementById('btn-back-ceremony');
-
-    // Audio & Finale
-    const festiveAudio = document.getElementById('festive-audio');
-    const btnPlayMusic = document.getElementById('btn-play-music');
-    const vinylDisc = document.getElementById('vinyl-disc');
-    const btnShareWhatsapp = document.getElementById('btn-share-whatsapp');
-    const btnReplay = document.getElementById('btn-replay');
-
-    // --- Screen Router Utility ---
-    function switchScreen(currentScreen, nextScreen) {
-        if (!nextScreen) return;
-        if (currentScreen) currentScreen.classList.remove('active');
-        nextScreen.classList.add('active');
-
-        // Reset scroll when exiting Screen 1
-        if (currentScreen === screen1) {
-            window.scrollTo(0, 0);
-            document.body.style.overflowY = 'hidden';
-            if (scrollContainer) scrollContainer.style.display = 'none';
-        }
-    }
-
-    // --- Screen 0: 3D Tunnel Callback -> Screen 1 ---
-    if (typeof initTunnel === 'function') {
-        initTunnel('screen-0', () => {
-            screen0.classList.remove('active');
-            setTimeout(() => { screen0.style.display = 'none'; }, 1000);
-            screen1.classList.add('active');
-            if (scrollContainer) scrollContainer.style.display = 'block';
-            document.body.style.overflowY = 'auto';
-            window.isTunnelActive = false;
-            window.scrollTo(0, 0);
-            spawnMarigoldPetals();
-            window.dispatchEvent(new Event('scroll'));
-        });
-    } else {
-        screen0.style.display = 'none';
-        screen1.classList.add('active');
-        if (scrollContainer) scrollContainer.style.display = 'block';
-        document.body.style.overflowY = 'auto';
-        window.isTunnelActive = false;
-    }
-
-    // --- Falling Marigold Petals Rain (dual types) ---
-    function spawnMarigoldPetals() {
-        const container = document.getElementById('parallax-container');
-        if (!container) return;
-        for (let i = 0; i < 35; i++) {
-            const petal = document.createElement('div');
-            petal.className = `marigold-petal type-${Math.random() > 0.5 ? 'a' : 'b'}`;
-            const size = 8 + Math.random() * 14;
-            petal.style.cssText = `
-                left: ${Math.random() * 100}%;
-                top: -30px;
-                width: ${size}px;
-                height: ${size}px;
-                animation-duration: ${6 + Math.random() * 8}s;
-                animation-delay: ${Math.random() * 10}s;
-            `;
-            container.appendChild(petal);
-        }
-    }
-
-    // --- Parallax Scroll Interpolation ---
-    const clamp = (val, min, max) => Math.max(min, Math.min(max, val));
-    const mapRange = (val, inMin, inMax, outMin, outMax) => {
-        if (val <= inMin) return outMin;
-        if (val >= inMax) return outMax;
-        return outMin + (outMax - outMin) * ((val - inMin) / (inMax - inMin));
-    };
-
-    let scrollTicking = false;
-    window.addEventListener('scroll', () => {
-        if (!screen1.classList.contains('active')) return;
-        if (!scrollTicking) {
-            window.requestAnimationFrame(() => {
-                updateParallaxScroll();
-                scrollTicking = false;
-            });
-            scrollTicking = true;
-        }
-    });
-
-    function updateParallaxScroll() {
-        const scrollY = window.scrollY;
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        const p = maxScroll > 0 ? clamp(scrollY / maxScroll, 0, 1) : 0;
-
-        const scrollPrompt = document.getElementById('scroll-prompt');
-        const heroLayer = document.getElementById('hero-layer');
-        const finaleBoxLayer = document.getElementById('finale-box-layer');
-
-        if (scrollPrompt) {
-            scrollPrompt.style.opacity = mapRange(p, 0.04, 0.15, 1, 0);
-        }
-
-        if (heroLayer) {
-            heroLayer.style.opacity = mapRange(p, 0, 0.18, 1, 0);
-            heroLayer.style.transform = `translateY(${mapRange(p, 0, 0.18, 0, -60)}px)`;
-        }
-
-        if (finaleBoxLayer) {
-            const btnOpacity = mapRange(p, 0.92, 0.99, 0, 1);
-            const btnScale = mapRange(p, 0.92, 0.99, 0.6, 1);
-            finaleBoxLayer.style.opacity = btnOpacity;
-            finaleBoxLayer.style.transform = `scale(${btnScale})`;
-            finaleBoxLayer.style.pointerEvents = p > 0.95 ? 'auto' : 'none';
-        }
-
-        // Fire festive celebration pop near bottom
-        if (p > 0.96 && !window.hasFiredScrollPop) {
-            window.hasFiredScrollPop = true;
-            fireFestiveConfetti();
-        } else if (p < 0.9) {
-            window.hasFiredScrollPop = false;
-        }
-    }
-
-    // --- Screen 1 -> Screen 2 (Gift Box Click) ---
-    if (btnOpenGiftBox) {
-        btnOpenGiftBox.addEventListener('click', () => {
-            switchScreen(screen1, screen2);
-        });
-    }
-
-    // --- Screen 2: Playful Dodging NO Button ---
-    const noPhrases = config.noPhrases || [
-        "Tujhe remote nahi dungi! 📺",
-        "Chocolates sab meri! 🍫",
-        "Mom ko sab sach bata dunga! 🤫",
-        "Rakhi ka shagun cut! 💸",
-        "Achha maan bhi jao! 🥺",
-        "Pakka promise! ❤️"
-    ];
-    let noHoverCount = 0;
-
-    function dodgeNoBtn() {
-        btnNo.innerText = noPhrases[noHoverCount % noPhrases.length];
-        noHoverCount++;
-
-        const randomX = (Math.random() * 220 - 110);
-        const randomY = (Math.random() * 120 - 60);
-        btnNo.style.transition = 'transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-        btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
-    }
-
-    btnNo.addEventListener('mouseover', dodgeNoBtn);
-    btnNo.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        dodgeNoBtn();
-    }, { passive: false });
-    btnNo.addEventListener('click', (e) => {
-        e.preventDefault();
-        dodgeNoBtn();
-    });
-
-    // Screen 2 -> Screen 3 (YES Click)
-    btnYes.addEventListener('click', () => {
-        fireFestiveConfetti();
-        switchScreen(screen2, screen3);
-    });
-
-    // --- Screen 3: Sibling Gift Selection Hub ---
-    const hubItems = document.querySelectorAll('.hub-item');
-    hubItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const action = item.getAttribute('data-action');
-            if (action === 'letter') switchScreen(screen3, screenLetter);
-            else if (action === 'thali') switchScreen(screen3, screenThali);
-            else if (action === 'wheel') switchScreen(screen3, screenWheel);
-            else if (action === 'ceremony') switchScreen(screen3, screenCeremony);
-        });
-    });
-
-    // --- Screen 4: Prem Patra (Envelope & Scrapbook) ---
-    if (envelopeWrapper && envelopeBox) {
-        envelopeWrapper.addEventListener('click', () => {
-            envelopeBox.classList.add('open');
-            setTimeout(() => {
-                switchScreen(screenLetter, screenReadLetter);
-            }, 1200);
-        });
-    }
-
-    if (btnNextScrapbook) {
-        btnNextScrapbook.addEventListener('click', () => {
-            switchScreen(screenReadLetter, screenFinale);
-        });
-    }
-
-    // --- Screen 6: Sibling Promise Wheel ---
-    let isWheelSpinning = false;
-    let wheelRotation = 0;
-    const promisePrizes = config.promises || [
-        "Midnight Maggi Cooked Anytime 🍜",
-        "Shopping Spree Fully Paid 🛍️",
-        "Remote Control for a Week 📺",
-        "All Secrets Safe Forever 🤐",
-        "One Wish Granted Unconditionally ✨",
-        "Unlimited Hugs & Chai Treats ☕"
-    ];
-
-    if (btnSpinWheel) {
-        btnSpinWheel.addEventListener('click', () => {
-            if (isWheelSpinning) return;
-            isWheelSpinning = true;
-            if (wheelResultContainer) wheelResultContainer.classList.add('hidden');
-
-            const fullSpins = Math.floor(Math.random() * 4) + 4; // 4 to 7 full spins
-            const randomExtraAngle = Math.floor(Math.random() * 360);
-            wheelRotation += (fullSpins * 360) + randomExtraAngle;
-
-            spinWheel.style.transform = `rotate(${wheelRotation}deg)`;
-
-            setTimeout(() => {
-                isWheelSpinning = false;
-                const pointerAngle = (360 - (wheelRotation % 360)) % 360;
-                const sliceIndex = Math.floor(pointerAngle / 60) % promisePrizes.length;
-                const wonPromise = promisePrizes[sliceIndex];
-
-                if (wheelResultText && wheelResultContainer) {
-                    wheelResultText.innerHTML = `Won Promise:<br><strong>${wonPromise}</strong>`;
-                    wheelResultContainer.classList.remove('hidden');
-                }
-
-                fireFestiveConfetti();
-                if (btnNextWheel) btnNextWheel.classList.remove('hidden');
-            }, 4000);
-        });
-    }
-
-    if (btnNextWheel) {
-        btnNextWheel.addEventListener('click', () => {
-            switchScreen(screenWheel, screenFinale);
-        });
-    }
-
-    if (btnNextThaliCelebrate) {
-        btnNextThaliCelebrate.addEventListener('click', () => {
-            switchScreen(screenThaliServe, screenFinale);
-        });
-    }
-
-    if (btnNextCeremony) {
-        btnNextCeremony.addEventListener('click', () => {
-            switchScreen(screenCeremony, screenFinale);
-        });
-    }
-
-    // --- Back Button Navigation ---
-    if (btnBackEnvelope) btnBackEnvelope.addEventListener('click', () => switchScreen(screenLetter, screen3));
-    if (btnBackScrapbook) btnBackScrapbook.addEventListener('click', () => {
-        if (envelopeBox) envelopeBox.classList.remove('open');
-        switchScreen(screenReadLetter, screen3);
-    });
-    if (btnBackThali) btnBackThali.addEventListener('click', () => switchScreen(screenThali, screen3));
-    if (btnBackThaliServe) btnBackThaliServe.addEventListener('click', () => switchScreen(screenThaliServe, screen3));
-    if (btnBackWheel) btnBackWheel.addEventListener('click', () => switchScreen(screenWheel, screen3));
-    if (btnBackCeremony) btnBackCeremony.addEventListener('click', () => switchScreen(screenCeremony, screen3));
-
-    // --- Screen 8: Grand Finale & Musical Tribute Init ---
-    let finaleInitialized = false;
-    function initGrandFinale() {
-        if (finaleInitialized) return;
-        finaleInitialized = true;
-
-        // 1. Floating Golden Diya Bokeh Particles
-        const bokehContainer = document.getElementById('finale-bokeh');
-        if (bokehContainer) {
-            const bokehGradients = [
-                'rgba(255, 215, 0, 0.45)',
-                'rgba(244, 163, 0, 0.4)',
-                'rgba(230, 81, 0, 0.35)',
-                'rgba(255, 245, 157, 0.5)'
-            ];
-            for (let i = 0; i < 25; i++) {
-                const b = document.createElement('div');
-                b.className = 'bokeh-particle';
-                const size = Math.random() * 50 + 18;
-                b.style.cssText = `
-                    width: ${size}px; height: ${size}px;
-                    left: ${Math.random() * 100}%;
-                    bottom: ${Math.random() * 20 - 10}%;
-                    background: ${bokehGradients[Math.floor(Math.random() * bokehGradients.length)]};
-                    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-                    animation-duration: ${8 + Math.random() * 10}s;
-                    animation-delay: ${Math.random() * 8}s;
-                `;
-                bokehContainer.appendChild(b);
-            }
-        }
-
-        // 2. Photo Slideshow Carousel
-        const finalePortrait = document.getElementById('finale-portrait-img');
-        const photoList = config.photos && config.photos.length > 0 ? config.photos : [
-            'assets/images/demo/img1.svg',
-            'assets/images/demo/img2.svg',
-            'assets/images/demo/img3.svg',
-            'assets/images/demo/img4.svg',
-            'assets/images/demo/img5.svg',
-            'assets/images/demo/img6.svg'
-        ];
-
-        if (finalePortrait && photoList.length > 0) {
-            let currentPhotoIdx = 0;
-            finalePortrait.src = photoList[0];
-
-            setInterval(() => {
-                finalePortrait.classList.add('fade-out');
-                setTimeout(() => {
-                    currentPhotoIdx = (currentPhotoIdx + 1) % photoList.length;
-                    finalePortrait.src = photoList[currentPhotoIdx];
-                    finalePortrait.classList.remove('fade-out');
-                }, 800);
-            }, 3500);
-        }
-
-        fireFestiveConfetti();
-
-        // 3. Audio Auto-Play Attempt
-        if (festiveAudio) {
-            festiveAudio.volume = 0.75;
-            festiveAudio.play().then(() => {
-                updateAudioUI(true);
-            }).catch(() => {
-                // Auto-play prevented by browser policy; user can click Play
-                console.log("Audio autoplay waiting for user interaction.");
-            });
-        }
-    }
-
-    // Observer to detect when Screen 8 becomes active
-    const finaleObserver = new MutationObserver((mutations) => {
-        for (const m of mutations) {
-            if (m.type === 'attributes' && screenFinale.classList.contains('active')) {
-                initGrandFinale();
-                finaleObserver.disconnect();
-            }
-        }
-    });
-    if (screenFinale) finaleObserver.observe(screenFinale, { attributes: true, attributeFilter: ['class'] });
-
-    // --- Audio Player Toggle & Fallback Synth ---
-    if (btnPlayMusic && festiveAudio) {
-        btnPlayMusic.addEventListener('click', () => {
-            if (festiveAudio.paused) {
-                festiveAudio.play().then(() => {
-                    updateAudioUI(true);
-                }).catch(() => {
-                    // Fallback to Web Audio Ambient Harmony
-                    playAmbientSynth();
-                    updateAudioUI(true);
-                });
-            } else {
-                festiveAudio.pause();
-                updateAudioUI(false);
-            }
-        });
-    }
-
-    function updateAudioUI(isPlaying) {
-        const icon = document.getElementById('play-icon');
-        if (icon) icon.textContent = isPlaying ? '⏸' : '▶';
-        if (vinylDisc) {
-            if (isPlaying) vinylDisc.classList.add('playing');
-            else vinylDisc.classList.remove('playing');
-        }
-    }
-
-    // Web Audio API Ambient Harmonizer Fallback
-    let audioCtx = null;
-    function playAmbientSynth() {
-        if (!audioCtx) {
-            const AudioContext = window.AudioContext || window.webkitAudioContext;
-            audioCtx = new AudioContext();
-        }
-        // Auspicious Tanpura/Bansuri harmony chord: Sa (261.63Hz), Pa (392.00Hz), Sa' (523.25Hz)
-        const notes = [261.63, 329.63, 392.00, 523.25];
-        notes.forEach((freq, idx) => {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
-            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-            gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            osc.start();
-        });
-    }
-
-    // --- 1-Click WhatsApp Share Generator ---
-    if (btnShareWhatsapp) {
-        btnShareWhatsapp.addEventListener('click', () => {
-            const sister = config.sisterName || 'Sister';
-            const brother = config.senderName || 'Brother';
-            const currentUrl = window.location.href;
-            const message = `🪔 *Happy Raksha Bandhan, ${sister}!* ❤️\n\nHere is a 3D sacred gift created especially for you with our cherished memories, promises, and sweet blessings!\n\nOpen your Rakhi Gift here:\n${currentUrl}\n\n- With love from ${brother} ✨`;
-            const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
-            window.open(waUrl, '_blank');
-        });
-    }
-
-    // --- Replay Button ---
-    if (btnReplay) {
-        btnReplay.addEventListener('click', () => {
-            if (festiveAudio) {
-                festiveAudio.pause();
-                festiveAudio.currentTime = 0;
-            }
-            window.location.reload();
-        });
+    // 10. Setup GSAP Entrance Transitions
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        initScrollAnimations();
     }
 });
 
-// --- Dynamic Config Applicator ---
-function applyConfigToDOM(cfg) {
-    if (!cfg) return;
+/**
+ * Hydrates DOM with config data
+ */
+function hydrateStoryDOM(config) {
+    const sister = config.names?.sister || "Ananya";
+    const brother = config.names?.brother || "Aarav";
 
-    // Kinetic Rows
-    if (cfg.kineticRows && cfg.kineticRows.length >= 4) {
-        const r1 = document.getElementById('kinetic-row-1');
-        const r2 = document.getElementById('kinetic-row-2');
-        const r3 = document.getElementById('kinetic-row-3');
-        const r4 = document.getElementById('kinetic-row-4');
-        if (r1) r1.innerText = cfg.kineticRows[0];
-        if (r2) r2.innerText = cfg.kineticRows[1];
-        if (r3) r3.innerText = cfg.kineticRows[2];
-        if (r4) r4.innerText = cfg.kineticRows[3];
+    const heroNames = document.getElementById('hero-sibling-names');
+    if (heroNames) heroNames.textContent = `${sister.toUpperCase()} × ${brother.toUpperCase()}`;
+
+    const finaleNames = document.getElementById('finale-sibling-banner');
+    if (finaleNames) finaleNames.textContent = `${sister.toUpperCase()} & ${brother.toUpperCase()}`;
+
+    const tagline = document.getElementById('hero-tagline-text');
+    if (tagline && config.hero?.tagline) {
+        tagline.textContent = `${config.hero.tagline.toUpperCase()} ${config.hero.subtagline ? config.hero.subtagline.toUpperCase() : ''}`;
     }
 
-    // Hero zone
-    const heroTitle = document.getElementById('hero-title-text');
-    const heroSubtitle = document.getElementById('hero-subtitle-text');
-    const heroImg = document.getElementById('hero-portrait-img');
-    if (heroTitle) heroTitle.innerText = cfg.heroTitle || `HAPPY RAKSHA BANDHAN, ${cfg.sisterName || ''}`;
-    if (heroSubtitle) heroSubtitle.innerText = cfg.heroSubtitle || "To the best sister in the entire universe ❤️";
-    if (heroImg && cfg.heroImage) heroImg.src = cfg.heroImage;
-
-    // Envelope
-    const envelopeName = document.getElementById('envelope-sister-name');
-    if (envelopeName) envelopeName.innerText = `Dearest ${cfg.sisterName || 'Sister'} ❤️`;
+    // Memories Grid
+    const memoriesList = document.getElementById('memories-grid-list');
+    if (memoriesList && config.memories && Array.isArray(config.memories)) {
+        memoriesList.innerHTML = config.memories.map((m, i) => `
+            <div class="luxury-memory-card" data-idx="${i}">
+                <div class="card-image-wrap">
+                    <img src="${m.image || 'assets/images/demo/img1.svg'}" alt="${m.title}">
+                </div>
+                <div class="card-era-badge">${m.year || `Era 0${i+1}`}</div>
+                <h3 class="card-title">${m.title}</h3>
+                <p class="card-desc">${m.description}</p>
+            </div>
+        `).join('');
+    }
 
     // Letter
-    if (cfg.letter) {
-        const lSalutation = document.getElementById('letter-salutation');
-        const lHeading = document.getElementById('letter-heading');
-        const lParagraphs = document.getElementById('letter-paragraphs');
-        const lSignature = document.getElementById('letter-signature');
+    const salutation = document.getElementById('letter-salutation');
+    const paragraphs = document.getElementById('letter-body-paragraphs');
+    const signature = document.getElementById('letter-signature');
 
-        if (lSalutation) lSalutation.innerText = cfg.letter.salutation || `Dearest ${cfg.sisterName || 'Sister'},`;
-        if (lHeading) lHeading.innerText = cfg.letter.heading || "Happy Raksha Bandhan to my favorite crime partner! 🪔❤️";
-        if (lParagraphs && cfg.letter.bodyParagraphs) {
-            lParagraphs.innerHTML = cfg.letter.bodyParagraphs.map(p => `<p>${p}</p>`).join('');
+    if (salutation && config.letter?.salutation) salutation.textContent = config.letter.salutation;
+    if (paragraphs && config.letter?.bodyParagraphs) {
+        paragraphs.innerHTML = config.letter.bodyParagraphs.map(p => `<p style="margin-bottom:18px;">${p}</p>`).join('');
+    }
+    if (signature && config.letter?.signoff) signature.textContent = config.letter.signoff;
+
+    // Vows Grid
+    const vowsList = document.getElementById('vows-grid-list');
+    if (vowsList && config.vows && Array.isArray(config.vows)) {
+        vowsList.innerHTML = config.vows.map(v => `
+            <div class="luxury-vow-card">
+                <span class="vow-badge-icon">${v.icon || '🛡️'}</span>
+                <h4 class="vow-card-title">${v.title}</h4>
+                <p class="vow-card-desc">${v.desc}</p>
+            </div>
+        `).join('');
+    }
+}
+
+/**
+ * Intro Gate Screen
+ */
+function setupIntroGate() {
+    const gate = document.getElementById('cinematic-intro-gate');
+    const enterBtn = document.getElementById('btn-enter-experience');
+    const audio = document.getElementById('festive-audio');
+    const visBars = document.getElementById('audio-vis-bars');
+
+    enterBtn?.addEventListener('click', () => {
+        SoundFX.playChime();
+        gate?.classList.add('gate-opened');
+
+        // Play festive audio
+        if (audio) {
+            audio.play().then(() => {
+                visBars?.classList.add('is-playing');
+            }).catch(e => console.warn("Audio autoplay blocked:", e));
         }
-        if (lSignature) lSignature.innerText = cfg.letter.signoff || `Forever your loving Bhai, ${cfg.senderName || 'Aarav'} ❤️`;
+    });
+}
+
+/**
+ * Desktop Custom Cursor
+ */
+function setupCustomCursor() {
+    const cursor = document.getElementById('custom-cursor');
+    const dot = document.getElementById('custom-cursor-dot');
+    if (!cursor || !dot) return;
+
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.left = `${mouseX}px`;
+        dot.style.top = `${mouseY}px`;
+    });
+
+    function animateCursor() {
+        cursorX += (mouseX - cursorX) * 0.2;
+        cursorY += (mouseY - cursorY) * 0.2;
+        cursor.style.left = `${cursorX}px`;
+        cursor.style.top = `${cursorY}px`;
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    const hoverables = document.querySelectorAll('button, a, .luxury-memory-card, .thali-node, .wax-seal-button');
+    hoverables.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+    });
+}
+
+/**
+ * Background Particle Dust
+ */
+function setupParticleCanvas() {
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    });
+
+    const particles = Array.from({ length: 30 }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 2 + 1,
+        speedY: Math.random() * -0.4 - 0.1,
+        speedX: Math.random() * 0.3 - 0.15,
+        opacity: Math.random() * 0.6 + 0.2
+    }));
+
+    function render() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+            p.y += p.speedY;
+            p.x += p.speedX;
+            if (p.y < 0) p.y = height;
+            if (p.x < 0) p.x = width;
+            if (p.x > width) p.x = 0;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(229, 185, 92, ${p.opacity})`;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = '#ffd54f';
+            ctx.fill();
+        });
+        requestAnimationFrame(render);
+    }
+    render();
+}
+
+/**
+ * Sibling Menace Quiz
+ */
+function setupSiblingQuiz(config) {
+    const btnSister = document.getElementById('btn-vote-sister');
+    const btnBrother = document.getElementById('btn-vote-brother');
+    const qText = document.getElementById('quiz-question-text');
+    const feedback = document.getElementById('quiz-feedback-text');
+
+    const sisterName = config.names?.sister || "Sister";
+    const brotherName = config.names?.brother || "Brother";
+
+    if (btnSister) btnSister.textContent = `${sisterName.toUpperCase()} 👧`;
+    if (btnBrother) btnBrother.textContent = `${brotherName.toUpperCase()} 👦`;
+
+    const disputes = [
+        { q: "Who stole food from the fridge at 2:00 AM? 🍫", winner: sisterName, remark: "Caught red-handed with the chocolates! 🍫" },
+        { q: "Who gets angry first in an argument? 😤", winner: brotherName, remark: "Zero chill, 100% drama! ⚡" },
+        { q: "Who is Mom's favorite child? 🏆", winner: brotherName, remark: "A fiercely debated family mystery! 👑" },
+        { q: "Who threw the first remote control? 📺", winner: sisterName, remark: "Aggressive TV scheduling tactics! 🎮" },
+        { q: "Who says sorry first? 🕊️", winner: brotherName, remark: "Peace restored in record time! 🤍" }
+    ];
+    let disputeIdx = 0;
+
+    function handleVote(choice) {
+        SoundFX.playPop();
+        triggerConfettiBurst();
+
+        const current = disputes[disputeIdx];
+        if (feedback) {
+            feedback.textContent = `🎯 Voted for ${choice.toUpperCase()}! ${current.remark}`;
+        }
+
+        setTimeout(() => {
+            disputeIdx = (disputeIdx + 1) % disputes.length;
+            if (qText) qText.textContent = disputes[disputeIdx].q;
+        }, 2200);
     }
 
-    // Polaroids
-    if (cfg.photos && cfg.photos.length >= 4) {
-        const p1 = document.querySelector('.p-img-1');
-        const p2 = document.querySelector('.p-img-2');
-        const p3 = document.querySelector('.p-img-3');
-        const p4 = document.querySelector('.p-img-4');
-        if (p1 && cfg.photos[0]) p1.src = cfg.photos[0];
-        if (p2 && cfg.photos[1]) p2.src = cfg.photos[1];
-        if (p3 && cfg.photos[2]) p3.src = cfg.photos[2];
-        if (p4 && cfg.photos[3]) p4.src = cfg.photos[3];
+    btnSister?.addEventListener('click', () => handleVote(sisterName));
+    btnBrother?.addEventListener('click', () => handleVote(brotherName));
+}
+
+/**
+ * Interactive Puja Thali
+ */
+function setupThaliInteractions(config) {
+    const nodes = document.querySelectorAll('.thali-node, .thali-center-flame');
+    const titleEl = document.getElementById('thali-item-title');
+    const descEl = document.getElementById('thali-item-desc');
+    const thaliElements = config.thali?.elements || {
+        rakhi: { label: "Rakhi", meaning: "A sacred promise of eternal protection." },
+        diya: { label: "Aarti Diya", meaning: "A divine light guiding our path through every darkness." },
+        kumkum: { label: "Roli Kumkum", meaning: "An auspicious blessing for longevity and good health." },
+        rice: { label: "Akshat Rice", meaning: "Sacred grains of unbroken prosperity and peace." },
+        sweets: { label: "Mithai", meaning: "A little sweetness to celebrate life's joyful moments." },
+        flowers: { label: "Marigold Petals", meaning: "A lifetime of vibrant, fragrant memories." }
+    };
+
+    nodes.forEach(node => {
+        node.addEventListener('click', () => {
+            const key = node.getAttribute('data-key');
+            const data = thaliElements[key];
+            if (!data) return;
+
+            SoundFX.playPop();
+            if (titleEl) titleEl.textContent = `✨ ${data.label}`;
+            if (descEl) descEl.textContent = `"${data.meaning}"`;
+        });
+    });
+}
+
+/**
+ * Royal Wax Seal Letter
+ */
+function setupWaxSealLetter() {
+    const sealBtn = document.getElementById('btn-break-seal');
+    const closedView = document.getElementById('envelope-closed-view');
+    const openedView = document.getElementById('parchment-opened-view');
+
+    sealBtn?.addEventListener('click', () => {
+        SoundFX.playWaxCrack();
+        triggerConfettiBurst();
+
+        if (closedView) closedView.style.display = 'none';
+        if (openedView) openedView.style.display = 'block';
+        SoundFX.playChime();
+    });
+}
+
+/**
+ * Signature "Tie The Rakhi" Ceremony
+ */
+function setupTieRakhiCeremony() {
+    const btnTie = document.getElementById('btn-tie-rakhi');
+    const stage = document.getElementById('wrist-canvas-zone');
+    const rakhi = document.getElementById('ceremony-rakhi-piece');
+
+    btnTie?.addEventListener('click', () => {
+        SoundFX.playChime();
+        triggerConfettiBurst();
+
+        if (stage) stage.classList.add('is-tied');
+        if (rakhi) {
+            rakhi.style.transform = 'scale(1.15) rotate(5deg)';
+            rakhi.style.filter = 'drop-shadow(0 0 32px rgba(255, 215, 0, 1))';
+        }
+        if (btnTie) btnTie.textContent = "✅ Rakhi Tied. Promise Kept. 🪔✨";
+    });
+}
+
+/**
+ * GSAP Scroll Animations
+ */
+function initScrollAnimations() {
+    gsap.utils.toArray('.story-section').forEach(section => {
+        gsap.from(section.querySelectorAll('.section-eyebrow, .section-headline, .section-tagline, .luxury-memory-card, .quiz-glass-card, .thali-stage-box, .envelope-closed-state, .ceremony-card-stage, .finale-celebration-card'), {
+            scrollTrigger: {
+                trigger: section,
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            },
+            y: 35,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: 'power3.out'
+        });
+    });
+}
+
+/**
+ * Export & Sharing
+ */
+function setupExportAndSharing(config, lenis) {
+    const btnDownload = document.getElementById('btn-download-keepsake');
+    const btnNavDownload = document.getElementById('btn-nav-download');
+    const btnShareWA = document.getElementById('btn-share-whatsapp');
+    const btnReplay = document.getElementById('btn-replay-story');
+
+    const sister = config.names?.sister || "Sister";
+    const brother = config.names?.brother || "Brother";
+
+    async function exportKeepsakeCard() {
+        const poster = document.getElementById('hero-poster-card');
+        if (!poster) return;
+
+        SoundFX.playChime();
+        try {
+            if (window.html2canvas) {
+                const canvas = await html2canvas(poster, {
+                    scale: 3,
+                    useCORS: true,
+                    backgroundColor: null,
+                    logging: false
+                });
+                const link = document.createElement('a');
+                link.download = `RakshaBandhan_${sister}_${brother}_2026.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }
+        } catch (err) {
+            console.error("Download keepsake error:", err);
+        }
     }
 
-    // Wheel Slice Labels
-    const wheelLabelsContainer = document.getElementById('wheel-slice-labels');
-    if (wheelLabelsContainer && cfg.promises) {
-        wheelLabelsContainer.innerHTML = '';
-        cfg.promises.forEach((pText, i) => {
-            const span = document.createElement('span');
-            span.className = `wheel-label label-${i + 1}`;
-            span.innerText = pText;
-            wheelLabelsContainer.appendChild(span);
+    [btnDownload, btnNavDownload].forEach(b => b?.addEventListener('click', exportKeepsakeCard));
+
+    btnShareWA?.addEventListener('click', () => {
+        const url = window.location.href;
+        const text = encodeURIComponent(`🪔 Happy Raksha Bandhan! ✨\n\nI personalized this sacred interactive digital tribute for ${sister} & ${brother}:\n\n${url}`);
+        window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+    });
+
+    btnReplay?.addEventListener('click', () => {
+        if (lenis) {
+            lenis.scrollTo(0, { duration: 1.5 });
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+}
+
+/**
+ * Confetti Burst
+ */
+function triggerConfettiBurst() {
+    if (typeof confetti === 'function') {
+        confetti({
+            particleCount: 85,
+            spread: 75,
+            origin: { y: 0.65 },
+            colors: ['#e5b95c', '#b71c1c', '#fff4d0', '#d97706', '#2e7d32']
         });
     }
-
-    // Finale
-    const finaleHeadline = document.getElementById('finale-headline-text');
-    const finaleSubheading = document.getElementById('finale-subheading-text');
-    if (finaleHeadline) finaleHeadline.innerText = `HAPPY RAKSHA BANDHAN, ${cfg.sisterName || 'DEAREST SISTER'}! 🪔`;
-    if (finaleSubheading) finaleSubheading.innerText = `Sacred prayers, lifelong protection & deepest love from ${cfg.senderName || 'Brother'}`;
-
-    // Music Meta
-    const musicTitle = document.getElementById('music-title-text');
-    const musicArtist = document.getElementById('music-artist-text');
-    if (musicTitle && cfg.musicTitle) musicTitle.innerText = cfg.musicTitle;
-    if (musicArtist && cfg.musicArtist) musicArtist.innerText = cfg.musicArtist;
 }
 
-// Global Dual-Burst Confetti Utility
-function fireFestiveConfetti(opts = {}) {
-    if (typeof confetti !== 'function') return;
-    const colors = ['#ffd700', '#ff9800', '#d50000', '#ffffff', '#ffeb3b', '#e65100', '#ff6f00'];
-    const count   = opts.count || 120;
-    const spread  = opts.spread || 100;
-    const origin  = opts.origin || { y: 0.6 };
+/**
+ * Audio System
+ */
+function setupAudioSystem(config) {
+    const audio = document.getElementById('festive-audio');
+    const btnMusic = document.getElementById('btn-nav-music');
+    const visBars = document.getElementById('audio-vis-bars');
 
-    // Primary burst
-    confetti({ particleCount: count, spread, origin, colors, scalar: 1.2 });
+    if (config.music?.source && audio) audio.src = config.music.source;
 
-    // Secondary side bursts for grand effect
-    setTimeout(() => {
-        confetti({ particleCount: 60, angle: 60,  spread: 70, origin: { x: 0 }, colors });
-        confetti({ particleCount: 60, angle: 120, spread: 70, origin: { x: 1 }, colors });
-    }, 250);
+    let isPlaying = false;
+    btnMusic?.addEventListener('click', () => {
+        if (!audio) return;
+        if (isPlaying) {
+            audio.pause();
+            isPlaying = false;
+            if (visBars) visBars.classList.remove('is-playing');
+        } else {
+            audio.play().then(() => {
+                isPlaying = true;
+                if (visBars) visBars.classList.add('is-playing');
+            }).catch(e => console.warn("Audio play prevented:", e));
+        }
+    });
 }
-window.fireFestiveConfetti = fireFestiveConfetti;
