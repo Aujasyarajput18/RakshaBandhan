@@ -4,45 +4,45 @@
  * Includes: Golden cursor sparkles · Ambient twinkling · Enhanced scroll physics
  */
 
-/* ── Golden Cursor Sparkles ───────────────────────────────────────── */
+/* ── Subtle Golden Cursor Trail (dignified, not disco) ─────────── */
 (function() {
     const container = document.getElementById('sparkle-container');
     if (!container) return;
     document.addEventListener('mousemove', (e) => {
-        if (Math.random() > 0.35) return; // throttle
+        if (Math.random() > 0.12) return; // very sparse — only 12% chance
         const el = document.createElement('div');
         el.className = 'sparkle';
-        const size = Math.random() * 8 + 4;
+        const size = Math.random() * 5 + 3;
         el.style.cssText = `
             left:${e.clientX - size/2}px;
             top:${e.clientY - size/2}px;
             width:${size}px;height:${size}px;
-            background:${Math.random() > 0.5 ? '#ffd700' : '#ff9800'};
-            box-shadow:0 0 ${size*2}px ${Math.random() > 0.5 ? '#ffd700' : '#ff9800'};
+            background:#d4af37;
+            box-shadow:0 0 ${size*1.5}px rgba(212,175,55,0.7);
         `;
         container.appendChild(el);
-        setTimeout(() => el.remove(), 1000);
+        setTimeout(() => el.remove(), 800);
     });
 })();
 
-/* ── Ambient Background Twinkle ───────────────────────────────────── */
+/* ── Ambient Twinkle (very subtle, like temple lamps) ───────────── */
 (function() {
     setInterval(() => {
         const container = document.getElementById('sparkle-container');
         if (!container) return;
         const el = document.createElement('div');
         el.className = 'sparkle';
-        const size = Math.random() * 5 + 2;
+        const size = Math.random() * 3 + 2;
         el.style.cssText = `
             left:${Math.random()*100}vw;
             top:${Math.random()*100}vh;
             width:${size}px;height:${size}px;
-            background:#ffd700;
-            box-shadow:0 0 12px #ffd700;
+            background:#d4af37;
+            box-shadow:0 0 8px rgba(212,175,55,0.6);
         `;
         container.appendChild(el);
-        setTimeout(() => el.remove(), 900);
-    }, 220);
+        setTimeout(() => el.remove(), 700);
+    }, 600); // Much slower — every 600ms not 220ms
 })();
 
 document.addEventListener('DOMContentLoaded', async () => {

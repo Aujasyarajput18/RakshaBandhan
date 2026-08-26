@@ -1,35 +1,35 @@
 /* ==========================================================================
-   Raksha Bandhan 3D Digital Gift — SUPREME FESTIVE DESIGN SYSTEM v2.0
-   Aesthetics: Royal Maroon · Imperial Gold · Marigold Saffron · Kundan Ivory
+   Raksha Bandhan 3D Digital Gift — TRADITIONAL DESIGN SYSTEM v3.0
+   Palette: Deep Temple Maroon · Warm Antique Gold · Marigold · Parchment Ivory
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&display=swap');
-
 :root {
-    --bg-deep:          #0d0205;
-    --bg-maroon:        #1c0208;
-    --bg-card:          rgba(20, 2, 8, 0.88);
-    --gold-primary:     #ffd700;
-    --gold-light:       #fff9c4;
-    --gold-dim:         #c8a200;
-    --gold-dark:        #b8860b;
-    --saffron-orange:   #f4a300;
-    --marigold-deep:    #e65100;
-    --crimson-red:      #c0392b;
-    --moli-red:         #b71c1c;
-    --moli-yellow:      #ffd600;
-    --kundan-cream:     #fdf6e3;
-    --text-light:       #fff8e7;
-    --text-muted:       #e0c89a;
-    --gold-glow:        0 0 35px rgba(255, 215, 0, 0.55);
-    --diya-glow:        0 0 45px rgba(244, 163, 0, 0.65);
-    --border-gold:      1px solid rgba(255, 215, 0, 0.4);
-    --card-radius:      28px;
+    --bg-deep:          #0e0305;
+    --bg-maroon:        #1a0208;
+    --bg-card:          rgba(18, 2, 7, 0.90);
+    --gold-primary:     #d4af37;          /* Antique gold — not bright neon */
+    --gold-light:       #f5e27a;
+    --gold-bright:      #ffd700;
+    --gold-dim:         #a07820;
+    --gold-dark:        #8b6200;
+    --saffron-orange:   #e08a00;
+    --marigold-deep:    #c45c00;
+    --moli-red:         #8b1a1a;
+    --moli-yellow:      #d4a800;
+    --kundan-cream:     #f5ecd7;          /* Warm parchment */
+    --text-light:       #f0e6cc;
+    --text-muted:       #c8aa80;
+    --gold-glow:        0 0 20px rgba(212,175,55,0.35);
+    --border-gold:      1px solid rgba(212,175,55,0.45);
+    --card-radius:      20px;
+
+    /* Traditional motif border */
+    --temple-border: linear-gradient(90deg, #8b1a1a, #d4af37, #e08a00, #d4af37, #8b1a1a);
 }
 
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
-html { font-size:16px; background:#0d0205; }
+html { font-size:16px; background:#0e0305; }
 
 html, body {
     width: 100vw;
@@ -40,14 +40,13 @@ html, body {
     overflow-y: hidden;
 }
 
-/* Supreme Festive Background with layered radials */
+/* Dignified festive background — warm, not neon */
 body {
     background-color: var(--bg-deep);
     background-image:
-        radial-gradient(ellipse 80% 40% at 50% 0%,   rgba(244,163,0,0.18) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 50% at 90% 90%,  rgba(183,28,28,0.22) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 40% at 10% 60%,  rgba(255,215,0,0.10) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 30% at 80% 10%,  rgba(230,81,0,0.12) 0%, transparent 55%);
+        radial-gradient(ellipse 70% 40% at 50% 0%,   rgba(212,175,55,0.10) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 45% at 88% 88%,  rgba(139,26,26,0.16) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 35% at 12% 55%,  rgba(212,175,55,0.07) 0%, transparent 55%);
 }
 
 /* Confetti Layer */
@@ -157,23 +156,22 @@ body {
 }
 
 .row span {
-    font-family: 'Rozha One', 'Cinzel', serif;
-    font-size: clamp(2.8rem, 9vw, 7.5rem);
+    font-family: 'Rozha One', serif;
+    font-size: clamp(2.8rem, 9vw, 7rem);
     font-weight: 900;
-    color: var(--gold-primary);
+    color: var(--gold-light);
     text-shadow:
-        0 0 40px rgba(255,215,0,0.7),
-        0 0 80px rgba(255,165,0,0.4),
-        0 5px 18px rgba(0,0,0,0.9);
+        0 0 30px rgba(212,175,55,0.55),
+        0 4px 16px rgba(0,0,0,0.95);
     letter-spacing: 4px;
     display: inline-block;
 }
 
 .row-hindi span {
-    font-family: 'Yatra One', 'Rozha One', cursive;
-    color: #ffb300;
-    font-size: clamp(2.2rem, 7vw, 5.5rem);
-    text-shadow: 0 0 30px rgba(255,179,0,0.6), 0 5px 15px rgba(0,0,0,0.9);
+    font-family: 'Yatra One', cursive;
+    color: #e8c66a;
+    font-size: clamp(2.2rem, 7vw, 5rem);
+    text-shadow: 0 0 20px rgba(212,175,55,0.4), 0 4px 14px rgba(0,0,0,0.95);
 }
 
 /* ── Marquee Bands ── */
@@ -312,23 +310,24 @@ body {
 .marigold-petal {
     position: absolute; pointer-events: none;
     border-radius: 50% 0 50% 0;
-    box-shadow: 0 0 12px rgba(255,152,0,0.6);
     animation: fallMarigold linear infinite;
 }
 
 .marigold-petal.type-a {
-    background: radial-gradient(circle at 30% 30%, #ffeb3b, #ff9800 60%, #e65100);
+    background: radial-gradient(circle at 30% 30%, #ffe082, #ff9800 55%, #e65100);
+    box-shadow: 0 0 4px rgba(224,138,0,0.4);
 }
 .marigold-petal.type-b {
-    background: radial-gradient(circle at 30% 30%, #fff9c4, #ffd700 60%, #f4a300);
+    background: radial-gradient(circle at 30% 30%, #fff9c4, #d4af37 55%, #a07820);
     border-radius: 0 50% 0 50%;
+    box-shadow: 0 0 4px rgba(212,175,55,0.4);
 }
 
 @keyframes fallMarigold {
     0%   { transform: translateY(-20px) rotate(0deg)   scale(0.7); opacity: 0; }
-    8%   { opacity: 0.9; }
-    92%  { opacity: 0.9; }
-    100% { transform: translateY(110vh) rotate(900deg) scale(1.15); opacity: 0; }
+    8%   { opacity: 0.85; }
+    92%  { opacity: 0.75; }
+    100% { transform: translateY(110vh) rotate(900deg) scale(1.1); opacity: 0; }
 }
 
 /* ── Bottom 3D Gift Box ── */
@@ -378,61 +377,47 @@ body {
 
 .festive-card {
     background: var(--bg-card);
-    border: 2px solid rgba(255,215,0,0.6);
+    border: 1.5px solid rgba(212,175,55,0.45);
     border-radius: var(--card-radius);
-    padding: clamp(28px, 5vw, 50px);
+    padding: clamp(28px, 5vw, 48px);
     max-width: 600px; width: 90%; text-align: center;
-    backdrop-filter: blur(18px);
+    backdrop-filter: blur(16px);
     box-shadow:
-        0 25px 60px rgba(0,0,0,0.8),
+        0 20px 55px rgba(0,0,0,0.85),
         var(--gold-glow),
-        inset 0 1px 0 rgba(255,215,0,0.2);
+        inset 0 1px 0 rgba(212,175,55,0.15);
     position: relative; overflow: hidden;
 }
 
+/* Traditional temple border strip at top */
 .festive-card::before {
     content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 5px;
-    background: linear-gradient(90deg, var(--moli-red), var(--gold-primary), var(--saffron-orange), var(--gold-primary), var(--moli-red));
-    background-size: 200%;
-    animation: shimmerBorder 3s linear infinite;
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: var(--temple-border);
 }
 
-@keyframes shimmerBorder {
-    0%   { background-position: 0%; }
-    100% { background-position: 200%; }
-}
-
-/* Inner decorative corners on cards */
+/* Subtle decorative corner element */
 .festive-card::after {
     content: '✦';
-    position: absolute; bottom: 14px; right: 18px;
-    font-size: 1.8rem; color: rgba(255,215,0,0.25);
+    position: absolute; bottom: 12px; right: 16px;
+    font-size: 1.4rem; color: rgba(212,175,55,0.22);
     pointer-events: none;
-    animation: cornerTwinkle 3s ease-in-out infinite;
-}
-
-@keyframes cornerTwinkle {
-    0%, 100% { opacity: 0.25; transform: scale(1) rotate(0deg); }
-    50%       { opacity: 0.6;  transform: scale(1.2) rotate(45deg); }
 }
 
 .card-title {
     font-family: 'Rozha One', serif;
-    font-size: clamp(2.2rem, 5.5vw, 3.2rem);
-    color: var(--gold-primary);
-    text-shadow:
-        0 0 30px rgba(255,215,0,0.6),
-        0 3px 12px rgba(0,0,0,0.9);
-    margin-bottom: 14px; line-height: 1.2;
+    font-size: clamp(2rem, 5.2vw, 3rem);
+    color: var(--gold-light);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.95), 0 0 25px rgba(212,175,55,0.4);
+    margin-bottom: 12px; line-height: 1.25;
     letter-spacing: 1.5px;
 }
 
 .card-subtitle {
     font-family: 'Kalam', cursive;
-    font-size: clamp(1.2rem, 3vw, 1.65rem);
+    font-size: clamp(1.15rem, 2.8vw, 1.6rem);
     color: var(--kundan-cream);
-    margin-bottom: 28px; opacity: 0.9;
+    margin-bottom: 26px; opacity: 0.88;
 }
 
 .cute-character {
@@ -458,61 +443,47 @@ body {
    ========================================================================== */
 
 .festive-btn {
-    padding: 15px 38px; border-radius: 60px;
-    font-family: 'Outfit', sans-serif; font-size: 1.18rem; font-weight: 700;
+    padding: 14px 36px; border-radius: 50px;
+    font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 700;
     cursor: pointer; border: none; outline: none;
     transition: all 0.28s cubic-bezier(0.175,0.885,0.32,1.275);
-    letter-spacing: 0.7px;
+    letter-spacing: 0.6px;
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    user-select: none; position: relative; overflow: hidden;
-}
-
-.festive-btn::after {
-    content: '';
-    position: absolute; top: 50%; left: 50%;
-    width: 0; height: 0; border-radius: 50%;
-    background: rgba(255,255,255,0.25);
-    transform: translate(-50%,-50%);
-    transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
-    opacity: 0;
-}
-
-.festive-btn:active::after {
-    width: 200px; height: 200px; opacity: 0;
+    user-select: none;
 }
 
 .festive-btn-gold {
-    background: linear-gradient(135deg, #fff9c4 0%, #ffd700 40%, #f4a300 100%);
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-bright) 45%, var(--saffron-orange) 100%);
     color: #2b0005;
-    box-shadow: 0 8px 24px rgba(255,215,0,0.5), inset 0 1px 0 rgba(255,255,255,0.4);
+    box-shadow: 0 6px 20px rgba(212,175,55,0.45), inset 0 1px 0 rgba(255,255,255,0.35);
 }
 
 .festive-btn-gold:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 14px 32px rgba(255,215,0,0.7), inset 0 1px 0 rgba(255,255,255,0.4);
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 10px 28px rgba(212,175,55,0.6);
 }
 
 .festive-btn-maroon {
-    background: linear-gradient(135deg, #8b0000, #550014);
-    color: var(--gold-primary);
+    background: linear-gradient(135deg, #6d071a, #3d0310);
+    color: var(--gold-light);
     border: 1.5px solid var(--gold-primary);
-    box-shadow: 0 8px 22px rgba(0,0,0,0.5);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
 }
 
 .festive-btn-maroon:hover {
-    transform: translateY(-3px) scale(1.04);
-    box-shadow: 0 12px 28px rgba(0,0,0,0.6);
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.6);
 }
 
 .festive-btn-outline {
-    background: rgba(20,2,8,0.85);
-    color: var(--gold-primary);
-    border: 1.5px solid rgba(255,215,0,0.55);
+    background: rgba(18,2,7,0.85);
+    color: var(--gold-light);
+    border: 1.5px solid rgba(212,175,55,0.5);
     backdrop-filter: blur(6px);
 }
 
 .festive-btn-outline:hover {
-    background: rgba(255,215,0,0.18);
+    background: rgba(212,175,55,0.15);
     border-color: var(--gold-primary);
 }
 

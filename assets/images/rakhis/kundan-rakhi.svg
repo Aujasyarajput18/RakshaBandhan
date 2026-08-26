@@ -1,75 +1,188 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="600" height="200">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 220" width="700" height="220">
   <defs>
-    <linearGradient id="rakhiMoli" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#b71c1c"/>
-      <stop offset="25%" stop-color="#ffd600"/>
-      <stop offset="50%" stop-color="#b71c1c"/>
-      <stop offset="75%" stop-color="#ffd600"/>
-      <stop offset="100%" stop-color="#b71c1c"/>
+    <!-- Sacred thread gradient — red-yellow moli -->
+    <linearGradient id="moliThread" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#9b1b1b"/>
+      <stop offset="12%"  stop-color="#cc2222"/>
+      <stop offset="24%"  stop-color="#e8c230"/>
+      <stop offset="36%"  stop-color="#cc2222"/>
+      <stop offset="48%"  stop-color="#9b1b1b"/>
+      <stop offset="60%"  stop-color="#e8c230"/>
+      <stop offset="72%"  stop-color="#cc2222"/>
+      <stop offset="84%"  stop-color="#e8c230"/>
+      <stop offset="100%" stop-color="#9b1b1b"/>
     </linearGradient>
-    <radialGradient id="rubyGrad" cx="35%" cy="30%" r="65%">
-      <stop offset="0%" stop-color="#ff5252"/>
-      <stop offset="40%" stop-color="#d50000"/>
-      <stop offset="80%" stop-color="#880e4f"/>
-      <stop offset="100%" stop-color="#4a001a"/>
+    <!-- Gold bead gradient -->
+    <radialGradient id="goldBead" cx="35%" cy="30%" r="65%">
+      <stop offset="0%"   stop-color="#fffde7"/>
+      <stop offset="30%"  stop-color="#ffd700"/>
+      <stop offset="65%"  stop-color="#c8960c"/>
+      <stop offset="100%" stop-color="#7d5a00"/>
     </radialGradient>
-    <radialGradient id="goldBead" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#fff9c4"/>
-      <stop offset="40%" stop-color="#ffd700"/>
-      <stop offset="80%" stop-color="#ff8f00"/>
-      <stop offset="100%" stop-color="#e65100"/>
+    <!-- Ruby/carnelian bead -->
+    <radialGradient id="rubyBead" cx="35%" cy="30%" r="65%">
+      <stop offset="0%"   stop-color="#ff8a80"/>
+      <stop offset="35%"  stop-color="#c62828"/>
+      <stop offset="70%"  stop-color="#7b1515"/>
+      <stop offset="100%" stop-color="#3c0000"/>
     </radialGradient>
-    <filter id="rakhiGlow">
-      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="rgba(0,0,0,0.4)"/>
+    <!-- Emerald bead -->
+    <radialGradient id="emeraldBead" cx="35%" cy="30%" r="65%">
+      <stop offset="0%"   stop-color="#b9f6ca"/>
+      <stop offset="35%"  stop-color="#2e7d32"/>
+      <stop offset="70%"  stop-color="#1b4d1e"/>
+      <stop offset="100%" stop-color="#0a1f0b"/>
+    </radialGradient>
+    <!-- Central dial background -->
+    <radialGradient id="dialBg" cx="40%" cy="35%" r="65%">
+      <stop offset="0%"   stop-color="#fff9c4"/>
+      <stop offset="25%"  stop-color="#ffd700"/>
+      <stop offset="55%"  stop-color="#c8960c"/>
+      <stop offset="80%"  stop-color="#8b6200"/>
+      <stop offset="100%" stop-color="#4a3600"/>
+    </radialGradient>
+    <!-- Kundan enamel base (meenakari) -->
+    <radialGradient id="enamelBase" cx="40%" cy="35%" r="65%">
+      <stop offset="0%"   stop-color="#c8e6c9"/>
+      <stop offset="40%"  stop-color="#2e7d32"/>
+      <stop offset="75%"  stop-color="#1b5e20"/>
+      <stop offset="100%" stop-color="#0a2e0c"/>
+    </radialGradient>
+    <!-- Drop shadow -->
+    <filter id="rakhiShadow">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="rgba(0,0,0,0.45)"/>
+    </filter>
+    <!-- Gold glow -->
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
 
-  <g filter="url(#rakhiGlow)">
-    <!-- Left Sacred Thread & Tassels -->
-    <path d="M 0,100 C 60,115 140,85 240,100" stroke="url(#rakhiMoli)" stroke-width="8" stroke-linecap="round" fill="none"/>
-    <path d="M 0,100 C 60,90 140,110 240,100" stroke="#ffd700" stroke-width="3" stroke-dasharray="8,6" fill="none"/>
-    <!-- Thread Beads Left -->
-    <circle cx="160" cy="98" r="9" fill="url(#goldBead)"/>
-    <circle cx="185" cy="99" r="11" fill="url(#rubyGrad)"/>
-    <circle cx="215" cy="100" r="14" fill="url(#goldBead)"/>
+  <g filter="url(#rakhiShadow)">
+    <!-- ═══ LEFT THREAD ═══ -->
+    <!-- Main moli thread -->
+    <path d="M 0,110 C 70,125 155,95 265,110"
+          stroke="url(#moliThread)" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <!-- Upper accent thread (thinner gold) -->
+    <path d="M 0,107 C 70,95 155,120 265,107"
+          stroke="#d4af37" stroke-width="2.5" stroke-dasharray="10,8"
+          stroke-linecap="round" fill="none" opacity="0.75"/>
+    <!-- Thread weave shadow -->
+    <path d="M 0,113 C 70,128 155,98 265,113"
+          stroke="#5a0000" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.3"/>
 
-    <!-- Right Sacred Thread & Tassels -->
-    <path d="M 600,100 C 540,115 460,85 360,100" stroke="url(#rakhiMoli)" stroke-width="8" stroke-linecap="round" fill="none"/>
-    <path d="M 600,100 C 540,90 460,110 360,100" stroke="#ffd700" stroke-width="3" stroke-dasharray="8,6" fill="none"/>
-    <!-- Thread Beads Right -->
-    <circle cx="440" cy="98" r="9" fill="url(#goldBead)"/>
-    <circle cx="415" cy="99" r="11" fill="url(#rubyGrad)"/>
-    <circle cx="385" cy="100" r="14" fill="url(#goldBead)"/>
+    <!-- Left beads (graduated toward center) -->
+    <circle cx="85"  cy="109" r="7"   fill="url(#goldBead)"/>
+    <circle cx="110" cy="107" r="9"   fill="url(#rubyBead)"/>
+    <circle cx="138" cy="106" r="8"   fill="url(#goldBead)"/>
+    <circle cx="163" cy="107" r="10"  fill="url(#emeraldBead)"/>
+    <circle cx="192" cy="108" r="11"  fill="url(#goldBead)"/>
+    <circle cx="222" cy="109" r="9"   fill="url(#rubyBead)"/>
+    <circle cx="248" cy="110" r="15"  fill="url(#goldBead)"/>
+    <!-- Bead highlight dots -->
+    <circle cx="83"  cy="107" r="2"  fill="white" opacity="0.65"/>
+    <circle cx="108" cy="105" r="2.5" fill="white" opacity="0.55"/>
+    <circle cx="136" cy="104" r="2"  fill="white" opacity="0.65"/>
+    <circle cx="161" cy="105" r="2.5" fill="white" opacity="0.55"/>
+    <circle cx="190" cy="106" r="3"  fill="white" opacity="0.65"/>
+    <circle cx="220" cy="107" r="2.5" fill="white" opacity="0.55"/>
+    <circle cx="245" cy="107" r="4"  fill="white" opacity="0.65"/>
 
-    <!-- Central Ornate Kundan Dial -->
-    <g transform="translate(300,100)">
-      <!-- Outer Golden Petals Base -->
-      <circle cx="0" cy="0" r="62" fill="#ffd700" stroke="#e65100" stroke-width="3"/>
-      
-      <!-- 12 Kundan Teardrop Petals -->
-      <g id="kundan-petal">
-        <path d="M 0,-60 Q 8,-42 0,-30 Q -8,-42 0,-60 Z" fill="url(#rubyGrad)" stroke="#ffd700" stroke-width="1.5"/>
-        <circle cx="0" cy="-60" r="3.5" fill="#fffde7"/>
+    <!-- ═══ RIGHT THREAD ═══ -->
+    <path d="M 700,110 C 630,125 545,95 435,110"
+          stroke="url(#moliThread)" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <path d="M 700,107 C 630,95 545,120 435,107"
+          stroke="#d4af37" stroke-width="2.5" stroke-dasharray="10,8"
+          stroke-linecap="round" fill="none" opacity="0.75"/>
+    <path d="M 700,113 C 630,128 545,98 435,113"
+          stroke="#5a0000" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.3"/>
+
+    <!-- Right beads -->
+    <circle cx="615" cy="109" r="7"   fill="url(#goldBead)"/>
+    <circle cx="590" cy="107" r="9"   fill="url(#rubyBead)"/>
+    <circle cx="562" cy="106" r="8"   fill="url(#goldBead)"/>
+    <circle cx="537" cy="107" r="10"  fill="url(#emeraldBead)"/>
+    <circle cx="508" cy="108" r="11"  fill="url(#goldBead)"/>
+    <circle cx="478" cy="109" r="9"   fill="url(#rubyBead)"/>
+    <circle cx="452" cy="110" r="15"  fill="url(#goldBead)"/>
+    <!-- Highlights -->
+    <circle cx="613" cy="107" r="2"   fill="white" opacity="0.65"/>
+    <circle cx="588" cy="105" r="2.5" fill="white" opacity="0.55"/>
+    <circle cx="560" cy="104" r="2"   fill="white" opacity="0.65"/>
+    <circle cx="535" cy="105" r="2.5" fill="white" opacity="0.55"/>
+    <circle cx="506" cy="106" r="3"   fill="white" opacity="0.65"/>
+    <circle cx="476" cy="107" r="2.5" fill="white" opacity="0.55"/>
+    <circle cx="449" cy="107" r="4"   fill="white" opacity="0.65"/>
+
+    <!-- ═══ CENTRAL KUNDAN-MEENAKARI DIAL ═══ -->
+    <g transform="translate(350,110)" filter="url(#goldGlow)">
+      <!-- Outer gold halo ring -->
+      <circle cx="0" cy="0" r="98" fill="#c8960c" opacity="0.2"/>
+      <!-- Gold bezel outer -->
+      <circle cx="0" cy="0" r="90" fill="url(#dialBg)" stroke="#ffe566" stroke-width="3"/>
+
+      <!-- 16 outer decorative petals -->
+      <g id="outerDialPetal">
+        <path d="M 0,-90 C 8,-78 8,-68 0,-58 C -8,-68 -8,-78 0,-90 Z"
+              fill="#b8860b" stroke="#ffe566" stroke-width="1"/>
+        <circle cx="0" cy="-90" r="3.5" fill="#fffde7"/>
       </g>
-      <use href="#kundan-petal" transform="rotate(30)"/>
-      <use href="#kundan-petal" transform="rotate(60)"/>
-      <use href="#kundan-petal" transform="rotate(90)"/>
-      <use href="#kundan-petal" transform="rotate(120)"/>
-      <use href="#kundan-petal" transform="rotate(150)"/>
-      <use href="#kundan-petal" transform="rotate(180)"/>
-      <use href="#kundan-petal" transform="rotate(210)"/>
-      <use href="#kundan-petal" transform="rotate(240)"/>
-      <use href="#kundan-petal" transform="rotate(270)"/>
-      <use href="#kundan-petal" transform="rotate(300)"/>
-      <use href="#kundan-petal" transform="rotate(330)"/>
+      <use href="#outerDialPetal" transform="rotate(22.5)"/>
+      <use href="#outerDialPetal" transform="rotate(45)"/>
+      <use href="#outerDialPetal" transform="rotate(67.5)"/>
+      <use href="#outerDialPetal" transform="rotate(90)"/>
+      <use href="#outerDialPetal" transform="rotate(112.5)"/>
+      <use href="#outerDialPetal" transform="rotate(135)"/>
+      <use href="#outerDialPetal" transform="rotate(157.5)"/>
+      <use href="#outerDialPetal" transform="rotate(180)"/>
+      <use href="#outerDialPetal" transform="rotate(202.5)"/>
+      <use href="#outerDialPetal" transform="rotate(225)"/>
+      <use href="#outerDialPetal" transform="rotate(247.5)"/>
+      <use href="#outerDialPetal" transform="rotate(270)"/>
+      <use href="#outerDialPetal" transform="rotate(292.5)"/>
+      <use href="#outerDialPetal" transform="rotate(315)"/>
+      <use href="#outerDialPetal" transform="rotate(337.5)"/>
 
-      <!-- Inner Pearl Ring -->
-      <circle cx="0" cy="0" r="34" fill="#ffecb3" stroke="#ffd700" stroke-width="2"/>
-      <circle cx="0" cy="0" r="28" fill="url(#rubyGrad)"/>
-      
-      <!-- Central Auspicious Diamond/Stone -->
-      <circle cx="0" cy="0" r="14" fill="#ffffff" opacity="0.95"/>
+      <!-- Second gold ring -->
+      <circle cx="0" cy="0" r="70" fill="#c8960c" stroke="#ffe566" stroke-width="2.5"/>
+
+      <!-- Meenakari green enamel band -->
+      <circle cx="0" cy="0" r="62" fill="url(#enamelBase)"/>
+
+      <!-- 12 kundan stone settings -->
+      <g id="kundanStone">
+        <path d="M 0,-62 C 6,-52 6,-44 0,-36 C -6,-44 -6,-52 0,-62 Z"
+              fill="url(#rubyBead)" stroke="#ffd700" stroke-width="1.5"/>
+        <circle cx="0" cy="-49" r="2" fill="white" opacity="0.6"/>
+      </g>
+      <use href="#kundanStone" transform="rotate(30)"/>
+      <use href="#kundanStone" transform="rotate(60)"/>
+      <use href="#kundanStone" transform="rotate(90)"/>
+      <use href="#kundanStone" transform="rotate(120)"/>
+      <use href="#kundanStone" transform="rotate(150)"/>
+      <use href="#kundanStone" transform="rotate(180)"/>
+      <use href="#kundanStone" transform="rotate(210)"/>
+      <use href="#kundanStone" transform="rotate(240)"/>
+      <use href="#kundanStone" transform="rotate(270)"/>
+      <use href="#kundanStone" transform="rotate(300)"/>
+      <use href="#kundanStone" transform="rotate(330)"/>
+
+      <!-- Inner gold ring -->
+      <circle cx="0" cy="0" r="34" fill="url(#dialBg)" stroke="#ffe566" stroke-width="2"/>
+
+      <!-- Central deep ruby stone -->
+      <circle cx="0" cy="0" r="26" fill="url(#rubyBead)"/>
+      <!-- Ruby facets -->
+      <path d="M 0,-26 L 15,0 L 0,26 L -15,0 Z" fill="rgba(255,255,255,0.12)"/>
+      <path d="M -26,0 L 0,-15 L 26,0 L 0,15 Z" fill="rgba(0,0,0,0.12)"/>
+      <!-- Pearl-white inner ring -->
+      <circle cx="0" cy="0" r="14" fill="#fffde7" opacity="0.95"/>
       <circle cx="0" cy="0" r="10" fill="url(#goldBead)"/>
+      <!-- Central gold Bindu -->
+      <circle cx="0" cy="0" r="4" fill="#fff9c4"/>
+      <!-- Highlight on center -->
+      <circle cx="-3" cy="-3" r="3" fill="white" opacity="0.7"/>
     </g>
   </g>
 </svg>

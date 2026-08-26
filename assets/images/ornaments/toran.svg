@@ -1,48 +1,310 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" width="1200" height="120" preserveAspectRatio="none">
   <defs>
-    <radialGradient id="mariGold" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#ffeb3b"/>
-      <stop offset="60%" stop-color="#ff9800"/>
-      <stop offset="100%" stop-color="#e65100"/>
-    </radialGradient>
-    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#4caf50"/>
-      <stop offset="60%" stop-color="#2e7d32"/>
+    <linearGradient id="ropeGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#8b6200"/>
+      <stop offset="20%"  stop-color="#c8960c"/>
+      <stop offset="40%"  stop-color="#d4af37"/>
+      <stop offset="60%"  stop-color="#c8960c"/>
+      <stop offset="80%"  stop-color="#b8860b"/>
+      <stop offset="100%" stop-color="#8b6200"/>
+    </linearGradient>
+    <!-- Mango leaf gradients -->
+    <linearGradient id="leafGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#558b2f"/>
+      <stop offset="40%"  stop-color="#2e7d32"/>
+      <stop offset="80%"  stop-color="#1b5e20"/>
+      <stop offset="100%" stop-color="#0f3c12"/>
+    </linearGradient>
+    <linearGradient id="leafGreen2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#689f38"/>
+      <stop offset="50%"  stop-color="#388e3c"/>
       <stop offset="100%" stop-color="#1b5e20"/>
     </linearGradient>
-    <linearGradient id="moliRope" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#d50000"/>
+    <!-- Marigold flower gradients -->
+    <radialGradient id="marigoldOuter" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#fff176"/>
+      <stop offset="35%"  stop-color="#ffca28"/>
+      <stop offset="70%"  stop-color="#ff8f00"/>
+      <stop offset="100%" stop-color="#e65100"/>
+    </radialGradient>
+    <radialGradient id="marigoldOrange" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#ffcc80"/>
+      <stop offset="40%"  stop-color="#fb8c00"/>
+      <stop offset="75%"  stop-color="#e65100"/>
+      <stop offset="100%" stop-color="#bf360c"/>
+    </radialGradient>
+    <radialGradient id="marigoldCenter" cx="40%" cy="40%" r="60%">
+      <stop offset="0%"  stop-color="#fffde7"/>
       <stop offset="50%" stop-color="#ffd600"/>
-      <stop offset="100%" stop-color="#d50000"/>
-    </linearGradient>
+      <stop offset="100%" stop-color="#f57f17"/>
+    </radialGradient>
+    <!-- Mango fruit gradient -->
+    <radialGradient id="mangoGrad" cx="35%" cy="30%" r="65%">
+      <stop offset="0%"   stop-color="#fff176"/>
+      <stop offset="40%"  stop-color="#ffc107"/>
+      <stop offset="75%"  stop-color="#ff6f00"/>
+      <stop offset="100%" stop-color="#e65100"/>
+    </radialGradient>
+    <!-- Gold bead -->
+    <radialGradient id="beadGold" cx="35%" cy="30%" r="65%">
+      <stop offset="0%"   stop-color="#fffde7"/>
+      <stop offset="40%"  stop-color="#ffd700"/>
+      <stop offset="75%"  stop-color="#c8960c"/>
+      <stop offset="100%" stop-color="#7d5a00"/>
+    </radialGradient>
+    <filter id="leafShadow">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.3)"/>
+    </filter>
+    <filter id="flowerGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
   </defs>
 
-  <!-- Top Moli Thread Cord -->
-  <path d="M 0,15 Q 150,30 300,15 Q 450,30 600,15 Q 750,30 900,15 Q 1050,30 1200,15" stroke="url(#moliRope)" stroke-width="5" fill="none"/>
+  <!-- Main rope / dori -->
+  <path d="M 0,22 Q 300,18 600,22 Q 900,26 1200,22"
+        stroke="url(#ropeGold)" stroke-width="5" fill="none"/>
+  <!-- Rope twist lines for authenticity -->
+  <path d="M 0,22 Q 300,18 600,22 Q 900,26 1200,22"
+        stroke="#8b6200" stroke-width="1.5" stroke-dasharray="12,8" fill="none" opacity="0.5"/>
 
-  <g id="toran-unit">
-    <!-- Mango Leaves -->
-    <g transform="translate(150, 20)">
-      <path d="M 0,0 C -25,25 -20,65 0,90 C 20,65 25,25 0,0 Z" fill="url(#leafGrad)" stroke="#1b5e20" stroke-width="1"/>
-      <path d="M 0,5 L 0,85" stroke="#a5d6a7" stroke-width="1" opacity="0.6"/>
-      <circle cx="0" cy="5" r="14" fill="url(#mariGold)"/>
-      <circle cx="0" cy="5" r="6" fill="#ffd600"/>
-      <circle cx="0" cy="92" r="5" fill="#d50000"/>
+  <!-- ═══ REUSABLE COMPONENTS ═══ -->
+
+  <!-- Marigold definition (yellow) -->
+  <g id="marigoldY">
+    <circle cx="0" cy="0" r="18" fill="#ff8f00" opacity="0.3"/>
+    <g id="mPetalY">
+      <ellipse cx="0" cy="-14" rx="5" ry="9" fill="url(#marigoldOuter)" opacity="0.95"/>
     </g>
-    <g transform="translate(75, 18)">
-      <circle cx="0" cy="0" r="12" fill="url(#mariGold)"/>
-      <circle cx="0" cy="18" r="9" fill="url(#mariGold)"/>
-      <circle cx="0" cy="32" r="6" fill="#d50000"/>
+    <use href="#mPetalY" transform="rotate(30)"/>
+    <use href="#mPetalY" transform="rotate(60)"/>
+    <use href="#mPetalY" transform="rotate(90)"/>
+    <use href="#mPetalY" transform="rotate(120)"/>
+    <use href="#mPetalY" transform="rotate(150)"/>
+    <use href="#mPetalY" transform="rotate(180)"/>
+    <use href="#mPetalY" transform="rotate(210)"/>
+    <use href="#mPetalY" transform="rotate(240)"/>
+    <use href="#mPetalY" transform="rotate(270)"/>
+    <use href="#mPetalY" transform="rotate(300)"/>
+    <use href="#mPetalY" transform="rotate(330)"/>
+    <!-- Inner petals -->
+    <g id="mInnerY">
+      <ellipse cx="0" cy="-9" rx="4" ry="7" fill="#ffca28" opacity="0.9"/>
     </g>
-    <g transform="translate(225, 18)">
-      <circle cx="0" cy="0" r="12" fill="url(#mariGold)"/>
-      <circle cx="0" cy="18" r="9" fill="url(#mariGold)"/>
-      <circle cx="0" cy="32" r="6" fill="#d50000"/>
-    </g>
+    <use href="#mInnerY" transform="rotate(36)"/>
+    <use href="#mInnerY" transform="rotate(72)"/>
+    <use href="#mInnerY" transform="rotate(108)"/>
+    <use href="#mInnerY" transform="rotate(144)"/>
+    <use href="#mInnerY" transform="rotate(180)"/>
+    <use href="#mInnerY" transform="rotate(216)"/>
+    <use href="#mInnerY" transform="rotate(252)"/>
+    <use href="#mInnerY" transform="rotate(288)"/>
+    <use href="#mInnerY" transform="rotate(324)"/>
+    <circle cx="0" cy="0" r="6" fill="url(#marigoldCenter)"/>
+    <circle cx="-1.5" cy="-1.5" r="2.5" fill="white" opacity="0.6"/>
   </g>
 
-  <!-- Repeat units across the 1200px width -->
-  <use href="#toran-unit" transform="translate(300,0)"/>
-  <use href="#toran-unit" transform="translate(600,0)"/>
-  <use href="#toran-unit" transform="translate(900,0)"/>
+  <!-- Marigold orange version -->
+  <g id="marigoldO">
+    <circle cx="0" cy="0" r="16" fill="#e65100" opacity="0.25"/>
+    <g id="mPetalO">
+      <ellipse cx="0" cy="-13" rx="4.5" ry="8" fill="url(#marigoldOrange)" opacity="0.95"/>
+    </g>
+    <use href="#mPetalO" transform="rotate(30)"/>
+    <use href="#mPetalO" transform="rotate(60)"/>
+    <use href="#mPetalO" transform="rotate(90)"/>
+    <use href="#mPetalO" transform="rotate(120)"/>
+    <use href="#mPetalO" transform="rotate(150)"/>
+    <use href="#mPetalO" transform="rotate(180)"/>
+    <use href="#mPetalO" transform="rotate(210)"/>
+    <use href="#mPetalO" transform="rotate(240)"/>
+    <use href="#mPetalO" transform="rotate(270)"/>
+    <use href="#mPetalO" transform="rotate(300)"/>
+    <use href="#mPetalO" transform="rotate(330)"/>
+    <circle cx="0" cy="0" r="5.5" fill="url(#marigoldCenter)"/>
+    <circle cx="-1.5" cy="-1.5" r="2" fill="white" opacity="0.6"/>
+  </g>
+
+  <!-- Mango leaf pair (facing down/alternate) -->
+  <g id="leafPair" filter="url(#leafShadow)">
+    <path d="M 0,0 C -6,15 -8,35 -4,50 C -1,58 4,58 6,50 C 10,35 8,15 0,0 Z"
+          fill="url(#leafGreen)"/>
+    <line x1="0" y1="3" x2="0" y2="48" stroke="#1b5e20" stroke-width="1" opacity="0.7"/>
+    <path d="M 0,0 C 6,15 8,35 4,50 C 1,58 -4,58 -6,50 C -10,35 -8,15 0,0 Z"
+          fill="url(#leafGreen2)" opacity="0.85"/>
+    <line x1="0" y1="3" x2="0" y2="48" stroke="#558b2f" stroke-width="0.8" opacity="0.5"/>
+  </g>
+
+  <!-- Mango fruit -->
+  <g id="mangoFruit">
+    <path d="M 0,-5 C -12,2 -14,20 -8,32 C -4,40 4,40 8,32 C 14,20 12,2 0,-5 Z"
+          fill="url(#mangoGrad)"/>
+    <circle cx="-3" cy="5" r="4" fill="white" opacity="0.3"/>
+    <!-- Stem -->
+    <path d="M 0,-5 C 2,-14 4,-16 2,-18" stroke="#558b2f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- Leaf at tip -->
+    <path d="M 2,-18 C 0,-24 -4,-22 -3,-18 C -1,-14 2,-16 2,-18 Z" fill="url(#leafGreen)"/>
+  </g>
+
+  <!-- Gold bell -->
+  <g id="goldBell">
+    <path d="M 0,-4 C -8,-4 -10,4 -10,12 C -10,18 -6,22 0,22 C 6,22 10,18 10,12 C 10,4 8,-4 0,-4 Z"
+          fill="url(#beadGold)" stroke="#c8960c" stroke-width="1"/>
+    <rect x="-2" y="-8" width="4" height="6" rx="1" fill="#c8960c"/>
+    <!-- Bell opening at bottom -->
+    <ellipse cx="0" cy="22" rx="10" ry="3" fill="#8b6200"/>
+    <!-- Highlight -->
+    <ellipse cx="-3" cy="6" rx="3" ry="5" fill="white" opacity="0.4"/>
+  </g>
+
+  <!-- ═══ TORAN ELEMENTS REPEATED ACROSS ═══ -->
+
+  <!-- Segment repeats: leaves + flowers + mango + bell -->
+  <!-- Segment 1: x=80 -->
+  <g transform="translate(60,22)">
+    <use href="#goldBell" transform="translate(0,8)"/>
+  </g>
+  <g transform="translate(80,22)" filter="url(#leafShadow)">
+    <use href="#leafPair" transform="translate(-14,0) rotate(-12)"/>
+    <use href="#leafPair" transform="translate(14,0)  rotate(12)"/>
+    <use href="#marigoldO" transform="translate(0,55)"/>
+  </g>
+
+  <!-- Segment 2: x=170 -->
+  <g transform="translate(155,22)" filter="url(#leafShadow)">
+    <use href="#leafPair" transform="translate(-14,0) rotate(-10)"/>
+    <use href="#leafPair" transform="translate(14,0)  rotate(10)"/>
+    <use href="#mangoFruit" transform="translate(0,52)"/>
+  </g>
+  <g transform="translate(180,22)">
+    <use href="#goldBell" transform="translate(0,6)"/>
+  </g>
+
+  <!-- Segment 3: x=265 -->
+  <g transform="translate(250,22)" filter="url(#leafShadow)">
+    <use href="#leafPair" transform="translate(-14,0) rotate(-14)"/>
+    <use href="#leafPair" transform="translate(14,0)  rotate(14)"/>
+    <use href="#marigoldY" transform="translate(0,58)"/>
+  </g>
+
+  <!-- Segment 4: x=350 (center) -->
+  <g transform="translate(330,22)" filter="url(#leafShadow)">
+    <use href="#leafPair" transform="translate(-16,0) rotate(-10)"/>
+    <use href="#leafPair" transform="translate(0,0)"/>
+    <use href="#leafPair" transform="translate(16,0)  rotate(10)"/>
+    <use href="#marigoldO" transform="translate(-16,55)"/>
+    <use href="#marigoldY" transform="translate(16,55)"/>
+    <use href="#mangoFruit" transform="translate(0,55)"/>
+  </g>
+  <g transform="translate(370,22)">
+    <use href="#goldBell" transform="translate(0,8)"/>
+  </g>
+
+  <!-- Segment 5: x=445 -->
+  <g transform="translate(430,22)" filter="url(#leafShadow)">
+    <use href="#leafPair" transform="translate(-14,0) rotate(-14)"/>
+    <use href="#leafPair" transform="translate(14,0)  rotate(14)"/>
+    <use href="#marigoldY" transform="translate(0,58)"/>
+  </g>
+
+  <!-- Segment 6: x=530 -->
+  <g transform="translate(515,22)" filter="url(#leafShadow)">
+    <use href="#leafPair" transform="translate(-14,0) rotate(-10)"/>
+    <use href="#leafPair" transform="translate(14,0)  rotate(10)"/>
+    <use href="#mangoFruit" transform="translate(0,52)"/>
+  </g>
+  <g transform="translate(540,22)">
+    <use href="#goldBell" transform="translate(0,6)"/>
+  </g>
+
+  <!-- Segment 7: x=615 -->
+  <g transform="translate(600,22)" filter="url(#leafShadow)">
+    <use href="#leafPair" transform="translate(-14,0) rotate(-12)"/>
+    <use href="#leafPair" transform="translate(14,0)  rotate(12)"/>
+    <use href="#marigoldO" transform="translate(0,55)"/>
+  </g>
+  <g transform="translate(635,22)">
+    <use href="#goldBell" transform="translate(0,8)"/>
+  </g>
+
+  <!-- Segment 8: x=705 -->
+  <g transform="translate(690,22)" filter="url(#leafShadow)">
+    <use href="#leafPair" transform="translate(-14,0) rotate(-10)"/>
+    <use href="#leafPair" transform="translate(14,0)  rotate(10)"/>
+    <use href="#marigoldY" transform="translate(0,58)"/>
+  </g>
+
+  <!-- Segment 9: x=785 -->
+  <g transform="translate(770,22)" filter="url(#leafShadow)">
+    <use href="#leafPair" transform="translate(-14,0) rotate(-14)"/>
+    <use href="#leafPair" transform="translate(14,0)  rotate(14)"/>
+    <use href="#mangoFruit" transform="translate(0,52)"/>
+  </g>
+  <g transform="translate(800,22)">
+    <use href="#goldBell" transform="translate(0,6)"/>
+  </g>
+
+  <!-- Segment 10: x=870 -->
+  <g transform="translate(855,22)" filter="url(#leafShadow)">
+    <use href="#leafPair" transform="translate(-14,0) rotate(-12)"/>
+    <use href="#leafPair" transform="translate(14,0)  rotate(12)"/>
+    <use href="#marigoldO" transform="translate(0,55)"/>
+  </g>
+  <g transform="translate(885,22)">
+    <use href="#goldBell" transform="translate(0,8)"/>
+  </g>
+
+  <!-- Segment 11: x=955 -->
+  <g transform="translate(940,22)" filter="url(#leafShadow)">
+    <use href="#leafPair" transform="translate(-14,0) rotate(-10)"/>
+    <use href="#leafPair" transform="translate(14,0)  rotate(10)"/>
+    <use href="#marigoldY" transform="translate(0,58)"/>
+  </g>
+
+  <!-- Segment 12: x=1035 -->
+  <g transform="translate(1020,22)" filter="url(#leafShadow)">
+    <use href="#leafPair" transform="translate(-14,0) rotate(-14)"/>
+    <use href="#leafPair" transform="translate(14,0)  rotate(14)"/>
+    <use href="#mangoFruit" transform="translate(0,52)"/>
+  </g>
+  <g transform="translate(1050,22)">
+    <use href="#goldBell" transform="translate(0,6)"/>
+  </g>
+
+  <!-- Segment 13: x=1115 -->
+  <g transform="translate(1100,22)" filter="url(#leafShadow)">
+    <use href="#leafPair" transform="translate(-14,0) rotate(-12)"/>
+    <use href="#leafPair" transform="translate(14,0)  rotate(12)"/>
+    <use href="#marigoldO" transform="translate(0,55)"/>
+  </g>
+  <g transform="translate(1135,22)">
+    <use href="#goldBell" transform="translate(0,8)"/>
+  </g>
+
+  <!-- Top decorative strip (temple border pattern) -->
+  <rect x="0" y="0" width="1200" height="6" fill="url(#ropeGold)" opacity="0.7"/>
+  <!-- Small dot row along rope -->
+  <g fill="url(#beadGold)" opacity="0.9">
+    <circle cx="20"   cy="22" r="4"/>
+    <circle cx="60"   cy="22" r="4"/>
+    <circle cx="120"  cy="22" r="4"/>
+    <circle cx="180"  cy="22" r="4"/>
+    <circle cx="240"  cy="22" r="4"/>
+    <circle cx="300"  cy="22" r="4"/>
+    <circle cx="360"  cy="22" r="4"/>
+    <circle cx="420"  cy="22" r="4"/>
+    <circle cx="480"  cy="22" r="4"/>
+    <circle cx="540"  cy="22" r="4"/>
+    <circle cx="600"  cy="22" r="4"/>
+    <circle cx="660"  cy="22" r="4"/>
+    <circle cx="720"  cy="22" r="4"/>
+    <circle cx="780"  cy="22" r="4"/>
+    <circle cx="840"  cy="22" r="4"/>
+    <circle cx="900"  cy="22" r="4"/>
+    <circle cx="960"  cy="22" r="4"/>
+    <circle cx="1020" cy="22" r="4"/>
+    <circle cx="1080" cy="22" r="4"/>
+    <circle cx="1140" cy="22" r="4"/>
+    <circle cx="1180" cy="22" r="4"/>
+  </g>
 </svg>

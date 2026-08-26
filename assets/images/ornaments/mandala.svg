@@ -1,71 +1,172 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
   <defs>
-    <radialGradient id="goldGrad" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#fff275" stop-opacity="0.9"/>
-      <stop offset="40%" stop-color="#ffd700" stop-opacity="0.7"/>
-      <stop offset="80%" stop-color="#d4af37" stop-opacity="0.5"/>
-      <stop offset="100%" stop-color="#e65100" stop-opacity="0"/>
+    <!-- Warm gold gradient -->
+    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#fff9c4" stop-opacity="0.6"/>
+      <stop offset="35%"  stop-color="#ffd700" stop-opacity="0.35"/>
+      <stop offset="70%"  stop-color="#d4af37" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#8b6914" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="goldLine" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="30%" stop-color="#ffd700"/>
-      <stop offset="70%" stop-color="#f4a300"/>
-      <stop offset="100%" stop-color="#b8860b"/>
+    <linearGradient id="goldStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#fff9c4"/>
+      <stop offset="30%"  stop-color="#ffd700"/>
+      <stop offset="65%"  stop-color="#c8960c"/>
+      <stop offset="100%" stop-color="#a07410"/>
     </linearGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    <linearGradient id="goldStroke2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#ffe066"/>
+      <stop offset="50%"  stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#8b6914"/>
+    </linearGradient>
+    <filter id="subtleGlow" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
 
-  <!-- Outer Glow Halo -->
-  <circle cx="250" cy="250" r="230" fill="url(#goldGrad)"/>
+  <!-- Soft ambient halo -->
+  <circle cx="300" cy="300" r="285" fill="url(#centerGlow)"/>
 
-  <g stroke="url(#goldLine)" stroke-width="1.5" fill="none" filter="url(#glow)">
-    <!-- Outer Decorative Rings -->
-    <circle cx="250" cy="250" r="215" stroke-dasharray="4,6" stroke-width="2"/>
-    <circle cx="250" cy="250" r="200" stroke-width="1.5"/>
-    <circle cx="250" cy="250" r="185" stroke-dasharray="2,4"/>
-    <circle cx="250" cy="250" r="150" stroke-width="1.5"/>
-    <circle cx="250" cy="250" r="110" stroke-width="2"/>
-    <circle cx="250" cy="250" r="60" stroke-width="1.5"/>
+  <g stroke="url(#goldStroke)" fill="none" filter="url(#subtleGlow)">
 
-    <!-- 24-spoke radial floral geometry -->
-    <g transform="translate(250,250)">
-      <g id="petal-group">
-        <path d="M 0,-200 Q 15,-175 0,-150 Q -15,-175 0,-200 Z" fill="rgba(255,215,0,0.15)"/>
-        <circle cx="0" cy="-207" r="3" fill="#ffd700"/>
-        <path d="M 0,-150 Q 20,-120 0,-90 Q -20,-120 0,-150 Z" fill="rgba(244,163,0,0.2)"/>
-        <circle cx="0" cy="-145" r="2" fill="#fff"/>
-        <path d="M 0,-90 Q 12,-70 0,-50 Q -12,-70 0,-90 Z" fill="rgba(255,235,59,0.25)"/>
+    <!-- Outermost border ring with decorative dashes -->
+    <circle cx="300" cy="300" r="278" stroke-width="1.2" stroke-dasharray="3,7" opacity="0.6"/>
+    <!-- Outer solid ring -->
+    <circle cx="300" cy="300" r="265" stroke-width="2"   opacity="0.85"/>
+    <!-- Diamond-dot ring at 255 -->
+    <circle cx="300" cy="300" r="252" stroke-width="0.8" stroke-dasharray="1.5,9" opacity="0.5"/>
+
+    <!-- Outer floral petal band — 24 petals -->
+    <g transform="translate(300,300)">
+      <g id="outerPetal">
+        <!-- Elongated almond petal -->
+        <path d="M 0,-265 C 10,-248 10,-238 0,-225 C -10,-238 -10,-248 0,-265 Z"
+              fill="rgba(255,215,0,0.12)" stroke="url(#goldStroke)" stroke-width="1"/>
+        <!-- Petal tip dot -->
+        <circle cx="0" cy="-266" r="2.5" fill="#ffd700" opacity="0.9"/>
       </g>
-      <use href="#petal-group" transform="rotate(15)"/>
-      <use href="#petal-group" transform="rotate(30)"/>
-      <use href="#petal-group" transform="rotate(45)"/>
-      <use href="#petal-group" transform="rotate(60)"/>
-      <use href="#petal-group" transform="rotate(75)"/>
-      <use href="#petal-group" transform="rotate(90)"/>
-      <use href="#petal-group" transform="rotate(105)"/>
-      <use href="#petal-group" transform="rotate(120)"/>
-      <use href="#petal-group" transform="rotate(135)"/>
-      <use href="#petal-group" transform="rotate(150)"/>
-      <use href="#petal-group" transform="rotate(165)"/>
-      <use href="#petal-group" transform="rotate(180)"/>
-      <use href="#petal-group" transform="rotate(195)"/>
-      <use href="#petal-group" transform="rotate(210)"/>
-      <use href="#petal-group" transform="rotate(225)"/>
-      <use href="#petal-group" transform="rotate(240)"/>
-      <use href="#petal-group" transform="rotate(255)"/>
-      <use href="#petal-group" transform="rotate(270)"/>
-      <use href="#petal-group" transform="rotate(285)"/>
-      <use href="#petal-group" transform="rotate(300)"/>
-      <use href="#petal-group" transform="rotate(315)"/>
-      <use href="#petal-group" transform="rotate(330)"/>
-      <use href="#petal-group" transform="rotate(345)"/>
+      <use href="#outerPetal" transform="rotate(15)"/>
+      <use href="#outerPetal" transform="rotate(30)"/>
+      <use href="#outerPetal" transform="rotate(45)"/>
+      <use href="#outerPetal" transform="rotate(60)"/>
+      <use href="#outerPetal" transform="rotate(75)"/>
+      <use href="#outerPetal" transform="rotate(90)"/>
+      <use href="#outerPetal" transform="rotate(105)"/>
+      <use href="#outerPetal" transform="rotate(120)"/>
+      <use href="#outerPetal" transform="rotate(135)"/>
+      <use href="#outerPetal" transform="rotate(150)"/>
+      <use href="#outerPetal" transform="rotate(165)"/>
+      <use href="#outerPetal" transform="rotate(180)"/>
+      <use href="#outerPetal" transform="rotate(195)"/>
+      <use href="#outerPetal" transform="rotate(210)"/>
+      <use href="#outerPetal" transform="rotate(225)"/>
+      <use href="#outerPetal" transform="rotate(240)"/>
+      <use href="#outerPetal" transform="rotate(255)"/>
+      <use href="#outerPetal" transform="rotate(270)"/>
+      <use href="#outerPetal" transform="rotate(285)"/>
+      <use href="#outerPetal" transform="rotate(300)"/>
+      <use href="#outerPetal" transform="rotate(315)"/>
+      <use href="#outerPetal" transform="rotate(330)"/>
+      <use href="#outerPetal" transform="rotate(345)"/>
     </g>
 
-    <!-- Center Auspicious Lotus -->
-    <circle cx="250" cy="250" r="30" fill="rgba(218,165,32,0.3)"/>
-    <circle cx="250" cy="250" r="10" fill="#ffd700"/>
+    <!-- Second ring -->
+    <circle cx="300" cy="300" r="220" stroke-width="1.8" opacity="0.9"/>
+
+    <!-- Mid-band 16 lotus petals -->
+    <g transform="translate(300,300)">
+      <g id="midPetal">
+        <path d="M 0,-220 C 14,-200 14,-185 0,-170 C -14,-185 -14,-200 0,-220 Z"
+              fill="rgba(255,215,0,0.10)" stroke="url(#goldStroke)" stroke-width="1.2"/>
+        <!-- Inner petal detail line -->
+        <line x1="0" y1="-218" x2="0" y2="-172" stroke="#ffd700" stroke-width="0.6" opacity="0.5"/>
+      </g>
+      <use href="#midPetal" transform="rotate(22.5)"/>
+      <use href="#midPetal" transform="rotate(45)"/>
+      <use href="#midPetal" transform="rotate(67.5)"/>
+      <use href="#midPetal" transform="rotate(90)"/>
+      <use href="#midPetal" transform="rotate(112.5)"/>
+      <use href="#midPetal" transform="rotate(135)"/>
+      <use href="#midPetal" transform="rotate(157.5)"/>
+      <use href="#midPetal" transform="rotate(180)"/>
+      <use href="#midPetal" transform="rotate(202.5)"/>
+      <use href="#midPetal" transform="rotate(225)"/>
+      <use href="#midPetal" transform="rotate(247.5)"/>
+      <use href="#midPetal" transform="rotate(270)"/>
+      <use href="#midPetal" transform="rotate(292.5)"/>
+      <use href="#midPetal" transform="rotate(315)"/>
+      <use href="#midPetal" transform="rotate(337.5)"/>
+    </g>
+
+    <!-- Inner rings -->
+    <circle cx="300" cy="300" r="168" stroke-width="1.5" opacity="0.85"/>
+    <circle cx="300" cy="300" r="155" stroke-width="0.7" stroke-dasharray="2,5" opacity="0.5"/>
+
+    <!-- 8-spoke radial spoke lines -->
+    <g transform="translate(300,300)" stroke="url(#goldStroke2)" stroke-width="0.9" opacity="0.45">
+      <line x1="0" y1="-155" x2="0" y2="-220"/>
+      <line x1="0" y1="-155" x2="0" y2="-220" transform="rotate(45)"/>
+      <line x1="0" y1="-155" x2="0" y2="-220" transform="rotate(90)"/>
+      <line x1="0" y1="-155" x2="0" y2="-220" transform="rotate(135)"/>
+      <line x1="0" y1="-155" x2="0" y2="-220" transform="rotate(180)"/>
+      <line x1="0" y1="-155" x2="0" y2="-220" transform="rotate(225)"/>
+      <line x1="0" y1="-155" x2="0" y2="-220" transform="rotate(270)"/>
+      <line x1="0" y1="-155" x2="0" y2="-220" transform="rotate(315)"/>
+    </g>
+
+    <!-- Inner lotus — 8 petals -->
+    <g transform="translate(300,300)">
+      <g id="innerLotus">
+        <path d="M 0,-148 C 18,-125 18,-108 0,-92 C -18,-108 -18,-125 0,-148 Z"
+              fill="rgba(255,215,0,0.15)" stroke="url(#goldStroke)" stroke-width="1.4"/>
+        <path d="M 0,-145 C 6,-128 6,-115 0,-100 C -6,-115 -6,-128 0,-145 Z"
+              fill="rgba(255,255,255,0.08)"/>
+      </g>
+      <use href="#innerLotus" transform="rotate(45)"/>
+      <use href="#innerLotus" transform="rotate(90)"/>
+      <use href="#innerLotus" transform="rotate(135)"/>
+      <use href="#innerLotus" transform="rotate(180)"/>
+      <use href="#innerLotus" transform="rotate(225)"/>
+      <use href="#innerLotus" transform="rotate(270)"/>
+      <use href="#innerLotus" transform="rotate(315)"/>
+    </g>
+
+    <!-- Inner solid ring -->
+    <circle cx="300" cy="300" r="90"  stroke-width="2"   opacity="0.9"/>
+    <circle cx="300" cy="300" r="78"  stroke-width="0.8" stroke-dasharray="1.5,4" opacity="0.55"/>
+
+    <!-- Innermost lotus heart — 8 small petals -->
+    <g transform="translate(300,300)">
+      <g id="heartPetal">
+        <path d="M 0,-78 C 9,-66 9,-56 0,-46 C -9,-56 -9,-66 0,-78 Z"
+              fill="rgba(255,215,0,0.22)" stroke="url(#goldStroke)" stroke-width="1.2"/>
+      </g>
+      <use href="#heartPetal" transform="rotate(45)"/>
+      <use href="#heartPetal" transform="rotate(90)"/>
+      <use href="#heartPetal" transform="rotate(135)"/>
+      <use href="#heartPetal" transform="rotate(180)"/>
+      <use href="#heartPetal" transform="rotate(225)"/>
+      <use href="#heartPetal" transform="rotate(270)"/>
+      <use href="#heartPetal" transform="rotate(315)"/>
+    </g>
+
+    <!-- Center ornament rings -->
+    <circle cx="300" cy="300" r="44" stroke-width="1.8" opacity="0.95" stroke="url(#goldStroke)"/>
+    <circle cx="300" cy="300" r="36" fill="rgba(255,215,0,0.18)" stroke="url(#goldStroke)" stroke-width="1"/>
+    <!-- Center lotus pericarp dots — 8 points -->
+    <g transform="translate(300,300)">
+      <circle cx="0" cy="-30" r="3" fill="#ffd700" opacity="0.85"/>
+      <circle cx="0" cy="-30" r="3" fill="#ffd700" opacity="0.85" transform="rotate(45)"/>
+      <circle cx="0" cy="-30" r="3" fill="#ffd700" opacity="0.85" transform="rotate(90)"/>
+      <circle cx="0" cy="-30" r="3" fill="#ffd700" opacity="0.85" transform="rotate(135)"/>
+      <circle cx="0" cy="-30" r="3" fill="#ffd700" opacity="0.85" transform="rotate(180)"/>
+      <circle cx="0" cy="-30" r="3" fill="#ffd700" opacity="0.85" transform="rotate(225)"/>
+      <circle cx="0" cy="-30" r="3" fill="#ffd700" opacity="0.85" transform="rotate(270)"/>
+      <circle cx="0" cy="-30" r="3" fill="#ffd700" opacity="0.85" transform="rotate(315)"/>
+    </g>
+    <!-- Bindu (center dot) -->
+    <circle cx="300" cy="300" r="10" fill="#ffd700" opacity="0.95"/>
+    <circle cx="300" cy="300" r="5"  fill="#fff9c4"/>
+
   </g>
 </svg>

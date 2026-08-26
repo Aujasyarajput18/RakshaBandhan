@@ -8,14 +8,22 @@
 'use strict';
 
 const TUNNEL_THEME = {
-    background: '#0d0205',
-    lineColor:  '#f5a623',
-    lineOpacity: 58,
-    colors:  ['#ffd700', '#ff9800', '#d50000', '#f4a300', '#e65100', '#ffe082', '#ff6f00'],
+    background: '#0e0305',    // Deep maroon-black — dignified
+    lineColor:  '#c8960c',    // Warm antique gold (not neon yellow)
+    lineOpacity: 45,          // Slightly subtler grid
+    colors: [
+        '#d4af37',  // Antique gold
+        '#c8960c',  // Dark gold
+        '#8b1a1a',  // Deep temple maroon
+        '#e08a00',  // Warm saffron
+        '#a07820',  // Dull gold
+        '#6d071a',  // Deep maroon
+        '#b8860b',  // Dark goldenrod
+    ],
     grid:    4,
-    speed:   75,
-    boost:   280,
-    fade:    92
+    speed:   65,     // Slightly slower — more contemplative
+    boost:   240,
+    fade:    90
 };
 
 const TUNNEL_W        = 2.4;

@@ -1,61 +1,130 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 280" width="240" height="280">
   <defs>
-    <linearGradient id="clayGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#e65100"/>
-      <stop offset="40%" stop-color="#bf360c"/>
-      <stop offset="80%" stop-color="#870000"/>
-      <stop offset="100%" stop-color="#4e0d00"/>
+    <!-- Clay body gradient — terracotta traditional -->
+    <linearGradient id="clayBody" x1="10%" y1="0%" x2="90%" y2="100%">
+      <stop offset="0%"   stop-color="#c97040"/>
+      <stop offset="35%"  stop-color="#a8522a"/>
+      <stop offset="70%"  stop-color="#7d3318"/>
+      <stop offset="100%" stop-color="#4a1c08"/>
     </linearGradient>
+    <linearGradient id="clayHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%"   stop-color="#e88040" stop-opacity="0.7"/>
+      <stop offset="50%"  stop-color="#f0a060" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#e88040" stop-opacity="0.7"/>
+    </linearGradient>
+    <!-- Gold rim -->
     <linearGradient id="goldRim" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#ffd700"/>
-      <stop offset="50%" stop-color="#fff59d"/>
-      <stop offset="100%" stop-color="#f57f17"/>
+      <stop offset="0%"   stop-color="#b8860b"/>
+      <stop offset="30%"  stop-color="#ffd700"/>
+      <stop offset="60%"  stop-color="#ffe566"/>
+      <stop offset="100%" stop-color="#c8a000"/>
     </linearGradient>
-    <radialGradient id="flameGrad" cx="50%" cy="80%" r="70%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="25%" stop-color="#fff59d"/>
-      <stop offset="55%" stop-color="#ff9800"/>
-      <stop offset="85%" stop-color="#f44336"/>
-      <stop offset="100%" stop-color="#d50000" stop-opacity="0"/>
+    <!-- Oil surface inside bowl -->
+    <radialGradient id="oilSurface" cx="50%" cy="40%" r="55%">
+      <stop offset="0%"   stop-color="#c8960c" stop-opacity="0.8"/>
+      <stop offset="60%"  stop-color="#4e1c00" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#1a0800"/>
     </radialGradient>
-    <filter id="flameGlow" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    <!-- Flame outer -->
+    <radialGradient id="flameOuter" cx="50%" cy="85%" r="60%">
+      <stop offset="0%"   stop-color="#ffffff"/>
+      <stop offset="15%"  stop-color="#fff9c4"/>
+      <stop offset="40%"  stop-color="#ffb300"/>
+      <stop offset="70%"  stop-color="#e65100"/>
+      <stop offset="100%" stop-color="#b71c1c" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Flame inner core -->
+    <radialGradient id="flameCore" cx="50%" cy="80%" r="50%">
+      <stop offset="0%"   stop-color="#ffffff"/>
+      <stop offset="40%"  stop-color="#fff9c4"/>
+      <stop offset="100%" stop-color="#ff9800" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Glow filter -->
+    <filter id="flameGlow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="bodyGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
 
-  <!-- Diya Base (Clay Lamp) -->
-  <g transform="translate(0, 20)">
-    <!-- Base Shadow -->
-    <ellipse cx="100" cy="155" rx="55" ry="12" fill="rgba(0,0,0,0.3)"/>
-    
-    <!-- Bowl Body -->
-    <path d="M 30,110 Q 30,150 100,150 Q 170,150 170,110 Q 150,130 100,130 Q 50,130 30,110 Z" fill="url(#clayGrad)"/>
-    <ellipse cx="100" cy="110" rx="70" ry="16" fill="#bf360c" stroke="url(#goldRim)" stroke-width="3"/>
-    <ellipse cx="100" cy="110" rx="60" ry="11" fill="#4e0d00"/>
-    
-    <!-- Golden Motifs on Bowl -->
-    <circle cx="100" cy="138" r="4" fill="#ffd700"/>
-    <circle cx="75" cy="133" r="3.5" fill="#ffd700"/>
-    <circle cx="125" cy="133" r="3.5" fill="#ffd700"/>
-    <circle cx="55" cy="124" r="3" fill="#ffd700"/>
-    <circle cx="145" cy="124" r="3" fill="#ffd700"/>
-    
-    <!-- Wick -->
-    <path d="M 100,105 Q 102,90 98,80" stroke="#212121" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- Drop shadow -->
+  <ellipse cx="120" cy="268" rx="52" ry="8" fill="rgba(0,0,0,0.28)"/>
+
+  <!-- Diya clay body -->
+  <g filter="url(#bodyGlow)">
+    <!-- Main bowl shape -->
+    <path d="M 42,168 Q 38,210 120,218 Q 202,210 198,168 Q 175,190 120,193 Q 65,190 42,168 Z"
+          fill="url(#clayBody)"/>
+    <!-- Bowl top ellipse (rim) -->
+    <ellipse cx="120" cy="168" rx="78" ry="19" fill="url(#clayBody)"/>
+    <!-- Highlight on rim -->
+    <ellipse cx="120" cy="162" rx="60" ry="8" fill="url(#clayHighlight)" opacity="0.55"/>
+    <!-- Gold rim line -->
+    <ellipse cx="120" cy="168" rx="78" ry="19"
+             fill="none" stroke="url(#goldRim)" stroke-width="3.5"/>
+
+    <!-- Spout (beak at right) -->
+    <path d="M 188,160 Q 210,150 218,148 Q 215,162 196,172 Z"
+          fill="url(#clayBody)" stroke="url(#goldRim)" stroke-width="1.5"/>
+
+    <!-- Oil surface inside bowl -->
+    <ellipse cx="120" cy="168" rx="68" ry="14" fill="url(#oilSurface)"/>
+
+    <!-- Traditional painted band — gold dots row -->
+    <g fill="#d4af37" opacity="0.85">
+      <circle cx="85"  cy="200" r="3.5"/>
+      <circle cx="100" cy="204" r="3.5"/>
+      <circle cx="120" cy="206" r="3.5"/>
+      <circle cx="140" cy="204" r="3.5"/>
+      <circle cx="155" cy="200" r="3.5"/>
+    </g>
+    <!-- Small triangular decorative marks -->
+    <g fill="none" stroke="#d4af37" stroke-width="1.5" opacity="0.65">
+      <path d="M 70,186 L 74,178 L 78,186 Z"/>
+      <path d="M 162,186 L 166,178 L 170,186 Z"/>
+    </g>
   </g>
 
-  <!-- Glowing Flame -->
+  <!-- Wick -->
+  <path d="M 120,163 Q 122,148 119,136"
+        stroke="#3e2010" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+  <!-- Wick charred tip -->
+  <circle cx="119" cy="134" r="3" fill="#1a0800"/>
+
+  <!-- Flame — animated, layered -->
   <g filter="url(#flameGlow)">
-    <path d="M 100,30 C 85,65 75,85 82,102 C 87,112 113,112 118,102 C 125,85 115,65 100,30 Z" fill="url(#flameGrad)">
-      <animate attributeName="d" 
-        values="M 100,30 C 85,65 75,85 82,102 C 87,112 113,112 118,102 C 125,85 115,65 100,30 Z;
-                M 101,25 C 83,62 76,87 84,103 C 89,113 115,111 117,101 C 122,83 117,62 101,25 Z;
-                M 99,32 C 87,67 74,83 80,101 C 85,111 111,113 119,103 C 127,87 113,67 99,32 Z;
-                M 100,30 C 85,65 75,85 82,102 C 87,112 113,112 118,102 C 125,85 115,65 100,30 Z"
-        dur="2s" repeatCount="indefinite"/>
+    <!-- Outer haze / aura -->
+    <ellipse cx="119" cy="110" rx="24" ry="38" fill="#ff6600" opacity="0.12"/>
+
+    <!-- Main flame body -->
+    <path d="M 119,38 C 100,72 92,100 98,120 C 103,133 135,133 140,120 C 146,100 138,72 119,38 Z"
+          fill="url(#flameOuter)">
+      <animate attributeName="d"
+        values="M 119,38 C 100,72 92,100 98,120 C 103,133 135,133 140,120 C 146,100 138,72 119,38 Z;
+                M 120,33 C 99,70 94,102 100,121 C 105,134 136,132 140,119 C 144,99 139,68 120,33 Z;
+                M 118,40 C 102,74 90,98 96,119 C 101,132 134,134 141,121 C 148,102 136,74 118,40 Z;
+                M 119,38 C 100,72 92,100 98,120 C 103,133 135,133 140,120 C 146,100 138,72 119,38 Z"
+        dur="2.4s" repeatCount="indefinite"/>
     </path>
-    <!-- Inner bright white flame core -->
-    <path d="M 100,60 C 93,80 90,92 93,98 C 96,102 104,102 107,98 C 110,92 107,80 100,60 Z" fill="#ffffff" opacity="0.9"/>
+
+    <!-- Inner bright core -->
+    <path d="M 119,72 C 110,90 107,106 110,118 C 113,126 126,126 128,118 C 132,106 128,90 119,72 Z"
+          fill="url(#flameCore)" opacity="0.9">
+      <animate attributeName="d"
+        values="M 119,72 C 110,90 107,106 110,118 C 113,126 126,126 128,118 C 132,106 128,90 119,72 Z;
+                M 120,68 C 111,88 109,108 112,119 C 115,127 127,125 129,117 C 131,105 129,86 120,68 Z;
+                M 118,74 C 109,92 106,104 109,117 C 112,125 125,127 128,119 C 133,107 127,92 118,74 Z;
+                M 119,72 C 110,90 107,106 110,118 C 113,126 126,126 128,118 C 132,106 128,90 119,72 Z"
+        dur="2.4s" repeatCount="indefinite"/>
+    </path>
+
+    <!-- White hot tip -->
+    <ellipse cx="119" cy="52" rx="5" ry="8" fill="white" opacity="0.9"/>
   </g>
 </svg>
