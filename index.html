@@ -4,25 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Happy Raksha Bandhan 🪔 | A Sacred Sibling Tribute</title>
-    <meta name="description" content="A 3D interactive Raksha Bandhan gift experience celebrating the sacred bond of love, laughter, and lifelong protection between brother and sister.">
+    <meta name="description" content="A cinematic 3D interactive Raksha Bandhan gift celebrating the sacred bond of love, laughter, and lifelong protection between brother and sister.">
+    <meta name="theme-color" content="#0d0205">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Kalam:wght@400;700&family=Outfit:wght@300;400;600;700;800;900&family=Rozha+One&family=Yatra+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@400;700;900&family=Kalam:wght@400;700&family=Outfit:wght@300;400;600;700;800;900&family=Rozha+One&family=Yatra+One&display=swap" rel="stylesheet">
 
-    <!-- CSS Design System -->
+    <!-- Design System -->
     <link rel="stylesheet" href="css/styles.css">
 
-    <!-- Libraries -->
-    <!-- Three.js for 3D Memory Tunnel -->
+    <!-- Three.js r128 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Config Engine (LZ-String + Data Loader) -->
     <script src="js/config.js"></script>
+
+    <!-- Deferred Modules -->
     <script src="js/tunnel.js" defer></script>
     <script src="js/thali-builder.js" defer></script>
     <script src="js/rakhi-ceremony.js" defer></script>
 
-    <!-- StringTune for Kinetic Scroll Text -->
+    <!-- StringTune Kinetic Scroll -->
     <script src="https://unpkg.com/@fiddle-digital/string-tune@1.2.1/dist/index.js"></script>
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -32,12 +36,23 @@
     <!-- Confetti Canvas -->
     <canvas id="confetti-canvas"></canvas>
 
+    <!-- Ambient Background Mandalas (decorative, CSS-animated) -->
+    <img src="assets/images/ornaments/mandala.svg" class="ambient-mandala"
+         style="width:520px;top:5%;right:-120px;animation-duration:90s;"
+         alt="" aria-hidden="true">
+    <img src="assets/images/ornaments/mandala.svg" class="ambient-mandala"
+         style="width:380px;bottom:-80px;left:-100px;animation-duration:70s;animation-direction:reverse;"
+         alt="" aria-hidden="true">
+
+    <!-- Golden Sparkle Particle Container -->
+    <div id="sparkle-container" style="position:fixed;inset:0;pointer-events:none;z-index:9;"></div>
+
     <!-- Top Traditional Toran Garland -->
-    <div class="top-toran"></div>
+    <div class="top-toran" aria-hidden="true"></div>
 
     <!-- Kinetic Scroll Container (StringTune) -->
     <div class="-w" id="scroll-container">
-        <div class="start" style="height: 40vh;"></div>
+        <div class="start" style="height:45vh;"></div>
         <div class="row row-1" string="progress" string-enter-vp="top" string-exit-vp="top">
             <div><span string="split" string-split="char|fit" id="kinetic-row-1">MY FIRST FRIEND</span></div>
         </div>
@@ -50,20 +65,24 @@
         <div class="row row-4 row-hindi" string="progress" string-enter-vp="top" string-exit-vp="top">
             <div><span string="split" string-split="char|fit" id="kinetic-row-4">भाई-बहन का अटूट प्यार 🪔</span></div>
         </div>
-        <div class="end" style="height: 60vh;"></div>
+        <div class="end" style="height:65vh;"></div>
     </div>
 
-    <!-- Main Container Fixed During Viewport Interactions -->
+    <!-- Main Fixed Container -->
     <main id="app-container">
 
-        <!-- SCREEN 0: 3D Memory Gallery Tunnel Loading -->
+        <!-- ══════════════════════════════════════════════════════
+             SCREEN 0 — 3D Sacred Memory Tunnel (Three.js)
+        ══════════════════════════════════════════════════════ -->
         <section id="screen-0" class="screen active"></section>
 
-        <!-- SCREEN 1: Parallax Hero & Storytelling Entry -->
+        <!-- ══════════════════════════════════════════════════════
+             SCREEN 1 — Parallax Hero & Storytelling Entry
+        ══════════════════════════════════════════════════════ -->
         <section id="screen-1" class="screen">
             <div class="true-parallax-container" id="parallax-container">
-                
-                <!-- Background Ambient Marquee & Glow -->
+
+                <!-- Ambient Marquee Background -->
                 <div class="parallax-layer layer-bg">
                     <div class="marquee-bg">
                         <div class="marquee-band tilt-left">
@@ -73,7 +92,7 @@
                             </div>
                         </div>
                         <div class="marquee-band tilt-right">
-                            <div class="marquee-text">
+                            <div class="marquee-text" style="animation-direction:reverse;animation-duration:28s;">
                                 <span class="marquee-span">🪔 UNBREAKABLE SIBLING LOVE • FOREVER BEST FRIENDS • MY DEAREST SISTER • </span>
                                 <span class="marquee-span">🪔 UNBREAKABLE SIBLING LOVE • FOREVER BEST FRIENDS • MY DEAREST SISTER • </span>
                             </div>
@@ -81,13 +100,17 @@
                     </div>
                 </div>
 
-                <!-- Hero Zone: Rotating Mandala Halo & Sister's Portrait -->
+                <!-- Hero: Rotating Mandala Halo & Sister Portrait -->
                 <div class="parallax-layer layer-hero" id="hero-layer">
                     <div class="hero-zone">
                         <div class="mandala-halo-container">
-                            <img src="assets/images/ornaments/mandala.svg" alt="Auspicious Mandala" class="mandala-bg">
+                            <!-- Outer rotating mandala -->
+                            <img src="assets/images/ornaments/mandala.svg" alt="" class="mandala-bg" aria-hidden="true">
+                            <!-- Inner counter-rotating mandala -->
+                            <img src="assets/images/ornaments/mandala.svg" alt="" class="mandala-bg-inner" aria-hidden="true">
                             <div class="hero-portrait-frame">
-                                <img src="assets/images/demo/portrait.svg" alt="Sister Portrait" class="hero-portrait-img" id="hero-portrait-img">
+                                <img src="assets/images/demo/portrait.svg" alt="Sister Portrait"
+                                     class="hero-portrait-img" id="hero-portrait-img">
                             </div>
                         </div>
                         <h1 class="hero-headline" id="hero-title-text">HAPPY RAKSHA BANDHAN</h1>
@@ -95,7 +118,7 @@
                     </div>
                 </div>
 
-                <!-- Scroll Down Cue -->
+                <!-- Scroll Cue -->
                 <div class="layer-scroll" id="scroll-prompt">
                     <div class="scroll-prompt-content">
                         <p>SCROLL TO ENTER SISTER'S WORLD</p>
@@ -103,10 +126,10 @@
                     </div>
                 </div>
 
-                <!-- Bottom 3D Gift Box Button -->
+                <!-- 3D Gift Box — bottom finale -->
                 <div class="layer-finale" id="finale-box-layer">
-                    <div class="gift-shake" id="btn-open-gift-box">
-                        <span class="gift-emoji">🎁</span>
+                    <div class="gift-shake" id="btn-open-gift-box" role="button" aria-label="Open Rakhi Gift">
+                        <span class="gift-emoji" aria-hidden="true">🎁</span>
                         <p class="gift-label">Open Your Rakhi Surprise 🪔</p>
                     </div>
                 </div>
@@ -114,13 +137,15 @@
             </div>
         </section>
 
-        <!-- SCREEN 2: Sibling Banter & Runaway NO Button -->
+        <!-- ══════════════════════════════════════════════════════
+             SCREEN 2 — Sibling Banter & Runaway NO Button
+        ══════════════════════════════════════════════════════ -->
         <section id="screen-2" class="screen">
             <div class="festive-card">
                 <h1 class="card-title">PLEASE ACCEPT<br>MY RAKHI GIFT 🪔</h1>
-                <p class="card-subtitle">With all my love, blessings & lifelong promises</p>
-                
-                <div class="cute-character" id="pleading-emoji">🥺</div>
+                <p class="card-subtitle">With all my love, blessings &amp; lifelong promises</p>
+
+                <div class="cute-character" id="pleading-emoji" aria-hidden="true">🥺</div>
 
                 <div class="decision-buttons">
                     <button class="festive-btn festive-btn-gold" id="btn-yes">YES, ACCEPT! ❤️</button>
@@ -129,9 +154,11 @@
             </div>
         </section>
 
-        <!-- SCREEN 3: Sibling Gift Selection Hub -->
+        <!-- ══════════════════════════════════════════════════════
+             SCREEN 3 — Sibling Gift Selection Hub
+        ══════════════════════════════════════════════════════ -->
         <section id="screen-3" class="screen">
-            <div class="festive-card" style="max-width: 780px;">
+            <div class="festive-card" style="max-width:820px;">
                 <h1 class="card-title">CHOOSE A CELEBRATION 🪔</h1>
                 <p class="card-subtitle">Select any auspicious gift to open!</p>
 
@@ -139,7 +166,7 @@
                     <div class="hub-item" data-action="letter">
                         <span class="hub-icon">💌</span>
                         <h3 class="hub-title">Prem Patra</h3>
-                        <p class="hub-desc">Wax-sealed letter & childhood polaroid scrapbook</p>
+                        <p class="hub-desc">Wax-sealed letter &amp; childhood polaroid scrapbook</p>
                     </div>
                     <div class="hub-item" data-action="thali">
                         <span class="hub-icon">🍬</span>
@@ -149,28 +176,30 @@
                     <div class="hub-item" data-action="wheel">
                         <span class="hub-icon">🎡</span>
                         <h3 class="hub-title">Promise Wheel</h3>
-                        <p class="hub-desc">Spin the sacred wheel for sibling vows & treats</p>
+                        <p class="hub-desc">Spin the sacred wheel for sibling vows &amp; treats</p>
                     </div>
                     <div class="hub-item" data-action="ceremony">
                         <span class="hub-icon">🪔</span>
                         <h3 class="hub-title">Virtual Rakhi</h3>
-                        <p class="hub-desc">Tie the designer Rakhi with Aarti & blessings</p>
+                        <p class="hub-desc">Tie the designer Rakhi with Aarti &amp; Sanskrit blessings</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SCREEN 4A: Prem Patra Envelope -->
+        <!-- ══════════════════════════════════════════════════════
+             SCREEN 4A — Prem Patra Envelope
+        ══════════════════════════════════════════════════════ -->
         <section id="screen-letter" class="screen">
             <button class="festive-btn festive-btn-outline back-btn-corner" id="btn-back-envelope">← Back</button>
-            <div class="festive-card" style="max-width: 500px;">
-                <h1 class="card-title">A LETTER FROM THE HEART</h1>
+            <div class="festive-card" style="max-width:520px;">
+                <h1 class="card-title">A LETTER FROM THE HEART 💌</h1>
                 <p class="card-subtitle">Tap the golden seal to open</p>
 
-                <div class="envelope-wrapper" id="envelope-wrapper">
+                <div class="envelope-wrapper" id="envelope-wrapper" role="button" aria-label="Open envelope">
                     <div class="envelope" id="envelope-box">
                         <div class="envelope-flap"></div>
-                        <div class="envelope-seal">
+                        <div class="envelope-seal" aria-hidden="true">
                             <span class="seal-emblem">🪔</span>
                         </div>
                         <div class="envelope-label" id="envelope-sister-name">Dearest Sister ❤️</div>
@@ -179,33 +208,33 @@
             </div>
         </section>
 
-        <!-- SCREEN 4B: Read Letter (Scrapbook with Moli Polaroids) -->
+        <!-- ══════════════════════════════════════════════════════
+             SCREEN 4B — Prem Patra Scrapbook & Polaroids
+        ══════════════════════════════════════════════════════ -->
         <section id="screen-read-letter" class="screen">
             <button class="festive-btn festive-btn-outline back-btn-corner" id="btn-back-scrapbook">← Back</button>
-            
+
             <div class="scrapbook-container">
                 <!-- Left Polaroids -->
                 <div class="scrap-col scrap-col-left">
-                    <div class="polaroid-card float-up" style="transform: rotate(-6deg);">
+                    <div class="polaroid-card float-up" style="transform:rotate(-6deg);">
                         <div class="moli-corner moli-tl"></div>
                         <div class="moli-corner moli-tr"></div>
-                        <img src="assets/images/demo/img1.svg" alt="Memory 1" class="polaroid-img p-img-1">
+                        <img src="assets/images/demo/img1.svg" alt="Our Memory 1" class="polaroid-img p-img-1">
                     </div>
-                    <div class="polaroid-card float-up" style="transform: rotate(4deg);">
+                    <div class="polaroid-card float-up" style="transform:rotate(5deg);animation-delay:0.15s;">
                         <div class="moli-corner moli-tl"></div>
                         <div class="moli-corner moli-tr"></div>
-                        <img src="assets/images/demo/img2.svg" alt="Memory 2" class="polaroid-img p-img-2">
+                        <img src="assets/images/demo/img2.svg" alt="Our Memory 2" class="polaroid-img p-img-2">
                     </div>
                 </div>
 
                 <!-- Center Royal Parchment Letter -->
                 <div class="scrap-col scrap-col-center">
-                    <div class="parchment-letter float-up">
+                    <div class="parchment-letter float-up" style="animation-delay:0.08s;">
                         <h2 id="letter-salutation">Dearest Ananya Didi,</h2>
                         <h3 id="letter-heading">Happy Raksha Bandhan, my favorite crime partner! 🪔❤️</h3>
-                        <div id="letter-paragraphs">
-                            <!-- Injected dynamically from RakhiConfig -->
-                        </div>
+                        <div id="letter-paragraphs"></div>
                         <div class="parchment-signature" id="letter-signature">
                             Forever your loving Bhai, Aarav ❤️
                         </div>
@@ -214,85 +243,85 @@
 
                 <!-- Right Polaroids -->
                 <div class="scrap-col scrap-col-right">
-                    <div class="polaroid-card float-up" style="transform: rotate(8deg);">
+                    <div class="polaroid-card float-up" style="transform:rotate(7deg);animation-delay:0.2s;">
                         <div class="moli-corner moli-tl"></div>
                         <div class="moli-corner moli-tr"></div>
-                        <img src="assets/images/demo/img3.svg" alt="Memory 3" class="polaroid-img p-img-3">
+                        <img src="assets/images/demo/img3.svg" alt="Our Memory 3" class="polaroid-img p-img-3">
                     </div>
-                    <div class="polaroid-card float-up" style="transform: rotate(-5deg);">
+                    <div class="polaroid-card float-up" style="transform:rotate(-4deg);animation-delay:0.3s;">
                         <div class="moli-corner moli-tl"></div>
                         <div class="moli-corner moli-tr"></div>
-                        <img src="assets/images/demo/img4.svg" alt="Memory 4" class="polaroid-img p-img-4">
+                        <img src="assets/images/demo/img4.svg" alt="Our Memory 4" class="polaroid-img p-img-4">
                     </div>
                 </div>
             </div>
 
-            <button class="festive-btn festive-btn-gold" id="btn-next-scrapbook" style="position: fixed; bottom: 25px; right: 25px; z-index: 60;">
+            <button class="festive-btn festive-btn-gold" id="btn-next-scrapbook"
+                    style="position:fixed;bottom:28px;right:28px;z-index:60;">
                 Next Surprise ➡️
             </button>
         </section>
 
-        <!-- SCREEN 5A: Mithai Thali Builder -->
+        <!-- ══════════════════════════════════════════════════════
+             SCREEN 5A — Mithai Thali Builder
+        ══════════════════════════════════════════════════════ -->
         <section id="screen-thali" class="screen">
             <button class="festive-btn festive-btn-outline back-btn-corner" id="btn-back-thali">← Back</button>
-            <div class="festive-card" style="max-width: 850px;">
+            <div class="festive-card" style="max-width:900px;">
                 <h1 class="card-title">MITHAI THALI BUILDER 🍬</h1>
-                <p class="card-subtitle">Choose traditional sweets & Diya for the puja thali!</p>
+                <p class="card-subtitle">Choose traditional sweets &amp; Diya for the puja thali!</p>
 
                 <div class="thali-workspace">
-                    <!-- The Brass Thali Canvas -->
                     <div class="thali-dish-container">
-                        <img src="assets/images/sweets/thali.svg" alt="Brass Thali" class="thali-dish-bg">
+                        <img src="assets/images/sweets/thali.svg" alt="Brass Puja Thali" class="thali-dish-bg">
                         <div class="thali-platter-items" id="thali-platter-items"></div>
                     </div>
-
-                    <!-- Sweet Options Selection Grid -->
                     <div class="sweet-options-grid" id="sweet-options"></div>
                 </div>
 
-                <button class="festive-btn festive-btn-gold" id="btn-serve-thali" style="margin-top: 30px;">
+                <button class="festive-btn festive-btn-gold" id="btn-serve-thali" style="margin-top:32px;">
                     Serve Thali With Love 🪔
                 </button>
             </div>
         </section>
 
-        <!-- SCREEN 5B: Mithai Thali Served Celebration -->
+        <!-- ══════════════════════════════════════════════════════
+             SCREEN 5B — Mithai Thali Served!
+        ══════════════════════════════════════════════════════ -->
         <section id="screen-thali-serve" class="screen">
             <button class="festive-btn festive-btn-outline back-btn-corner" id="btn-back-thali-serve">← Back</button>
-            <div class="festive-card" style="max-width: 600px;">
+            <div class="festive-card" style="max-width:620px;">
                 <div id="thali-custom-msg">
                     <h1 class="card-title">SHUBH RAKSHA BANDHAN 🪔</h1>
                 </div>
-
-                <div class="thali-dish-container" style="margin: 25px auto; width: 280px; height: 280px;">
-                    <img src="assets/images/sweets/thali.svg" alt="Brass Thali" class="thali-dish-bg">
+                <div class="thali-dish-container" style="margin:28px auto;width:280px;height:280px;">
+                    <img src="assets/images/sweets/thali.svg" alt="Served Brass Thali" class="thali-dish-bg">
                     <div class="thali-platter-items" id="thali-serve-items"></div>
                 </div>
-
-                <button class="festive-btn festive-btn-gold" id="btn-next-thali-celebrate" style="margin-top: 15px;">
+                <button class="festive-btn festive-btn-gold" id="btn-next-thali-celebrate" style="margin-top:18px;">
                     Next Surprise ➡️
                 </button>
             </div>
         </section>
 
-        <!-- SCREEN 6: Sibling Promise Wheel -->
+        <!-- ══════════════════════════════════════════════════════
+             SCREEN 6 — Sibling Promise Wheel
+        ══════════════════════════════════════════════════════ -->
         <section id="screen-wheel" class="screen">
             <button class="festive-btn festive-btn-outline back-btn-corner" id="btn-back-wheel">← Back</button>
-            <div class="festive-card" style="max-width: 580px;">
+            <div class="festive-card" style="max-width:600px;">
                 <h1 class="card-title">SIBLING PROMISE WHEEL 🎡</h1>
-                <p class="card-subtitle">Spin the wheel to win a special brotherly promise!</p>
+                <p class="card-subtitle">Spin the wheel to win a sacred brotherly promise!</p>
 
                 <div class="wheel-stage">
-                    <div class="wheel-pointer">▼</div>
-                    <div class="spin-wheel" id="spin-wheel">
-                        <div class="wheel-slice-labels" id="wheel-slice-labels">
-                            <!-- Injected dynamically -->
-                        </div>
+                    <div class="wheel-pointer" aria-hidden="true">▼</div>
+                    <div class="spin-wheel" id="spin-wheel" role="img" aria-label="Promise Wheel">
+                        <div class="wheel-slice-labels" id="wheel-slice-labels"></div>
                         <div class="wheel-hub-center"></div>
                     </div>
                 </div>
 
-                <button class="festive-btn festive-btn-gold" id="btn-spin-wheel" style="margin-top: 10px;">
+                <button class="festive-btn festive-btn-gold" id="btn-spin-wheel" style="margin-top:12px;">
                     SPIN THE WHEEL! ✨
                 </button>
 
@@ -300,30 +329,29 @@
                     <div class="wheel-result-banner" id="wheel-result-text"></div>
                 </div>
 
-                <button class="festive-btn festive-btn-gold hidden" id="btn-next-wheel" style="position: fixed; bottom: 25px; right: 25px; z-index: 60;">
+                <button class="festive-btn festive-btn-gold hidden" id="btn-next-wheel"
+                        style="position:fixed;bottom:28px;right:28px;z-index:60;">
                     Next Surprise ➡️
                 </button>
             </div>
         </section>
 
-        <!-- SCREEN 7: Virtual Rakhi Tying Ceremony -->
+        <!-- ══════════════════════════════════════════════════════
+             SCREEN 7 — Virtual Rakhi Tying Ceremony
+        ══════════════════════════════════════════════════════ -->
         <section id="screen-ceremony" class="screen">
             <button class="festive-btn festive-btn-outline back-btn-corner" id="btn-back-ceremony">← Back</button>
-            <div class="festive-card" style="max-width: 620px;">
+            <div class="festive-card" style="max-width:640px;">
                 <h1 class="card-title">VIRTUAL RAKHI CEREMONY 🪔</h1>
                 <p class="card-subtitle" id="ceremony-prompt">Click or tap the Designer Rakhi to tie it on the wrist!</p>
 
                 <div class="ceremony-stage">
-                    <!-- Aarti Orbit Ring -->
                     <div class="aarti-diya-orbit" id="aarti-diya-orbit">
                         <img src="assets/images/ornaments/diya.svg" alt="Aarti Diya" class="aarti-diya-icon">
                     </div>
-
-                    <!-- Wrist -->
                     <div class="wrist-canvas" id="wrist-target"></div>
-
-                    <!-- Designer Kundan Rakhi -->
-                    <img src="assets/images/rakhis/kundan-rakhi.svg" alt="Kundan Rakhi" class="rakhi-draggable" id="rakhi-draggable">
+                    <img src="assets/images/rakhis/kundan-rakhi.svg" alt="Kundan Rakhi"
+                         class="rakhi-draggable" id="rakhi-draggable">
                 </div>
 
                 <button class="festive-btn festive-btn-gold" id="btn-tie-rakhi">
@@ -332,39 +360,43 @@
 
                 <div id="ceremony-blessing"></div>
 
-                <button class="festive-btn festive-btn-gold hidden" id="btn-next-ceremony" style="position: fixed; bottom: 25px; right: 25px; z-index: 60;">
+                <button class="festive-btn festive-btn-gold hidden" id="btn-next-ceremony"
+                        style="position:fixed;bottom:28px;right:28px;z-index:60;">
                     Grand Finale ➡️
                 </button>
             </div>
         </section>
 
-        <!-- SCREEN 8: Grand Finale & Musical Tribute -->
+        <!-- ══════════════════════════════════════════════════════
+             SCREEN 8 — Grand Finale & Musical Tribute
+        ══════════════════════════════════════════════════════ -->
         <section id="screen-finale" class="screen">
-            <!-- Diya Bokeh Container -->
-            <div id="finale-bokeh" style="position: absolute; inset: 0; pointer-events: none;"></div>
+            <!-- Diya Bokeh Particles -->
+            <div id="finale-bokeh" style="position:absolute;inset:0;pointer-events:none;overflow:hidden;"></div>
 
             <div class="finale-container">
-                <!-- Center Photo Carousel -->
+                <!-- Sister Portrait with Halo -->
                 <div class="finale-portrait-frame">
                     <div class="finale-halo-ring"></div>
-                    <img src="assets/images/demo/portrait.svg" alt="Sister" class="finale-portrait" id="finale-portrait-img">
+                    <img src="assets/images/demo/portrait.svg" alt="Sister"
+                         class="finale-portrait" id="finale-portrait-img">
                 </div>
 
-                <h1 class="finale-headline" id="finale-headline-text">HAPPY RAKSHA BANDHAN</h1>
-                <p class="finale-subheading" id="finale-subheading-text">"A bond of sacred protection & endless love"</p>
+                <h1 class="finale-headline" id="finale-headline-text">HAPPY RAKSHA BANDHAN 🪔</h1>
+                <p class="finale-subheading" id="finale-subheading-text">"A bond of sacred protection &amp; endless love"</p>
 
-                <!-- Music Player Bar -->
+                <!-- Audio Player -->
                 <div class="music-player-bar">
                     <div class="music-left">
                         <div class="vinyl-record" id="vinyl-disc">
-                            <span style="font-size: 1.2rem;">🪔</span>
+                            <span aria-hidden="true" style="font-size:1.3rem;">🪔</span>
                         </div>
                         <div class="music-meta">
                             <h4 id="music-title-text">Festive Rakhi Melody</h4>
-                            <p id="music-artist-text">Bansuri & Shehnai Special</p>
+                            <p id="music-artist-text">Bansuri &amp; Shehnai Special</p>
                         </div>
                     </div>
-                    <div class="music-play-btn" id="btn-play-music">
+                    <div class="music-play-btn" id="btn-play-music" role="button" aria-label="Play Music">
                         <span id="play-icon">▶</span>
                     </div>
                 </div>
@@ -374,8 +406,9 @@
                     <button class="festive-btn festive-btn-gold" id="btn-share-whatsapp">
                         📲 Share on WhatsApp
                     </button>
-                    <a href="customize.html" class="festive-btn festive-btn-maroon" id="btn-create-custom" style="text-decoration: none;">
-                        ✨ Create Your Gift Link
+                    <a href="customize.html" class="festive-btn festive-btn-maroon" id="btn-create-custom"
+                       style="text-decoration:none;">
+                        ✨ Create Gift Link
                     </a>
                     <button class="festive-btn festive-btn-outline" id="btn-replay">
                         ✦ Play Again ✦
@@ -383,7 +416,7 @@
                 </div>
             </div>
 
-            <!-- Audio Element -->
+            <!-- Audio -->
             <audio id="festive-audio" loop preload="auto">
                 <source src="assets/audio/song.mp3" type="audio/mpeg">
             </audio>
@@ -391,7 +424,7 @@
 
     </main>
 
-    <!-- Core Script Controller -->
+    <!-- Core Script -->
     <script src="js/script.js" defer></script>
 </body>
 </html>

@@ -1,7 +1,49 @@
 /**
- * script.js
- * Main Interaction & Screen Router Controller for Raksha Bandhan 3D Web Experience
+ * script.js  — SUPREME v2.0
+ * Main Interaction & Screen Router for Raksha Bandhan 3D Web Experience
+ * Includes: Golden cursor sparkles · Ambient twinkling · Enhanced scroll physics
  */
+
+/* ── Golden Cursor Sparkles ───────────────────────────────────────── */
+(function() {
+    const container = document.getElementById('sparkle-container');
+    if (!container) return;
+    document.addEventListener('mousemove', (e) => {
+        if (Math.random() > 0.35) return; // throttle
+        const el = document.createElement('div');
+        el.className = 'sparkle';
+        const size = Math.random() * 8 + 4;
+        el.style.cssText = `
+            left:${e.clientX - size/2}px;
+            top:${e.clientY - size/2}px;
+            width:${size}px;height:${size}px;
+            background:${Math.random() > 0.5 ? '#ffd700' : '#ff9800'};
+            box-shadow:0 0 ${size*2}px ${Math.random() > 0.5 ? '#ffd700' : '#ff9800'};
+        `;
+        container.appendChild(el);
+        setTimeout(() => el.remove(), 1000);
+    });
+})();
+
+/* ── Ambient Background Twinkle ───────────────────────────────────── */
+(function() {
+    setInterval(() => {
+        const container = document.getElementById('sparkle-container');
+        if (!container) return;
+        const el = document.createElement('div');
+        el.className = 'sparkle';
+        const size = Math.random() * 5 + 2;
+        el.style.cssText = `
+            left:${Math.random()*100}vw;
+            top:${Math.random()*100}vh;
+            width:${size}px;height:${size}px;
+            background:#ffd700;
+            box-shadow:0 0 12px #ffd700;
+        `;
+        container.appendChild(el);
+        setTimeout(() => el.remove(), 900);
+    }, 220);
+})();
 
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. Load Dynamic Config from URL Hash (#data=...), JSON (?g=...), or Demo Defaults
@@ -127,21 +169,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.isTunnelActive = false;
     }
 
-    // --- Falling Marigold Petals Rain ---
+    // --- Falling Marigold Petals Rain (dual types) ---
     function spawnMarigoldPetals() {
         const container = document.getElementById('parallax-container');
         if (!container) return;
-        for (let i = 0; i < 22; i++) {
+        for (let i = 0; i < 35; i++) {
             const petal = document.createElement('div');
-            petal.className = 'marigold-petal';
-            const size = 10 + Math.random() * 12;
+            petal.className = `marigold-petal type-${Math.random() > 0.5 ? 'a' : 'b'}`;
+            const size = 8 + Math.random() * 14;
             petal.style.cssText = `
                 left: ${Math.random() * 100}%;
                 top: -30px;
                 width: ${size}px;
                 height: ${size}px;
-                animation-duration: ${5 + Math.random() * 6}s;
-                animation-delay: ${Math.random() * 7}s;
+                animation-duration: ${6 + Math.random() * 8}s;
+                animation-delay: ${Math.random() * 10}s;
             `;
             container.appendChild(petal);
         }
@@ -578,15 +620,21 @@ function applyConfigToDOM(cfg) {
     if (musicArtist && cfg.musicArtist) musicArtist.innerText = cfg.musicArtist;
 }
 
-// Global Confetti Burst Utility
-function fireFestiveConfetti() {
+// Global Dual-Burst Confetti Utility
+function fireFestiveConfetti(opts = {}) {
     if (typeof confetti !== 'function') return;
-    const colors = ['#ffd700', '#ff9800', '#d50000', '#ffffff', '#ffeb3b', '#e65100'];
-    confetti({
-        particleCount: 100,
-        spread: 90,
-        origin: { y: 0.6 },
-        colors: colors
-    });
+    const colors = ['#ffd700', '#ff9800', '#d50000', '#ffffff', '#ffeb3b', '#e65100', '#ff6f00'];
+    const count   = opts.count || 120;
+    const spread  = opts.spread || 100;
+    const origin  = opts.origin || { y: 0.6 };
+
+    // Primary burst
+    confetti({ particleCount: count, spread, origin, colors, scalar: 1.2 });
+
+    // Secondary side bursts for grand effect
+    setTimeout(() => {
+        confetti({ particleCount: 60, angle: 60,  spread: 70, origin: { x: 0 }, colors });
+        confetti({ particleCount: 60, angle: 120, spread: 70, origin: { x: 1 }, colors });
+    }, 250);
 }
 window.fireFestiveConfetti = fireFestiveConfetti;
