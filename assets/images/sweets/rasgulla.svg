@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <radialGradient id="rasgullaGrad" cx="35%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#fffde7"/>
+      <stop offset="75%" stop-color="#fff9c4"/>
+      <stop offset="100%" stop-color="#ffe082"/>
+    </radialGradient>
+    <filter id="rasgullaShadow">
+      <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="rgba(0,0,0,0.3)"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#rasgullaShadow)">
+    <circle cx="60" cy="60" r="45" fill="url(#rasgullaGrad)"/>
+    <!-- Spongy texture highlight -->
+    <ellipse cx="48" cy="45" rx="15" ry="9" fill="#ffffff" opacity="0.9" transform="rotate(-20, 48, 45)"/>
+    <!-- Saffron thread on top -->
+    <path d="M 52,38 Q 58,35 63,40" stroke="#d84315" stroke-width="1.8" fill="none"/>
+    <ellipse cx="58" cy="38" rx="2.5" ry="1.2" fill="#43a047"/>
+  </g>
+</svg>

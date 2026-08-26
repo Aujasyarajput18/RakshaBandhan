@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <radialGradient id="brassGrad" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#fff59d"/>
+      <stop offset="25%" stop-color="#ffd54f"/>
+      <stop offset="50%" stop-color="#ffb300"/>
+      <stop offset="75%" stop-color="#ff8f00"/>
+      <stop offset="100%" stop-color="#bf360c"/>
+    </radialGradient>
+    <radialGradient id="rimGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="85%" stop-color="#ffc107"/>
+      <stop offset="92%" stop-color="#ffe082"/>
+      <stop offset="100%" stop-color="#b26a00"/>
+    </radialGradient>
+    <filter id="thaliShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="15" stdDeviation="15" flood-color="rgba(0,0,0,0.5)"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#thaliShadow)">
+    <!-- Outer Rim -->
+    <circle cx="250" cy="250" r="235" fill="url(#rimGrad)" stroke="#ff8f00" stroke-width="4"/>
+    
+    <!-- Scalloped Edge Details -->
+    <g transform="translate(250,250)">
+      <g id="scallop">
+        <circle cx="0" cy="-228" r="7" fill="#ffe082" stroke="#e65100" stroke-width="1.5"/>
+        <circle cx="0" cy="-228" r="3" fill="#d50000"/>
+      </g>
+      <!-- Repeat 36 times (every 10 deg) -->
+      <use href="#scallop" transform="rotate(10)"/><use href="#scallop" transform="rotate(20)"/><use href="#scallop" transform="rotate(30)"/>
+      <use href="#scallop" transform="rotate(40)"/><use href="#scallop" transform="rotate(50)"/><use href="#scallop" transform="rotate(60)"/>
+      <use href="#scallop" transform="rotate(70)"/><use href="#scallop" transform="rotate(80)"/><use href="#scallop" transform="rotate(90)"/>
+      <use href="#scallop" transform="rotate(100)"/><use href="#scallop" transform="rotate(110)"/><use href="#scallop" transform="rotate(120)"/>
+      <use href="#scallop" transform="rotate(130)"/><use href="#scallop" transform="rotate(140)"/><use href="#scallop" transform="rotate(150)"/>
+      <use href="#scallop" transform="rotate(160)"/><use href="#scallop" transform="rotate(170)"/><use href="#scallop" transform="rotate(180)"/>
+      <use href="#scallop" transform="rotate(190)"/><use href="#scallop" transform="rotate(200)"/><use href="#scallop" transform="rotate(210)"/>
+      <use href="#scallop" transform="rotate(220)"/><use href="#scallop" transform="rotate(230)"/><use href="#scallop" transform="rotate(240)"/>
+      <use href="#scallop" transform="rotate(250)"/><use href="#scallop" transform="rotate(260)"/><use href="#scallop" transform="rotate(270)"/>
+      <use href="#scallop" transform="rotate(280)"/><use href="#scallop" transform="rotate(290)"/><use href="#scallop" transform="rotate(300)"/>
+      <use href="#scallop" transform="rotate(310)"/><use href="#scallop" transform="rotate(320)"/><use href="#scallop" transform="rotate(330)"/>
+      <use href="#scallop" transform="rotate(340)"/><use href="#scallop" transform="rotate(350)"/>
+    </g>
+
+    <!-- Inner Plate Base -->
+    <circle cx="250" cy="250" r="210" fill="url(#brassGrad)"/>
+    <circle cx="250" cy="250" r="200" fill="none" stroke="#d50000" stroke-width="2" stroke-dasharray="6,4"/>
+    <circle cx="250" cy="250" r="185" fill="none" stroke="#ffe082" stroke-width="3"/>
+
+    <!-- Etched Traditional Rangoli Pattern inside Thali -->
+    <g transform="translate(250,250)" opacity="0.45" stroke="#ffe082" stroke-width="2" fill="none">
+      <circle cx="0" cy="0" r="140"/>
+      <circle cx="0" cy="0" r="90"/>
+      <circle cx="0" cy="0" r="40"/>
+      <path d="M 0,-140 Q 20,-115 0,-90 Q -20,-115 0,-140 Z"/>
+      <path d="M 0,140 Q 20,115 0,90 Q -20,115 0,140 Z"/>
+      <path d="M -140,0 Q -115,20 -90,0 Q -115,-20 -140,0 Z"/>
+      <path d="M 140,0 Q 115,20 90,0 Q 115,-20 140,0 Z"/>
+      <path d="M -99,-99 Q -80,-65 -64,-64 Q -65,-80 -99,-99 Z"/>
+      <path d="M 99,-99 Q 80,-65 64,-64 Q 65,-80 99,-99 Z"/>
+      <path d="M -99,99 Q -80,65 -64,64 Q -65,80 -99,99 Z"/>
+      <path d="M 99,99 Q 80,65 64,64 Q 65,80 99,99 Z"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raksha Bandhan Gift Studio | Multi-Client Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Outfit:wght@400;600;700;800&family=Rozha+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/customize.css">
+    <script src="js/config.js"></script>
+</head>
+<body>
+
+    <div class="studio-container">
+        <header class="studio-header">
+            <h1 class="studio-title">RAKSHA BANDHAN GIFT STUDIO 🪔</h1>
+            <p class="studio-subtag">Create personalized 3D digital Rakhi gift links in seconds (100% Free-Tier & Serverless)</p>
+        </header>
+
+        <!-- Form Section: Sibling Info -->
+        <div class="studio-card">
+            <h2 class="section-title">1. Sibling Details 👫</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="sister-name">Sister's Name</label>
+                    <input type="text" id="sister-name" class="form-input" placeholder="e.g. Pooja / Ananya" value="Ananya">
+                </div>
+                <div class="form-group">
+                    <label for="brother-name">Brother / Sender Name</label>
+                    <input type="text" id="brother-name" class="form-input" placeholder="e.g. Aujasya / Aarav" value="Aarav">
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Section: Photos Upload -->
+        <div class="studio-card">
+            <h2 class="section-title">2. Memory Photos (Auto-Compressed) 📸</h2>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">
+                Upload up to 6 sister/sibling photos. Photos are automatically compressed in-browser for high speed and direct link embedding!
+            </p>
+            
+            <div class="photo-grid">
+                <div class="photo-slot" id="photo-slot-0">
+                    <img id="photo-preview-0" src="assets/images/demo/img1.svg" alt="Photo 1">
+                    <span class="photo-slot-label">Photo 1</span>
+                    <span class="photo-slot-sub">Click to Change</span>
+                    <input type="file" id="photo-input-0" accept="image/*">
+                </div>
+                <div class="photo-slot" id="photo-slot-1">
+                    <img id="photo-preview-1" src="assets/images/demo/img2.svg" alt="Photo 2">
+                    <span class="photo-slot-label">Photo 2</span>
+                    <span class="photo-slot-sub">Click to Change</span>
+                    <input type="file" id="photo-input-1" accept="image/*">
+                </div>
+                <div class="photo-slot" id="photo-slot-2">
+                    <img id="photo-preview-2" src="assets/images/demo/img3.svg" alt="Photo 3">
+                    <span class="photo-slot-label">Photo 3</span>
+                    <span class="photo-slot-sub">Click to Change</span>
+                    <input type="file" id="photo-input-2" accept="image/*">
+                </div>
+                <div class="photo-slot" id="photo-slot-3">
+                    <img id="photo-preview-3" src="assets/images/demo/img4.svg" alt="Photo 4">
+                    <span class="photo-slot-label">Photo 4</span>
+                    <span class="photo-slot-sub">Click to Change</span>
+                    <input type="file" id="photo-input-3" accept="image/*">
+                </div>
+                <div class="photo-slot" id="photo-slot-4">
+                    <img id="photo-preview-4" src="assets/images/demo/img5.svg" alt="Photo 5">
+                    <span class="photo-slot-label">Photo 5</span>
+                    <span class="photo-slot-sub">Click to Change</span>
+                    <input type="file" id="photo-input-4" accept="image/*">
+                </div>
+                <div class="photo-slot" id="photo-slot-5">
+                    <img id="photo-preview-5" src="assets/images/demo/img6.svg" alt="Photo 6">
+                    <span class="photo-slot-label">Photo 6</span>
+                    <span class="photo-slot-sub">Click to Change</span>
+                    <input type="file" id="photo-input-5" accept="image/*">
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Section: Prem Patra Letter -->
+        <div class="studio-card">
+            <h2 class="section-title">3. Prem Patra (Scrapbook Letter) 💌</h2>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="letter-salutation-input">Salutation</label>
+                    <input type="text" id="letter-salutation-input" class="form-input" value="Dearest Ananya Didi,">
+                </div>
+                <div class="form-group">
+                    <label for="letter-heading-input">Letter Heading</label>
+                    <input type="text" id="letter-heading-input" class="form-input" value="Happy Raksha Bandhan, my favorite crime partner! 🪔❤️">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="letter-p1">Paragraph 1 (Childhood Nostalgia / Banter)</label>
+                <textarea id="letter-p1" class="form-textarea">From fighting over the TV remote to secretly sharing midnight snacks, having you as my sister is the best gift life has given me.</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="letter-p2">Paragraph 2 (Gratitude & Warmth)</label>
+                <textarea id="letter-p2" class="form-textarea">Thank you for always listening to my nonsense, guiding me when I was lost, and believing in me even when I doubted myself.</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="letter-p3">Paragraph 3 (Sacred Rakhi Vow)</label>
+                <textarea id="letter-p3" class="form-textarea">On this auspicious day of Raksha Bandhan, I promise to always protect you, stand by you through every high and low, and cherish this unbreakable bond!</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="letter-signoff-input">Signature Signoff</label>
+                <input type="text" id="letter-signoff-input" class="form-input" value="Forever your loving Bhai, Aarav ❤️">
+            </div>
+        </div>
+
+        <!-- Form Section: Sibling Promises -->
+        <div class="studio-card">
+            <h2 class="section-title">4. Sibling Promises (Spin Wheel Prizes) 🎡</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Promise 1</label>
+                    <input type="text" id="promise-1" class="form-input" value="Midnight Maggi Cooked Anytime 🍜">
+                </div>
+                <div class="form-group">
+                    <label>Promise 2</label>
+                    <input type="text" id="promise-2" class="form-input" value="Shopping Spree Fully Paid 🛍️">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Promise 3</label>
+                    <input type="text" id="promise-3" class="form-input" value="Remote Control for a Week 📺">
+                </div>
+                <div class="form-group">
+                    <label>Promise 4</label>
+                    <input type="text" id="promise-4" class="form-input" value="All Secrets Safe Forever 🤐">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Promise 5</label>
+                    <input type="text" id="promise-5" class="form-input" value="One Wish Granted Unconditionally ✨">
+                </div>
+                <div class="form-group">
+                    <label>Promise 6</label>
+                    <input type="text" id="promise-6" class="form-input" value="Unlimited Hugs & Chai Treats ☕">
+                </div>
+            </div>
+        </div>
+
+        <!-- Generate Button -->
+        <button class="studio-btn btn-generate" id="btn-generate-gift">
+            ✨ Generate 3D Rakhi Gift Link ✨
+        </button>
+
+        <!-- Output Result Box -->
+        <div class="output-box" id="output-box">
+            <h3 style="color: var(--gold-primary); font-family: 'Rozha One', serif; font-size: 1.6rem; margin-bottom: 10px;">
+                🎉 Gift Link Ready!
+            </h3>
+            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 15px;">
+                This link contains all your custom photos, letter, and promises encoded directly. It works 100% serverless on any phone or computer!
+            </p>
+            
+            <input type="text" id="generated-url" class="output-link-input" readonly>
+
+            <div class="action-buttons">
+                <button class="studio-btn btn-copy" id="btn-copy-link">
+                    📋 Copy Gift Link
+                </button>
+                <button class="studio-btn btn-wa" id="btn-wa-share">
+                    📲 Send via WhatsApp
+                </button>
+                <button class="studio-btn btn-open" id="btn-open-test">
+                    🚀 Open Live Gift
+                </button>
+                <button class="studio-btn" id="btn-download-json" style="background: #3b000f; color: var(--gold-primary); border: 1px solid var(--gold-primary);">
+                    💾 Download JSON
+                </button>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="index.html" style="color: var(--gold-primary); text-decoration: none; font-size: 1.1rem; font-weight: 600;">
+                ← Back to Main 3D Experience
+            </a>
+        </div>
+    </div>
+
+    <script src="js/customize.js"></script>
+</body>
+</html>

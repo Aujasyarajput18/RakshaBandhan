@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" width="1200" height="120" preserveAspectRatio="none">
+  <defs>
+    <radialGradient id="mariGold" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffeb3b"/>
+      <stop offset="60%" stop-color="#ff9800"/>
+      <stop offset="100%" stop-color="#e65100"/>
+    </radialGradient>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4caf50"/>
+      <stop offset="60%" stop-color="#2e7d32"/>
+      <stop offset="100%" stop-color="#1b5e20"/>
+    </linearGradient>
+    <linearGradient id="moliRope" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d50000"/>
+      <stop offset="50%" stop-color="#ffd600"/>
+      <stop offset="100%" stop-color="#d50000"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Top Moli Thread Cord -->
+  <path d="M 0,15 Q 150,30 300,15 Q 450,30 600,15 Q 750,30 900,15 Q 1050,30 1200,15" stroke="url(#moliRope)" stroke-width="5" fill="none"/>
+
+  <g id="toran-unit">
+    <!-- Mango Leaves -->
+    <g transform="translate(150, 20)">
+      <path d="M 0,0 C -25,25 -20,65 0,90 C 20,65 25,25 0,0 Z" fill="url(#leafGrad)" stroke="#1b5e20" stroke-width="1"/>
+      <path d="M 0,5 L 0,85" stroke="#a5d6a7" stroke-width="1" opacity="0.6"/>
+      <circle cx="0" cy="5" r="14" fill="url(#mariGold)"/>
+      <circle cx="0" cy="5" r="6" fill="#ffd600"/>
+      <circle cx="0" cy="92" r="5" fill="#d50000"/>
+    </g>
+    <g transform="translate(75, 18)">
+      <circle cx="0" cy="0" r="12" fill="url(#mariGold)"/>
+      <circle cx="0" cy="18" r="9" fill="url(#mariGold)"/>
+      <circle cx="0" cy="32" r="6" fill="#d50000"/>
+    </g>
+    <g transform="translate(225, 18)">
+      <circle cx="0" cy="0" r="12" fill="url(#mariGold)"/>
+      <circle cx="0" cy="18" r="9" fill="url(#mariGold)"/>
+      <circle cx="0" cy="32" r="6" fill="#d50000"/>
+    </g>
+  </g>
+
+  <!-- Repeat units across the 1200px width -->
+  <use href="#toran-unit" transform="translate(300,0)"/>
+  <use href="#toran-unit" transform="translate(600,0)"/>
+  <use href="#toran-unit" transform="translate(900,0)"/>
+</svg>

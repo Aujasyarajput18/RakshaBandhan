@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <radialGradient id="laddooGrad" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#fff59d"/>
+      <stop offset="25%" stop-color="#ffb74d"/>
+      <stop offset="60%" stop-color="#fb8c00"/>
+      <stop offset="90%" stop-color="#e65100"/>
+      <stop offset="100%" stop-color="#bf360c"/>
+    </radialGradient>
+    <filter id="laddooShadow">
+      <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="rgba(0,0,0,0.4)"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#laddooShadow)">
+    <circle cx="60" cy="60" r="46" fill="url(#laddooGrad)"/>
+    
+    <!-- Boondi Texture Dots -->
+    <!-- Pistachio / Cardamom Flecks -->
+    <g fill="#43a047" opacity="0.9">
+      <ellipse cx="48" cy="42" rx="4" ry="2" transform="rotate(25, 48, 42)"/>
+      <ellipse cx="68" cy="52" rx="3.5" ry="1.8" transform="rotate(-35, 68, 52)"/>
+      <ellipse cx="55" cy="72" rx="3" ry="1.5" transform="rotate(60, 55, 72)"/>
+      <ellipse cx="78" cy="38" rx="3" ry="1.5" transform="rotate(10, 78, 38)"/>
+    </g>
+    <!-- Saffron Strands -->
+    <g stroke="#b71c1c" stroke-width="1.5" fill="none" opacity="0.8">
+      <path d="M 40,55 Q 44,58 48,56"/>
+      <path d="M 62,35 Q 65,40 64,45"/>
+      <path d="M 68,68 Q 72,70 75,66"/>
+    </g>
+    <!-- Glistening Highlights -->
+    <circle cx="45" cy="40" r="3" fill="#ffffff" opacity="0.6"/>
+    <circle cx="42" cy="48" r="2" fill="#ffffff" opacity="0.5"/>
+  </g>
+</svg>

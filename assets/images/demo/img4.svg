@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" width="600" height="750">
+  <defs>
+    <linearGradient id="bgGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a148c"/>
+      <stop offset="60%" stop-color="#1a0033"/>
+      <stop offset="100%" stop-color="#ffd54f"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="750" fill="url(#bgGrad4)"/>
+  <g transform="translate(150, 160)">
+    <circle cx="150" cy="180" r="160" fill="rgba(255, 215, 0, 0.15)" stroke="#ffd700" stroke-width="2" stroke-dasharray="8,6"/>
+    <text x="150" y="160" font-family="'Outfit', sans-serif" font-size="90" text-anchor="middle" fill="#ffffff">🎁</text>
+    <text x="150" y="230" font-family="'Outfit', sans-serif" font-size="28" font-weight="700" text-anchor="middle" fill="#ffd700" letter-spacing="2">SURPRISE &amp; JOY</text>
+    <text x="150" y="270" font-family="'Outfit', sans-serif" font-size="16" text-anchor="middle" fill="#ffe082">Every gift is a token of gratitude</text>
+  </g>
+  <rect x="0" y="710" width="600" height="40" fill="#0d001a"/>
+  <text x="300" y="736" font-family="'Outfit', sans-serif" font-size="14" font-weight="600" text-anchor="middle" fill="#ffd700" letter-spacing="3">✨ CELEBRATING YOU ✨</text>
+</svg>

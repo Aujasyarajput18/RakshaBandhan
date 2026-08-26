@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" width="600" height="750">
+  <defs>
+    <linearGradient id="bgGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a001a"/>
+      <stop offset="50%" stop-color="#800020"/>
+      <stop offset="100%" stop-color="#d4af37"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#ffd54f" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ff6f00" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="750" fill="url(#bgGrad1)"/>
+  <circle cx="300" cy="320" r="220" fill="url(#sunGlow)"/>
+  
+  <!-- Festive Decorative Lights & Diyas -->
+  <g opacity="0.6">
+    <circle cx="100" cy="120" r="6" fill="#fff59d"/>
+    <circle cx="200" cy="80" r="4" fill="#fff59d"/>
+    <circle cx="450" cy="100" r="8" fill="#fff59d"/>
+    <circle cx="520" cy="180" r="5" fill="#fff59d"/>
+    <circle cx="80" cy="600" r="7" fill="#fff59d"/>
+    <circle cx="500" cy="620" r="9" fill="#fff59d"/>
+  </g>
+
+  <!-- Illustration of Sister & Brother Celebrating Rakhi -->
+  <g transform="translate(150, 160)">
+    <!-- Aura -->
+    <circle cx="150" cy="180" r="160" fill="rgba(255, 215, 0, 0.15)" stroke="#ffd700" stroke-width="2" stroke-dasharray="8,6"/>
+    
+    <!-- Big Diya in Foreground -->
+    <g transform="translate(90, 260) scale(0.6)">
+      <path d="M 30,110 Q 100,160 170,110 Z" fill="#e65100"/>
+      <ellipse cx="100" cy="110" rx="70" ry="16" fill="#ffd700"/>
+      <path d="M 100,30 C 80,70 85,100 100,105 C 115,100 120,70 100,30 Z" fill="#ffeb3b"/>
+    </g>
+
+    <!-- Sibling Iconography Art -->
+    <text x="150" y="160" font-family="'Outfit', sans-serif" font-size="90" text-anchor="middle" fill="#ffffff">👫</text>
+    <text x="150" y="230" font-family="'Outfit', sans-serif" font-size="28" font-weight="700" text-anchor="middle" fill="#ffd700" letter-spacing="2">BACHPAN KI YAADEIN</text>
+    <text x="150" y="270" font-family="'Outfit', sans-serif" font-size="16" text-anchor="middle" fill="#ffe082">Laughter • Fights • Endless Love</text>
+  </g>
+
+  <!-- Bottom Festive Border -->
+  <rect x="0" y="710" width="600" height="40" fill="#2b000e"/>
+  <text x="300" y="736" font-family="'Outfit', sans-serif" font-size="14" font-weight="600" text-anchor="middle" fill="#ffd700" letter-spacing="3">✨ HAPPY RAKSHA BANDHAN ✨</text>
+</svg>

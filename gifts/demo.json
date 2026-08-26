@@ -1,0 +1,35 @@
+{
+  "sisterName": "Pooja",
+  "senderName": "Aujasya",
+  "heroTitle": "HAPPY RAKSHA BANDHAN, POOJA!",
+  "heroSubtitle": "To the most wonderful sister in the world ❤️",
+  "heroImage": "assets/images/demo/portrait.svg",
+  "photos": [
+    "assets/images/demo/img1.svg",
+    "assets/images/demo/img2.svg",
+    "assets/images/demo/img3.svg",
+    "assets/images/demo/img4.svg",
+    "assets/images/demo/img5.svg",
+    "assets/images/demo/img6.svg"
+  ],
+  "letter": {
+    "salutation": "Dearest Pooja Didi,",
+    "heading": "Happy Raksha Bandhan to my lifelong crime partner! 🪔❤️",
+    "bodyParagraphs": [
+      "From fighting over the TV remote to secretly sharing midnight treats, having you as my sister is the greatest blessing in my life.",
+      "Thank you for always listening to my nonsense, guiding me when I needed advice, and having my back in every situation.",
+      "On this sacred day of Raksha Bandhan, I promise to always stand by you, protect you, annoy you forever, and make you proud!"
+    ],
+    "signoff": "Forever your loving Bhai, Aujasya ❤️"
+  },
+  "promises": [
+    "Midnight Maggi Cooked Anytime 🍜",
+    "Shopping Spree Fully Paid 🛍️",
+    "Remote Control for a Week 📺",
+    "All Secrets Safe Forever 🤐",
+    "One Wish Granted Unconditionally ✨",
+    "Unlimited Hugs & Chai Treats ☕"
+  ],
+  "musicTitle": "Festive Rakhi Melody",
+  "musicArtist": "Bansuri & Shehnai Special"
+}

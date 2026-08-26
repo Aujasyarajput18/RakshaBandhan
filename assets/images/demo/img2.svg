@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 750" width="600" height="750">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1b4d3e"/>
+      <stop offset="60%" stop-color="#0f2b23"/>
+      <stop offset="100%" stop-color="#ffd54f"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="750" fill="url(#bgGrad2)"/>
+  
+  <g transform="translate(150, 160)">
+    <circle cx="150" cy="180" r="160" fill="rgba(255, 215, 0, 0.15)" stroke="#ffd700" stroke-width="2" stroke-dasharray="8,6"/>
+    <text x="150" y="160" font-family="'Outfit', sans-serif" font-size="90" text-anchor="middle" fill="#ffffff">🪔</text>
+    <text x="150" y="230" font-family="'Outfit', sans-serif" font-size="28" font-weight="700" text-anchor="middle" fill="#ffd700" letter-spacing="2">MY FIRST BEST FRIEND</text>
+    <text x="150" y="270" font-family="'Outfit', sans-serif" font-size="16" text-anchor="middle" fill="#ffe082">The one who always had my back</text>
+  </g>
+  <rect x="0" y="710" width="600" height="40" fill="#081713"/>
+  <text x="300" y="736" font-family="'Outfit', sans-serif" font-size="14" font-weight="600" text-anchor="middle" fill="#ffd700" letter-spacing="3">✨ SIBLING BOND FOREVER ✨</text>
+</svg>
