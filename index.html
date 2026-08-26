@@ -1,373 +1,93 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Happy Raksha Bandhan 🪔 | A Sacred Sibling Journey</title>
-    <meta name="description" content="A world-class, Apple-style interactive Raksha Bandhan digital storytelling experience.">
-    <meta name="theme-color" content="#060101">
-
-    <!-- Open Graph for Social Sharing -->
-    <meta property="og:title" content="Happy Raksha Bandhan 🪔 | A Sacred Sibling Tribute">
-    <meta property="og:description" content="A cinematic digital story celebrating the eternal bond of siblings.">
-    <meta property="og:type" content="website">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Noto+Nastaliq+Urdu:wght@400;700&family=Noto+Serif+Gurmukhi:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Rozha+One&family=Rye&family=Yatra+One&display=swap" rel="stylesheet">
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="css/styles.css">
-
-    <!-- Lenis Smooth Scroll Engine -->
-    <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
-
-    <!-- GSAP & ScrollTrigger -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-    <!-- Canvas Confetti & HTML2Canvas for HD Keepsake Export -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-    <!-- Master Config Engine -->
-    <script src="js/config.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#291b25">
+  <meta name="description" content="A personal Raksha Bandhan story, told in memories.">
+  <title>For a bond that never learned distance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Yesteryear&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script defer src="js/config.js"></script>
+  <script defer src="js/script.js"></script>
 </head>
 <body>
+  <div class="page-grain" aria-hidden="true"></div>
+  <canvas id="petal-dust" aria-hidden="true"></canvas>
+  <div class="story-progress" aria-hidden="true"><span></span></div>
 
-    <!-- Desktop Custom Magnetic Cursor -->
-    <div id="custom-cursor"></div>
-    <div id="custom-cursor-dot"></div>
+  <header class="site-header" aria-label="Site controls">
+    <a class="wordmark" href="#top" aria-label="Back to the beginning"><span class="wordmark-dot"></span><span>RAKHI / <span id="header-year">2026</span></span></a>
+    <button class="sound-toggle" type="button" aria-label="Play ambient music" aria-pressed="false"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 19h4l6 5V8l-6 5H6zM20 12.5a6 6 0 0 1 0 7M23.5 9a11 11 0 0 1 0 14"/></svg><span>sound</span></button>
+  </header>
 
-    <!-- Ambient Particle Canvas -->
-    <canvas id="particle-canvas"></canvas>
+  <main id="top">
+    <section class="intro-scene" aria-labelledby="intro-title">
+      <div class="intro-sticky">
+        <div class="sun-wash"></div>
+        <img class="intro-toran" src="assets/images/ornaments/toran.svg" alt="" aria-hidden="true">
+        <img class="intro-mandala" src="assets/images/ornaments/mandala.svg" alt="" aria-hidden="true">
+        <svg class="intro-thread" viewBox="0 0 1440 810" preserveAspectRatio="none" aria-hidden="true"><path id="intro-thread-path" d="M-80,625 C210,650 278,350 575,450 C800,528 690,690 925,590 C1134,502 1200,262 1550,350"/></svg>
+        <span class="fabric fabric-one"></span><span class="fabric fabric-two"></span>
+        <p class="intro-prompt">There's a little story waiting here.<br><span>Scroll slowly.</span></p>
+        <div class="festival-words" id="intro-title" aria-label="Happy Raksha Bandhan"><span class="word word-happy">HAPPY</span><span class="word word-raksha">RAKSHA</span><span class="word word-bandhan">BANDHAN</span></div>
+        <p class="bond-statement">for a bond that never<br>really changes.</p>
+        <div class="intro-scroll-mark" aria-hidden="true"><span></span><small>01 / 05</small></div>
+      </div>
+    </section>
 
-    <!-- ══════════════════════════════════════════════════════════════
-         ACT 0: CINEMATIC INTRO GATE (Tap to Enter Experience)
-    ══════════════════════════════════════════════════════════════ -->
-    <div id="cinematic-intro-gate">
-        <div class="gate-sacred-mandala">
-            <div class="gate-rotating-thread"></div>
-            <div class="gate-center-diya">🪔</div>
-        </div>
-        <h1 class="gate-headline" id="gate-main-title">SHUBH RAKSHA BANDHAN</h1>
-        <p class="gate-subtext" id="gate-subtext-line">
-            "Some bonds are tied by a thread. Ours was written in the stars."
-        </p>
-        <button class="gate-enter-btn" id="btn-enter-experience">
-            ✦ Enter Our Story ✦
-        </button>
-    </div>
+    <section class="threshold" aria-label="Enter the story">
+      <span class="threshold-rangoli rangoli-left" aria-hidden="true"></span>
+      <span class="threshold-rangoli rangoli-right" aria-hidden="true"></span>
+      <p class="eyebrow">A very small universe called <span id="threshold-names">ANANYA &amp; AARAV</span></p>
+      <button class="thread-cta" id="enter-bond" type="button">
+        <svg viewBox="0 0 260 260" aria-hidden="true"><defs><path id="cta-circle" d="M130,130 m-101,0 a101,101 0 1,1 202,0 a101,101 0 1,1 -202,0"/></defs><circle cx="130" cy="130" r="106"/><circle cx="130" cy="130" r="96"/><text><textPath href="#cta-circle" startOffset="1%">A LITTLE STORY &nbsp; • &nbsp; A LIFETIME OF US &nbsp; • &nbsp;</textPath></text></svg>
+        <span>ENTER<br>THE BOND</span><i></i>
+      </button>
+      <p class="threshold-note">Follow the thread.</p>
+    </section>
 
-    <!-- Top Luxury Navigation Bar -->
-    <header class="top-navigation-bar">
-        <div class="brand-badge">
-            <span>🪔</span>
-            <span>RAKSHA BANDHAN ✦ 2026</span>
-        </div>
-        <div class="top-bar-actions">
-            <button class="nav-icon-btn" id="btn-nav-music" title="Toggle Festive Music" aria-label="Toggle Music">
-                <div class="audio-visualizer" id="audio-vis-bars">
-                    <div class="vis-bar"></div>
-                    <div class="vis-bar"></div>
-                    <div class="vis-bar"></div>
-                </div>
-            </button>
-            <button class="nav-icon-btn" id="btn-nav-download" title="Download HD Keepsake" aria-label="Download HD Keepsake">📥</button>
-            <a href="customize.html" class="nav-icon-btn" title="Open Customizer Studio" aria-label="Open Studio">✍️</a>
-        </div>
-    </header>
+    <section class="sister-section" id="her" aria-labelledby="sister-name">
+      <div class="section-index">01 <span>/ her</span></div>
+      <div class="sister-intro"><p class="eyebrow">This is</p><h1 id="sister-name">ANANYA</h1><p class="sister-copy">The person who has known you since before either of you knew what life would become.</p></div>
+      <div class="portrait-stage" data-tilt><div class="portrait-thread" aria-hidden="true"></div><div class="portrait-paper paper-back"></div><figure class="portrait-print"><img id="hero-portrait" src="assets/images/demo/portrait.svg" alt="A portrait of Ananya"><figcaption>one of one, always.</figcaption></figure><span class="portrait-doodle star-doodle">✦</span><span class="portrait-doodle scribble-doodle">you, then</span></div>
+      <p class="side-annotation">the official keeper<br>of the good secrets</p>
+    </section>
 
-    <!-- ══════════════════════════════════════════════════════════════
-         MAIN IMMERSIVE FULL-BLEED EXPERIENCE
-    ══════════════════════════════════════════════════════════════ -->
-    <main class="immersive-story-stream">
+    <section class="photo-journey" aria-label="A journey through photographs">
+      <div class="photo-journey-heading"><p class="eyebrow">Some proof that time has passed</p><h2>and we<br><em>somehow</em> stayed us.</h2></div>
+      <div class="photo-stream" id="photo-stream"></div>
+      <div class="photo-wall-end" aria-hidden="true"><span>still<br>stealing<br>my food.</span><div class="wall-thread"></div></div>
+    </section>
 
-        <!-- ── ACT 1: FULL-BLEED GRAND HERO SECTION ── -->
-        <section class="story-act-section" id="section-hero">
-            <div class="hero-fullbleed-wrapper" id="hero-capture-area">
-                <div class="hero-eyebrow-tag">A TRIBUTE OF ETERNAL LOVE ✦ 2026</div>
-                <h1 class="hero-giant-names" id="hero-sibling-names">ANANYA × AARAV</h1>
-                
-                <p class="hero-poetic-quote" id="hero-tagline-text">
-                    "Some bonds are tied by a thread. Ours was tied long before the Rakhi — through every laugh, every fight, and a lifetime of unspoken promises."
-                </p>
+    <section class="remember-section" id="memories" aria-labelledby="remember-title">
+      <div class="remember-intro"><div class="section-index">02 <span>/ remember</span></div><p class="eyebrow">A thread with excellent memory</p><h2 id="remember-title">REMEMBER<br>WHEN?</h2><p>There were fights, tiny victories, a few really terrible haircuts — and always, a way back to each other.</p></div>
+      <div class="memory-route" id="memory-route" aria-label="Memory timeline"></div>
+    </section>
 
-                <div class="hero-interactive-centerpiece">
-                    <img src="assets/images/editorial/wrist_seamless.png" alt="Wrist Rakhi" class="hero-wrist-cinematic-photo" id="hero-wrist-image">
-                </div>
+    <section class="letter-section" id="letter" aria-labelledby="letter-title">
+      <div class="letter-lead"><div class="section-index">03 <span>/ the note</span></div><p class="eyebrow">For all the things that never fit inside a phone call</p><h2 id="letter-title">I wrote<br>something for you.</h2></div>
+      <div class="envelope-wrap"><button class="envelope" id="open-letter" type="button" aria-expanded="false" aria-controls="letter-paper"><div class="envelope-shadow"></div><div class="envelope-back"></div><div class="envelope-flap"></div><div class="wax-seal">R</div><span class="open-instruction">open it</span></button><p class="envelope-note">A small thing, written with a very full heart.</p></div>
+      <article class="letter-paper" id="letter-paper" aria-hidden="true"><div class="paper-tape"></div><p class="letter-date" id="letter-date">AUGUST, 2026</p><h3 id="letter-salutation">Dearest Ananya,</h3><div class="letter-body" id="letter-body"></div><p class="letter-signature" id="letter-signature">Forever your brother, Aarav</p><span class="letter-doodle">p.s. you're still annoying</span></article>
+    </section>
 
-                <div class="hero-calligraphy-row">
-                    <span class="calligraphy-badge">ਰੱਖੜੀ</span>
-                    <span class="calligraphy-badge urdu">रक्षाबंधन</span>
-                </div>
-            </div>
+    <section class="distance-section" id="distance" aria-labelledby="distance-title">
+      <div class="distance-sticky"><div class="section-index">04 <span>/ wherever</span></div><p class="distance-line distance-line-one">Sometimes we're not<br>in the same room.</p><p class="distance-line distance-line-two">Sometimes we're not even<br>in the same city.</p><p class="distance-line distance-line-three" id="distance-title">But the bond never<br>really learned distance.</p>
+        <div class="connection-field" aria-hidden="true"><div class="city-card city-sister"><img id="distance-sister-photo" src="assets/images/demo/img3.svg" alt=""><span id="sister-city">MUMBAI</span></div><svg viewBox="0 0 1600 400" preserveAspectRatio="none"><path id="distance-thread" d="M100,200 C450,40 800,360 1500,200"/></svg><div class="city-card city-brother"><img id="distance-brother-photo" src="assets/images/demo/img5.svg" alt=""><span id="brother-city">LONDON</span></div></div>
+      </div>
+    </section>
 
-            <div class="hero-scroll-cue">
-                <span>Begin Our Journey</span>
-                <span>↓</span>
-            </div>
-        </section>
+    <section class="finale" aria-labelledby="finale-title">
+      <div class="finale-diyas" aria-hidden="true"><img src="assets/images/ornaments/diya.svg" alt=""><img src="assets/images/ornaments/diya.svg" alt=""></div>
+      <div class="finale-rakhi" aria-hidden="true"><div class="rakhi-orbit orbit-one"></div><div class="rakhi-orbit orbit-two"></div><img src="assets/images/rakhis/tassel-rakhi.svg" alt=""><span class="rakhi-flower flower-one"></span><span class="rakhi-flower flower-two"></span></div>
+      <p class="eyebrow">05 / always</p><h2 id="finale-title"><span>Some bonds grow older.</span><span>They don't grow weaker.</span></h2><p class="finale-wish">Happy Raksha Bandhan.</p><p class="finale-signoff" id="finale-signoff">Always your brother,<br>Aarav</p><button class="replay" type="button" id="replay-story">Back to the beginning ↑</button>
+    </section>
+  </main>
 
-        <!-- ── ACT 2: FULL-WIDTH SIBLING MEMORY CHRONICLES ── -->
-        <section class="story-act-section" id="section-memories">
-            <div class="act-badge">Chapter I ✦ Living Memories</div>
-            <h2 class="act-main-title">A LIFETIME OF MOMENTS 📸</h2>
-            <p class="act-subtitle">
-                "Before we knew how fast time would move, we were just two kids filling our days with laughter, arguments, and endless memories."
-            </p>
-
-            <div class="memory-chronicles-stream" id="chronicles-stream-container">
-                <!-- Chronicle 1 -->
-                <div class="chronicle-item-row">
-                    <div class="chronicle-photo-box">
-                        <img src="assets/images/demo/img1.svg" alt="Tiny Humans">
-                        <span>The Unstoppable Duo</span>
-                    </div>
-                    <div class="chronicle-text-box">
-                        <span class="chronicle-era-pill">Era 01</span>
-                        <h3 class="chronicle-title">The Tiny Humans Era</h3>
-                        <p class="chronicle-desc">
-                            Sharing toys, stealing cookies, and crying to Mom at the slightest provocation. We were tiny humans causing pure chaos.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Chronicle 2 -->
-                <div class="chronicle-item-row">
-                    <div class="chronicle-photo-box">
-                        <img src="assets/images/demo/img2.svg" alt="Legendary Battles">
-                        <span>Who broke the TV remote?</span>
-                    </div>
-                    <div class="chronicle-text-box">
-                        <span class="chronicle-era-pill">Era 02</span>
-                        <h3 class="chronicle-title">The Legendary Battles</h3>
-                        <p class="chronicle-desc">
-                            Fierce wars over the TV remote, claiming the front seat of the car, and epic pillow fights that ended in temporary ceasefires.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Chronicle 3 -->
-                <div class="chronicle-item-row">
-                    <div class="chronicle-photo-box">
-                        <img src="assets/images/demo/img3.svg" alt="Growing Up">
-                        <span>Partners in Crime</span>
-                    </div>
-                    <div class="chronicle-text-box">
-                        <span class="chronicle-era-pill">Era 03</span>
-                        <h3 class="chronicle-title">The Growing Up Era</h3>
-                        <p class="chronicle-desc">
-                            Late-night study panics, confidential gossip, and covering up for each other whenever we came home past curfew.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Chronicle 4 -->
-                <div class="chronicle-item-row">
-                    <div class="chronicle-photo-box">
-                        <img src="assets/images/demo/img4.svg" alt="Don't Tell Mom">
-                        <span>Mom Remembers Differently</span>
-                    </div>
-                    <div class="chronicle-text-box">
-                        <span class="chronicle-era-pill">Era 04</span>
-                        <h3 class="chronicle-title">The 'Don't Tell Mom' Treaties</h3>
-                        <p class="chronicle-desc">
-                            The sacred confidentiality pacts that protected both of us from grounded weekends and parental interrogations.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Chronicle 5 -->
-                <div class="chronicle-item-row">
-                    <div class="chronicle-photo-box">
-                        <img src="assets/images/demo/img5.svg" alt="Distance">
-                        <span>Different Cities, Same Bond</span>
-                    </div>
-                    <div class="chronicle-text-box">
-                        <span class="chronicle-era-pill">Era 05</span>
-                        <h3 class="chronicle-title">We Grew Up But Didn't Really</h3>
-                        <p class="chronicle-desc">
-                            Living in different cities, chasing our careers, but remaining the exact same chaotic kids whenever we pick up the phone.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ── ACT 3: INTERACTIVE SIBLING MENACE DUEL (Quiz) ── -->
-        <section class="story-act-section" id="section-quiz">
-            <div class="act-badge">Chapter II ✦ The Lifelong Dispute</div>
-            <h2 class="act-main-title">WHO WAS THE BIGGER MENACE? 😈</h2>
-            <p class="act-subtitle">
-                "Cast your vote on the classic brother-sister disputes and settle the score once and for all!"
-            </p>
-
-            <div class="quiz-duel-container">
-                <div class="quiz-debate-prompt" id="quiz-question-text">
-                    Who stole food from the fridge at 2:00 AM? 🍫
-                </div>
-
-                <div class="quiz-duel-buttons">
-                    <button class="btn-duel-choice" id="btn-vote-sister">SISTER 👧</button>
-                    <button class="btn-duel-choice" id="btn-vote-brother">BROTHER 👦</button>
-                </div>
-
-                <div class="quiz-duel-verdict" id="quiz-feedback-text">
-                    Tap a choice to see the verdict! ✨
-                </div>
-            </div>
-        </section>
-
-        <!-- ── ACT 4: "THINGS I DON'T SAY ENOUGH" (Deep Emotional Pause) ── -->
-        <section class="story-act-section" id="section-unspoken">
-            <div class="act-badge">Chapter III ✦ Unspoken Words</div>
-            <h2 class="act-main-title">THINGS I DON'T SAY ENOUGH 🤍</h2>
-            <p class="act-subtitle">
-                "Sometimes life moves too fast, but these words will always live in my heart."
-            </p>
-
-            <div class="emotional-confessions-wrapper">
-                <div class="emotional-quote-card">
-                    "Life gets busy. We grow up. We chase our ambitions in different corners of the world."
-                </div>
-                <div class="emotional-quote-card">
-                    "We might not talk every single day. But whenever life gets tough, knowing that I have you in my corner gives me strength."
-                </div>
-                <div class="emotional-quote-card">
-                    "You've always been my confidant, my fierce protector, and my favorite partner in crime."
-                </div>
-                <div class="emotional-quote-card">
-                    "No distance, no passage of time will ever weaken the sacred bond we share."
-                </div>
-            </div>
-        </section>
-
-        <!-- ── ACT 5: 3D INTERACTIVE PUJA THALI ── -->
-        <section class="story-act-section" id="section-thali">
-            <div class="act-badge">Chapter IV ✦ Sacred Traditions</div>
-            <h2 class="act-main-title">THE AUSPICIOUS PUJA THALI 🍬</h2>
-            <p class="act-subtitle">
-                "Touch or hover over each sacred element on the brass platter to reveal its eternal blessing."
-            </p>
-
-            <div class="thali-stage-box">
-                <div class="thali-brass-plate">
-                    <div class="thali-items-layout">
-                        <div class="thali-node" data-key="rakhi" title="Rakhi"><img src="assets/images/rakhis/kundan-rakhi.svg" alt="Rakhi" style="width:52px;"></div>
-                        <div class="thali-node" data-key="kumkum" title="Kumkum"><div style="width:40px;height:40px;background:#c62828;border-radius:50%;border:2px solid #ffd54f;box-shadow:0 0 12px #c62828;"></div></div>
-                        <div class="thali-node" data-key="rice" title="Rice"><div style="width:40px;height:40px;background:#fff8e1;border-radius:50%;border:2px solid #ffd54f;"></div></div>
-                        <img src="assets/images/ornaments/diya.svg" alt="Diya" class="thali-center-flame" data-key="diya">
-                        <div class="thali-node" data-key="sweets" title="Mithai"><img src="assets/images/sweets/kaju-katli.svg" alt="Sweets" style="width:46px;"></div>
-                        <div class="thali-node" data-key="flowers" title="Flowers"><div style="font-size:2.4rem;">🌼</div></div>
-                    </div>
-                </div>
-
-                <div class="thali-meaning-card" id="thali-meaning-display">
-                    <div class="thali-meaning-title" id="thali-item-title">✨ Touch Any Offering</div>
-                    <div class="thali-meaning-desc" id="thali-item-desc">Discover the divine blessing behind each auspicious tradition.</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ── ACT 6: ROYAL WAX-SEALED PREM PATRA ── -->
-        <section class="story-act-section" id="section-letter">
-            <div class="act-badge">Chapter V ✦ Royal Prem Patra</div>
-            <h2 class="act-main-title">A LETTER FROM THE HEART 💌</h2>
-            <p class="act-subtitle">
-                "A physical keepsake penned with lifelong love, unspoken gratitude, and memories."
-            </p>
-
-            <div class="letter-experience-box">
-                <!-- Closed Envelope -->
-                <div class="envelope-closed-state" id="envelope-closed-view">
-                    <div class="wax-seal-button" id="btn-break-seal">🪔</div>
-                    <h3 style="font-family:'Cinzel',serif;font-size:1.4rem;letter-spacing:0.2em;color:var(--gold-light);">OPEN ROYAL LETTER →</h3>
-                    <p style="font-size:0.85rem;color:var(--text-muted);margin-top:6px;">Tap the sacred wax seal</p>
-                </div>
-
-                <!-- Unfolded Letter -->
-                <div class="letter-open-parchment" id="parchment-opened-view">
-                    <h3 class="parchment-salutation" id="letter-salutation">Dearest Sister,</h3>
-                    <div class="parchment-body-text" id="letter-body-paragraphs">
-                        <!-- Loaded dynamically from config -->
-                    </div>
-                    <div class="parchment-signoff" id="letter-signature">
-                        With all my love ❤️
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ── ACT 7: SIGNATURE "TIE THE RAKHI" CEREMONY ── -->
-        <section class="story-act-section" id="section-ceremony">
-            <div class="act-badge">Chapter VI ✦ The Sacred Knot</div>
-            <h2 class="act-main-title">TIE THE SACRED RAKHI 🪔</h2>
-            <p class="act-subtitle">
-                "Tie the virtual sacred thread around the wrist to complete our auspicious ceremony."
-            </p>
-
-            <div class="ceremony-card-stage">
-                <div class="wrist-canvas-box" id="wrist-canvas-zone">
-                    <img src="assets/images/editorial/wrist_seamless.png" alt="Wrist" class="wrist-target-photo">
-                    
-                    <div class="orbiting-aarti-diya" id="orbiting-aarti-diya">
-                        <img src="assets/images/ornaments/diya.svg" alt="Diya" style="width:100%;height:100%;">
-                    </div>
-
-                    <img src="assets/images/rakhis/tassel-rakhi.svg" alt="Rakhi" class="virtual-rakhi-piece" id="ceremony-rakhi-piece">
-                </div>
-
-                <div class="sanskrit-shloka-frame">
-                    ॐ येन बद्धो बली राजा दानवेन्द्रो महाबलः।<br>
-                    तेन त्वामपि बध्नामि रक्षे मा चल मा चल॥
-                </div>
-
-                <button class="btn-primary-action btn-gold-fill" id="btn-tie-rakhi" style="margin-top:24px;">
-                    🪔 Tie The Rakhi
-                </button>
-            </div>
-        </section>
-
-        <!-- ── ACT 8: GRAND FESTIVAL FINALE & VOWS ── -->
-        <section class="story-act-section" id="section-finale">
-            <div class="act-badge">Finale ✦ Eternal Promise</div>
-            
-            <div class="vows-container-grid" id="vows-grid-list">
-                <!-- Loaded dynamically -->
-            </div>
-
-            <div class="finale-celebration-card">
-                <h1 style="font-family:'Cinzel Decorative',serif;font-size:clamp(2.2rem,6vw,3.6rem);font-weight:700;color:var(--gold-light);line-height:1.1;">HAPPY RAKSHA BANDHAN 🪔</h1>
-                <h3 style="font-family:'Cinzel',serif;font-size:1.6rem;color:var(--text-pure);letter-spacing:0.25em;" id="finale-sibling-banner">ANANYA &amp; AARAV</h3>
-                
-                <p style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-style:italic;color:var(--text-muted);max-width:640px;">
-                    "Here's to every fight, every laugh, every secret, and every memory still waiting to happen."
-                </p>
-
-                <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;width:100%;margin-top:10px;">
-                    <button class="btn-primary-action btn-vermilion-fill" id="btn-share-whatsapp">
-                        📲 Send on WhatsApp
-                    </button>
-                    <button class="btn-primary-action btn-gold-fill" id="btn-download-keepsake">
-                        📥 Download Keepsake
-                    </button>
-                    <button class="btn-primary-action btn-outline-glass" id="btn-replay-story">
-                        ✦ Experience Again ↗ ✦
-                    </button>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Background Audio -->
-    <audio id="festive-audio" loop preload="auto">
-        <source src="assets/audio/song.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- Master Interactive Script -->
-    <script src="js/script.js"></script>
+  <audio id="ambient-audio" loop preload="none"><source src="assets/audio/song.mp3" type="audio/mpeg"></audio>
 </body>
 </html>
