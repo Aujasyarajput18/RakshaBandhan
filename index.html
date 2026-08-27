@@ -43,19 +43,65 @@
       </div>
     </section>
 
-    <section class="threshold" aria-label="Enter the story">
+    <section class="threshold" id="portal-scene" aria-label="Enter the story">
+      <div class="threshold-ambient-glow" aria-hidden="true"></div>
       <span class="threshold-rangoli rangoli-left" aria-hidden="true"></span>
       <span class="threshold-rangoli rangoli-right" aria-hidden="true"></span>
-      <div class="threshold-badge">
-        <img class="threshold-rakhi" src="assets/images/rakhis/kundan-rakhi.svg" alt="" aria-hidden="true">
+      
+      <!-- Flowing connecting SVG thread across the section -->
+      <svg class="threshold-flow-thread" viewBox="0 0 1440 600" preserveAspectRatio="none" aria-hidden="true">
+        <path id="threshold-thread-line" d="M-50,300 C250,150 400,450 720,300 C1040,150 1200,450 1500,300" />
+      </svg>
+
+      <!-- Headline Block -->
+      <div class="threshold-header">
+        <p class="eyebrow threshold-eyebrow">✦ A SACRED SIBLING UNIVERSE ✦</p>
+        <h2 class="threshold-main-title" id="threshold-names">ANANYA &amp; AARAV</h2>
+        <p class="threshold-tagline">Where secrets are safe, food is stolen, and promises are eternal.</p>
       </div>
-      <p class="eyebrow">A very small universe called <span id="threshold-names">ANANYA &amp; AARAV</span></p>
-      <button class="thread-cta" id="enter-bond" type="button">
-        <svg viewBox="0 0 260 260" aria-hidden="true"><defs><path id="cta-circle" d="M130,130 m-101,0 a101,101 0 1,1 202,0 a101,101 0 1,1 -202,0"/></defs><circle cx="130" cy="130" r="106"/><circle cx="130" cy="130" r="96"/><text><textPath href="#cta-circle" startOffset="1%">A LITTLE STORY &nbsp; • &nbsp; A LIFETIME OF US &nbsp; • &nbsp;</textPath></text></svg>
-        <span>ENTER<br>THE BOND</span><i></i>
-      </button>
+
+      <!-- Interactive 3-Element Stage: Sister Floating Photo, Center Cosmic Portal, Brother Floating Photo -->
+      <div class="threshold-stage-grid">
+        <!-- Floating Left Photo (Sister) -->
+        <figure class="portal-polaroid polaroid-left" data-tilt>
+          <div class="polaroid-pin"></div>
+          <img id="portal-sister-img" src="assets/images/demo/portrait.svg" alt="Sister" loading="lazy">
+          <figcaption id="portal-sister-caption">the keeper of secrets</figcaption>
+        </figure>
+
+        <!-- Center Glowing Cosmic Portal Button -->
+        <div class="portal-core-wrapper">
+          <div class="portal-sun-aura"></div>
+          <div class="portal-rakhi-emblem">
+            <img src="assets/images/rakhis/kundan-rakhi.svg" alt="Sacred Rakhi" class="portal-kundan-rakhi">
+          </div>
+          <button class="thread-cta" id="enter-bond" type="button" aria-label="Enter the bond">
+            <svg viewBox="0 0 260 260" aria-hidden="true">
+              <defs>
+                <path id="cta-circle" d="M130,130 m-101,0 a101,101 0 1,1 202,0 a101,101 0 1,1 -202,0"/>
+              </defs>
+              <circle cx="130" cy="130" r="106"/>
+              <circle cx="130" cy="130" r="96"/>
+              <text><textPath href="#cta-circle" startOffset="1%">✦ A LIFETIME OF MEMORIES ✦ A SACRED BOND ✦</textPath></text>
+            </svg>
+            <div class="cta-center-disc">
+              <span>ENTER<br>THE STORY</span>
+            </div>
+            <i></i>
+          </button>
+        </div>
+
+        <!-- Floating Right Photo (Brother) -->
+        <figure class="portal-polaroid polaroid-right" data-tilt>
+          <div class="polaroid-pin"></div>
+          <img id="portal-brother-img" src="assets/images/demo/img6.svg" alt="Brother" loading="lazy">
+          <figcaption id="portal-brother-caption">the partner in chaos</figcaption>
+        </figure>
+      </div>
+
+      <!-- Downward Guide -->
       <div class="threshold-guide">
-        <p class="threshold-note">Follow the thread</p>
+        <p class="threshold-note">Scroll or tap to unfold the journey</p>
         <span class="thread-arrow">↓</span>
       </div>
     </section>

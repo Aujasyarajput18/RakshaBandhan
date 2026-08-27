@@ -124,6 +124,8 @@ function hydrateStory(config) {
   setText('sister-name', sister.toUpperCase());
   setText('header-year', cleanText(config.festival?.year || config.year, '2026'));
   setImage('hero-portrait', sisterPhoto, `A portrait of ${sister}`);
+  setImage('portal-sister-img', sisterPhoto, `A portrait of ${sister}`);
+  setImage('portal-brother-img', brotherPhoto, `A photo of ${brother}`);
   setImage('distance-sister-photo', sisterPhoto, `A memory of ${sister}`);
   setImage('distance-brother-photo', brotherPhoto, `A memory of ${brother}`);
   setText('sister-city', cleanText(config.distanceSection?.sisterCity || sisterProfile.city, 'Mumbai').toUpperCase());
@@ -262,19 +264,71 @@ function setupScrollStory() {
     .fromTo('.bond-statement', { opacity: 0, yPercent: 30, scale: 0.95 }, { opacity: 1, yPercent: 0, scale: 1, duration: 0.22 }, 0.58)
     .to('.bond-statement', { opacity: 0, yPercent: -30, duration: 0.15 }, 0.85);
 
+  // Chapter 00: Grand Sacred Threshold Gateway
+  gsap.from('.threshold-header > *', {
+    y: 35,
+    opacity: 0,
+    stagger: 0.12,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.threshold', start: 'top 78%' }
+  });
+
+  gsap.from('.polaroid-left', {
+    x: -90,
+    rotate: -25,
+    opacity: 0,
+    scale: 0.8,
+    duration: 1.2,
+    ease: 'back.out(1.4)',
+    scrollTrigger: { trigger: '.threshold', start: 'top 72%' }
+  });
+
+  gsap.from('.polaroid-right', {
+    x: 90,
+    rotate: 25,
+    opacity: 0,
+    scale: 0.8,
+    duration: 1.2,
+    ease: 'back.out(1.4)',
+    scrollTrigger: { trigger: '.threshold', start: 'top 72%' }
+  });
+
+  gsap.from('.portal-core-wrapper', {
+    scale: 0.65,
+    opacity: 0,
+    duration: 1.3,
+    ease: 'back.out(1.5)',
+    scrollTrigger: { trigger: '.threshold', start: 'top 72%' }
+  });
+
+  // Parallax float as user scrolls through threshold
+  gsap.to('.polaroid-left', {
+    yPercent: -18,
+    rotate: -3,
+    ease: 'none',
+    scrollTrigger: { trigger: '.threshold', start: 'top bottom', end: 'bottom top', scrub: 1 }
+  });
+  gsap.to('.polaroid-right', {
+    yPercent: 18,
+    rotate: 3,
+    ease: 'none',
+    scrollTrigger: { trigger: '.threshold', start: 'top bottom', end: 'bottom top', scrub: 1 }
+  });
+
   // Threshold Button & Rangoli Scroll Spin
   gsap.to('.thread-cta svg', {
-    rotate: 180,
+    rotate: 240,
     ease: 'none',
     scrollTrigger: { trigger: '.threshold', start: 'top bottom', end: 'bottom top', scrub: 1 }
   });
   gsap.to('.threshold-rangoli.rangoli-left', {
-    rotate: 45,
+    rotate: 65,
     ease: 'none',
     scrollTrigger: { trigger: '.threshold', start: 'top bottom', end: 'bottom top', scrub: 1 }
   });
   gsap.to('.threshold-rangoli.rangoli-right', {
-    rotate: -45,
+    rotate: -65,
     ease: 'none',
     scrollTrigger: { trigger: '.threshold', start: 'top bottom', end: 'bottom top', scrub: 1 }
   });
