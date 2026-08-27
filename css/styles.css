@@ -2025,127 +2025,217 @@ img { display: block; max-width: 100%; }
   .story-progress { top: 52px; left: 16px; right: 16px; }
   .sound-toggle { padding: 5px 10px; font-size: 9px; }
 
-  /* Component 2: Intro Scene */
-  .intro-scene { height: 230vh; }
-  .intro-mandala { width: 140vw; bottom: -40vw; right: -35vw; opacity: 0.1; }
-  .fabric-one { width: 100vw; height: 32vw; left: -40vw; bottom: 18vh; opacity: 0.6; }
-  .fabric-two { width: 95vw; height: 50vw; right: -50vw; top: -16vw; opacity: 0.55; }
-  .festival-words { font-size: clamp(44px, 12.5vw, 76px); }
-  .word-happy { left: 6vw; top: 22vh; }
-  .word-raksha { right: 5vw; top: 40vh; }
-  .word-bandhan { left: 7vw; bottom: 20vh; }
+  /* Component 2: Intro Scene (Centered Luxury Festival Poster on Mobile) */
+  .intro-scene { height: 220vh; }
+  .intro-mandala { width: 130vw; bottom: -30vw; right: -30vw; opacity: 0.12; }
+  .fabric-one, .fabric-two { opacity: 0.18; filter: blur(20px); pointer-events: none; }
+  .intro-thread { opacity: 0.35; }
+  .festival-words {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 0 20px;
+    pointer-events: none;
+    text-align: center;
+  }
+  .word {
+    position: static !important;
+    display: block;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    transform: none !important;
+  }
+  .word-happy {
+    font-size: clamp(18px, 5.5vw, 24px);
+    font-family: var(--mono);
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    color: var(--marigold);
+    text-shadow: 0 2px 8px rgba(217, 155, 56, 0.4);
+    margin-bottom: 2px;
+  }
+  .word-raksha {
+    font-size: clamp(46px, 13vw, 62px);
+    font-family: var(--display);
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--wine) 0%, #8b2c45 50%, var(--clay) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 14px rgba(111, 44, 66, 0.15));
+  }
+  .word-bandhan {
+    font-size: clamp(46px, 13vw, 62px);
+    font-family: var(--display);
+    font-weight: 700;
+    font-style: italic;
+    background: linear-gradient(135deg, #8b2c45 0%, var(--clay) 60%, var(--marigold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 14px rgba(111, 44, 66, 0.15));
+  }
   .bond-statement { font-size: clamp(24px, 6.2vw, 36px); width: 88%; line-height: 1.2; }
-  .intro-scroll-mark { right: 16px; bottom: 20px; }
+  .intro-scroll-mark {
+    right: 50%;
+    transform: translateX(50%);
+    bottom: 20px;
+    justify-items: center;
+  }
 
   /* Component 3: Threshold Gateway */
-  .threshold { padding: 9vh 4vw 7vh; min-height: 100svh; }
+  .threshold { padding: 8vh 4vw 6vh; min-height: 100svh; }
   .threshold-header { margin-bottom: 2vh; }
-  .threshold-eyebrow { font-size: 9.5px; letter-spacing: 0.16em; margin-bottom: 8px; }
-  .threshold-main-title { font-size: clamp(32px, 9.5vw, 48px); line-height: 1; margin-bottom: 8px; }
-  .threshold-tagline { font-size: 14px; line-height: 1.35; padding: 0 8px; }
+  .threshold-eyebrow { font-size: 9px; letter-spacing: 0.16em; margin-bottom: 6px; }
+  .threshold-main-title { font-size: clamp(30px, 9vw, 44px); line-height: 1; margin-bottom: 6px; }
+  .threshold-tagline { font-size: 13.5px; line-height: 1.35; padding: 0 8px; }
   .threshold-stage-grid {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 420px;
-    gap: 4px;
-    margin: 2vh auto;
+    max-width: 390px;
+    gap: 2px;
+    margin: 1.5vh auto;
   }
   .portal-polaroid {
-    width: clamp(92px, 26vw, 125px);
-    padding: 6px 6px 18px;
+    width: clamp(86px, 25vw, 115px);
+    padding: 5px 5px 16px;
     box-shadow: 0 10px 22px rgba(41, 27, 37, 0.14);
   }
   .portal-polaroid figcaption {
-    font-size: 10px;
-    bottom: 4px;
+    font-size: 9.5px;
+    bottom: 3px;
   }
   .portal-polaroid .polaroid-pin {
-    width: 12px;
-    height: 12px;
-    top: -5px;
+    width: 11px;
+    height: 11px;
+    top: -4px;
   }
   .portal-core-wrapper {
-    width: clamp(88px, 24vw, 115px);
-    height: clamp(88px, 24vw, 115px);
+    width: clamp(80px, 22vw, 105px);
+    height: clamp(80px, 22vw, 105px);
     flex-shrink: 0;
   }
   .portal-center-knot {
-    width: 38px;
-    height: 38px;
-    font-size: 16px;
+    width: 34px;
+    height: 34px;
+    font-size: 15px;
   }
   .portal-ring-outer {
-    inset: -6px;
+    inset: -5px;
   }
   .thread-bridge {
-    flex: 0 1 20px;
-    min-width: 10px;
-    max-width: 24px;
-    height: 24px;
+    flex: 0 1 12px;
+    min-width: 6px;
+    max-width: 16px;
+    height: 20px;
   }
   .thread-cta {
-    width: 240px;
-    margin-top: 1.5vh;
+    width: 230px;
+    margin-top: 1vh;
   }
   .thread-cta-btn {
-    padding: 13px 22px;
-    font-size: 11px;
-    letter-spacing: 0.12em;
+    padding: 12px 20px;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
   }
-  /* Component 4: Chapter 01: Sister Spotlight */
+
+  /* Component 4: Chapter 01: Sister Spotlight (Clean Symmetrical Mobile Layout) */
   .sister-section {
-    padding: 10vh 5vw 8vh;
+    padding: 36px 16px 44px;
     min-height: auto;
     display: flex;
   }
   .sister-container {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 24px;
+    width: 100%;
   }
   .watermark-number {
-    font-size: clamp(100px, 28vw, 150px);
-    top: 2vh;
-    left: 2vw;
+    display: none;
+  }
+  .sister-intro {
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+  .sister-chapter-badge {
+    margin-bottom: 10px;
   }
   .sister-hero-title {
-    font-size: clamp(36px, 11vw, 54px);
+    font-size: clamp(34px, 10.5vw, 48px);
+    text-align: center;
     white-space: normal;
     word-break: break-word;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   .sister-quote-card {
-    padding: 14px 16px 14px 28px;
-    margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
+    padding: 12px 14px;
+    border-left: none;
+    border-top: 2px solid var(--marigold);
+    border-radius: 12px;
+    margin: 0 0 14px;
+    background: rgba(255, 255, 255, 0.7);
+  }
+  .sister-quote-card .quote-mark {
+    display: none;
   }
   .sister-copy {
-    font-size: 15.5px;
+    font-size: 14px;
+    line-height: 1.45;
   }
   .sister-traits-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    width: 100%;
+    margin-bottom: 16px;
   }
   .trait-card {
-    padding: 10px 12px;
-    gap: 8px;
+    width: 100%;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 12px;
   }
   .trait-icon {
     font-size: 20px;
   }
+  .trait-text {
+    text-align: left;
+  }
   .trait-text strong {
-    font-size: 12px;
+    font-size: 12.5px;
   }
   .trait-text small {
-    font-size: 10px;
+    font-size: 10.5px;
   }
   .portrait-stage-luxury {
-    width: min(86vw, 340px);
-    margin: 10px auto 0;
+    width: min(80vw, 290px);
+    margin: 0 auto;
   }
-  .portrait-filigree-frame {
-    padding: 10px 10px 24px;
+  .royal-frame {
+    padding: 10px 10px 30px;
+  }
+  .caption-handwritten {
+    font-size: 15px;
+  }
+  .scribble-doodle, .side-annotation {
+    display: none;
+  }
+  .portrait-diya-glow {
+    bottom: -10px;
+    right: -10px;
+  }
+  .floating-diya {
+    width: 42px;
   }
   /* Component 5: Chapter 02: Kinetic Landing Scroll */
   .kinetic-hero-header {

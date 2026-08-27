@@ -490,19 +490,29 @@ function setupScrollStory() {
   const pathLength = safelyGetPathLength(introThread);
   if (introThread && pathLength) gsap.set(introThread, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
 
+  const isMobile = window.innerWidth < 760;
   const introTimeline = gsap.timeline({
     scrollTrigger: { trigger: intro, start: 'top top', end: 'bottom bottom', scrub: 0.8 }
   });
-  introTimeline
-    .to(introThread, { strokeDashoffset: 0, duration: 0.45, ease: 'none' }, 0)
-    .to('.word-happy', { xPercent: -28, yPercent: -18, duration: 0.45, ease: 'none' }, 0)
-    .to('.word-raksha', { xPercent: 24, yPercent: -12, duration: 0.45, ease: 'none' }, 0)
-    .to('.word-bandhan', { xPercent: -18, yPercent: 22, duration: 0.45, ease: 'none' }, 0)
-    .to('.fabric-one', { xPercent: 25, yPercent: -12, duration: 1 }, 0)
-    .to('.fabric-two', { xPercent: -25, yPercent: 12, duration: 1 }, 0)
-    .to(['.word-happy', '.word-raksha', '.word-bandhan'], { opacity: 0, yPercent: -25, duration: 0.18, stagger: 0.03 }, 0.52)
-    .fromTo('.bond-statement', { opacity: 0, yPercent: 30, scale: 0.95 }, { opacity: 1, yPercent: 0, scale: 1, duration: 0.22 }, 0.58)
-    .to('.bond-statement', { opacity: 0, yPercent: -30, duration: 0.15 }, 0.85);
+
+  if (isMobile) {
+    introTimeline
+      .to(introThread, { strokeDashoffset: 0, duration: 0.45, ease: 'none' }, 0)
+      .to('.festival-words', { opacity: 0, y: -40, scale: 0.88, duration: 0.45 }, 0.1)
+      .fromTo('.bond-statement', { opacity: 0, y: 30, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.25 }, 0.5)
+      .to('.bond-statement', { opacity: 0, y: -30, duration: 0.15 }, 0.85);
+  } else {
+    introTimeline
+      .to(introThread, { strokeDashoffset: 0, duration: 0.45, ease: 'none' }, 0)
+      .to('.word-happy', { xPercent: -28, yPercent: -18, duration: 0.45, ease: 'none' }, 0)
+      .to('.word-raksha', { xPercent: 24, yPercent: -12, duration: 0.45, ease: 'none' }, 0)
+      .to('.word-bandhan', { xPercent: -18, yPercent: 22, duration: 0.45, ease: 'none' }, 0)
+      .to('.fabric-one', { xPercent: 25, yPercent: -12, duration: 1 }, 0)
+      .to('.fabric-two', { xPercent: -25, yPercent: 12, duration: 1 }, 0)
+      .to(['.word-happy', '.word-raksha', '.word-bandhan'], { opacity: 0, yPercent: -25, duration: 0.18, stagger: 0.03 }, 0.52)
+      .fromTo('.bond-statement', { opacity: 0, yPercent: 30, scale: 0.95 }, { opacity: 1, yPercent: 0, scale: 1, duration: 0.22 }, 0.58)
+      .to('.bond-statement', { opacity: 0, yPercent: -30, duration: 0.15 }, 0.85);
+  }
 
   // Chapter 00: Grand Sacred Threshold Gateway
   gsap.from('.threshold-header > *', {
