@@ -2304,22 +2304,22 @@ img { display: block; max-width: 100%; }
     padding: 14px;
     border-radius: 16px;
   }
-  .polaroid-thumb {
-    height: clamp(170px, 46vw, 210px);
-    border-radius: 10px;
+  .slate-polaroid {
+    padding: 8px 8px 16px;
+    border-radius: 6px;
   }
-  .slate-polaroid-frame {
-    padding: 8px 8px 24px;
+  .slate-polaroid img {
+    width: 100%;
+    height: clamp(190px, 48vw, 240px);
+    object-fit: cover;
+    object-position: center 15%;
+    border-radius: 3px;
   }
-  .slate-polaroid-frame figcaption {
-    font-size: 10px;
-    bottom: 6px;
+  .slate-title-row h3 {
+    font-size: 17px;
   }
-  .memory-meta h3 {
-    font-size: 18px;
-  }
-  .memory-meta p {
-    font-size: 13px;
+  .slate-content p {
+    font-size: 12.5px;
     line-height: 1.45;
   }
   /* Component 7: Chapter 04: Royal Wax-Sealed Letter */
