@@ -330,8 +330,87 @@
     </section>
 
     <section class="distance-section" id="distance" aria-labelledby="distance-title">
-      <div class="distance-sticky"><div class="section-index">04 <span>/ wherever</span></div><p class="distance-line distance-line-one">Sometimes we're not<br>in the same room.</p><p class="distance-line distance-line-two">Sometimes we're not even<br>in the same city.</p><p class="distance-line distance-line-three" id="distance-title">But the bond never<br>really learned distance.</p>
-        <div class="connection-field" aria-hidden="true"><div class="city-card city-sister"><img id="distance-sister-photo" src="assets/images/demo/img3.svg" alt=""><span id="sister-city">MUMBAI</span></div><svg viewBox="0 0 1600 400" preserveAspectRatio="none"><path id="distance-thread" d="M100,200 C450,40 800,360 1500,200"/></svg><div class="city-card city-brother"><img id="distance-brother-photo" src="assets/images/demo/img5.svg" alt=""><span id="brother-city">LONDON</span></div></div>
+      <div class="distance-sticky">
+        <div class="distance-ambient-stars" aria-hidden="true"></div>
+        
+        <!-- Chapter Header Badge -->
+        <div class="distance-header">
+          <div class="distance-badge">
+            <span class="chapter-gold-pill">CHAPTER 05</span>
+            <span class="chapter-label">INFINITE CONNECTION</span>
+          </div>
+          <div class="distance-metric-pill" id="distance-metric">
+            <span class="pulse-dot"></span>
+            <span>4,487 MILES • 0 SECONDS OF DISTANCE</span>
+          </div>
+        </div>
+
+        <!-- Dynamic Emotional Narrative Headlines -->
+        <div class="distance-narrative">
+          <p class="distance-line distance-line-one">Sometimes we're not<br>in the same room.</p>
+          <p class="distance-line distance-line-two">Sometimes we're not even<br>in the same city.</p>
+          <p class="distance-line distance-line-three" id="distance-title">
+            <span>But our sacred bond</span><br>
+            <em>never learned distance.</em>
+          </p>
+        </div>
+
+        <!-- Interactive Constellation & Sibling Connection Field -->
+        <div class="connection-field" aria-hidden="true">
+          <!-- Left: Sister Card with City Beacon -->
+          <div class="city-card city-sister">
+            <div class="city-beacon"></div>
+            <div class="city-polaroid">
+              <img id="distance-sister-photo" src="assets/images/demo/img3.svg" alt="Sister">
+              <span class="city-role-tag">👑 SISTER</span>
+            </div>
+            <div class="city-label-wrap">
+              <span class="city-name" id="sister-city">MUMBAI</span>
+              <span class="city-coords">19.0760° N, 72.8777° E</span>
+            </div>
+          </div>
+
+          <!-- Central Celestial Golden Silk Path & Rakhi Medallion -->
+          <div class="connection-svg-wrap">
+            <svg viewBox="0 0 1600 400" preserveAspectRatio="none" class="connection-svg">
+              <defs>
+                <linearGradient id="threadGlowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#d99b38" stop-opacity="0.8"/>
+                  <stop offset="50%" stop-color="#e6b84f" stop-opacity="1"/>
+                  <stop offset="100%" stop-color="#a94f5c" stop-opacity="0.8"/>
+                </linearGradient>
+                <filter id="goldGlowFilter" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="6" result="blur"/>
+                  <feMerge>
+                    <feMergeNode in="blur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+              </defs>
+              <path class="thread-ambient-glow" d="M140,200 C480,40 800,360 1460,200"/>
+              <path id="distance-thread" class="thread-core-line" d="M140,200 C480,40 800,360 1460,200"/>
+            </svg>
+            
+            <!-- Central Kundan Medallion -->
+            <div class="connection-medallion" id="connection-medallion">
+              <div class="medallion-halo"></div>
+              <div class="medallion-core">✦</div>
+            </div>
+          </div>
+
+          <!-- Right: Brother Card with City Beacon -->
+          <div class="city-card city-brother">
+            <div class="city-beacon"></div>
+            <div class="city-polaroid">
+              <img id="distance-brother-photo" src="assets/images/demo/img5.svg" alt="Brother">
+              <span class="city-role-tag">🛡️ BROTHER</span>
+            </div>
+            <div class="city-label-wrap">
+              <span class="city-name" id="brother-city">LONDON</span>
+              <span class="city-coords">51.5074° N, 0.1278° W</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

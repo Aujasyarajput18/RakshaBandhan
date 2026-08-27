@@ -1363,21 +1363,273 @@ img { display: block; max-width: 100%; }
   }
 }
 
-/* Distance */
-.distance-section { height: 260vh; position: relative; background: #3b3141; color: var(--milk); }
-.distance-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
-.distance-sticky::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, #5b4354 0, #3b3141 56%, #2f2734 100%); }
-.distance-sticky .section-index { position: absolute; z-index: 3; top: 9vh; left: 5vw; color: #e4bc6c; }
-.distance-sticky .section-index span { color: rgba(255,250,240,.54); }
-.connection-field { position: absolute; z-index: 1; inset: 0; }
-.connection-field svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.connection-field path { fill: none; stroke: var(--marigold); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 7 6 2 5; filter: drop-shadow(0 0 6px rgba(217,155,56,.6)); }
-.city-card { position: absolute; top: calc(50% - 105px); width: 150px; color: #e4bc6c; text-align: center; font: 500 9px/1 var(--mono); letter-spacing: .15em; }
-.city-card img { width: 150px; height: 184px; margin-bottom: 12px; padding: 7px; object-fit: cover; background: var(--milk); box-shadow: 6px 10px 26px rgba(0,0,0,.24); }
-.city-sister { left: 8vw; transform: rotate(-4deg); }
-.city-brother { right: 8vw; transform: rotate(4deg); }
-.distance-line { position: absolute; z-index: 2; left: 50%; top: 50%; width: 90%; margin: 0; color: var(--milk); opacity: 0; text-align: center; font: 500 clamp(34px,5vw,75px)/.98 var(--display); letter-spacing: -.055em; transform: translate(-50%, -50%); }
-.distance-line-three { color: #f3d07a; }
+/* ==========================================================================
+   Chapter 05: Infinite Connection (Constellation & Sibling Connection Field)
+   ========================================================================== */
+.distance-section {
+  height: 260vh;
+  position: relative;
+  background: #1d131f;
+  color: var(--milk);
+}
+.distance-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8vh 6vw;
+}
+.distance-sticky::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, #3e263a 0%, #201322 65%, #130a15 100%);
+  z-index: 0;
+}
+.distance-ambient-stars {
+  position: absolute;
+  inset: 0;
+  opacity: 0.25;
+  background-image: radial-gradient(#d99b38 1px, transparent 1px), radial-gradient(#ffffff 1px, transparent 1px);
+  background-size: 80px 80px, 130px 130px;
+  background-position: 0 0, 40px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Chapter 05 Header */
+.distance-header {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.distance-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.distance-metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(43, 27, 40, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(217, 155, 56, 0.4);
+  color: var(--marigold);
+  font: 700 9.5px/1 var(--mono);
+  letter-spacing: 0.14em;
+}
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--marigold);
+  box-shadow: 0 0 8px var(--marigold);
+  animation: auraPulse 1.8s infinite alternate;
+}
+
+/* Narrative Center Floating Headlines */
+.distance-narrative {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 900px;
+  text-align: center;
+  z-index: 4;
+  pointer-events: none;
+}
+.distance-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  margin: 0;
+  color: #fff6e8;
+  opacity: 0;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+  font: 600 clamp(32px, 4.5vw, 68px)/1.08 var(--display);
+  letter-spacing: -0.03em;
+}
+.distance-line-three {
+  color: #ffffff;
+}
+.distance-line-three em {
+  font-family: var(--script);
+  color: var(--marigold);
+  font-style: normal;
+  font-size: 1.15em;
+  text-shadow: 0 0 25px rgba(217, 155, 56, 0.8);
+}
+
+/* Connection Field */
+.connection-field {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6vw;
+}
+
+/* City Cards & Beacons */
+.city-card {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.city-sister {
+  left: 6vw;
+}
+.city-brother {
+  right: 6vw;
+}
+.city-beacon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217, 155, 56, 0.25) 0%, transparent 70%);
+  animation: auraPulse 2.5s infinite ease-in-out alternate;
+  pointer-events: none;
+}
+.city-polaroid {
+  position: relative;
+  padding: 8px 8px 12px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(217, 155, 56, 0.35);
+  transform: rotate(-3deg);
+  transition: transform 0.3s ease;
+}
+.city-brother .city-polaroid {
+  transform: rotate(3deg);
+}
+.city-polaroid img {
+  width: clamp(130px, 14vw, 190px);
+  aspect-ratio: 0.85;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+.city-role-tag {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 3px 8px;
+  border-radius: 10px;
+  background: var(--wine);
+  border: 1px solid var(--marigold);
+  color: #fff4d6;
+  font: 700 8.5px/1 var(--mono);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.city-label-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+.city-name {
+  color: var(--marigold);
+  font: 700 13px/1 var(--mono);
+  letter-spacing: 0.16em;
+}
+.city-coords {
+  color: rgba(255, 246, 232, 0.5);
+  font: 500 9px/1 var(--mono);
+  letter-spacing: 0.06em;
+}
+
+/* Central SVG Thread & Medallion */
+.connection-svg-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.connection-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.thread-ambient-glow {
+  fill: none;
+  stroke: var(--marigold);
+  stroke-width: 8;
+  stroke-linecap: round;
+  opacity: 0.3;
+  filter: blur(8px);
+}
+.thread-core-line {
+  fill: none;
+  stroke: url(#threadGlowGrad);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-dasharray: 8 6 3 6;
+  filter: drop-shadow(0 0 8px rgba(217, 155, 56, 0.8));
+}
+
+/* Central Medallion */
+.connection-medallion {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff0b8 0%, #d99b38 40%, #7b2a3b 100%);
+  box-shadow: 0 0 35px rgba(217, 155, 56, 0.9), 0 0 0 3px #ffffff;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+  z-index: 4;
+}
+.connection-medallion.is-active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.15);
+}
+.medallion-core {
+  color: #ffffff;
+  font: 22px/1 var(--display);
+}
+.medallion-halo {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1px dashed rgba(217, 155, 56, 0.8);
+  animation: slowSpin 12s linear infinite;
+}
 
 /* Finale */
 .finale { min-height: 130vh; position: relative; display: grid; justify-items: center; align-content: center; overflow: hidden; padding: 18vh 20px 14vh; text-align: center; background: #eee1ce; }

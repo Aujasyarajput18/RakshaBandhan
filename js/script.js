@@ -691,27 +691,47 @@ function setupScrollStory() {
     scrollTrigger: { trigger: '.letter-section', start: 'top 66%' }
   });
 
-  // Chapter 05: Distance Section
+  // Chapter 05: Distance Section (Infinite Connection)
   const distanceThread = document.getElementById('distance-thread');
+  const ambientGlowThread = document.querySelector('.thread-ambient-glow');
   const distanceLength = safelyGetPathLength(distanceThread);
-  if (distanceThread && distanceLength) gsap.set(distanceThread, { strokeDasharray: distanceLength, strokeDashoffset: distanceLength });
+  if (distanceThread && distanceLength) {
+    gsap.set(distanceThread, { strokeDasharray: distanceLength, strokeDashoffset: distanceLength });
+    if (ambientGlowThread) gsap.set(ambientGlowThread, { strokeDasharray: distanceLength, strokeDashoffset: distanceLength });
+  }
   
   const distanceTimeline = gsap.timeline({
-    scrollTrigger: { trigger: '.distance-section', start: 'top top', end: 'bottom bottom', scrub: 1 }
+    scrollTrigger: {
+      trigger: '.distance-section',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 0.8,
+      onUpdate: (self) => {
+        const medallion = document.getElementById('connection-medallion');
+        if (self.progress > 0.72) {
+          medallion?.classList.add('is-active');
+        } else {
+          medallion?.classList.remove('is-active');
+        }
+      }
+    }
   });
+
   distanceTimeline
-    .to('.distance-line-one', { opacity: 1, duration: 0.18 }, 0.05)
-    .to('.distance-line-one', { opacity: 0, duration: 0.14 }, 0.28)
-    .to(distanceThread, { strokeDashoffset: 0, duration: 0.32, ease: 'none' }, 0.24)
-    .to('.city-sister', { x: '14vw', duration: 0.3, ease: 'none' }, 0.26)
-    .to('.city-brother', { x: '-14vw', duration: 0.3, ease: 'none' }, 0.26)
-    .to('.distance-line-two', { opacity: 1, duration: 0.16 }, 0.42)
-    .to('.distance-line-two', { opacity: 0, duration: 0.13 }, 0.60)
-    .to('.city-sister', { x: '27vw', duration: 0.22, ease: 'none' }, 0.55)
-    .to('.city-brother', { x: '-27vw', duration: 0.22, ease: 'none' }, 0.55)
-    .to('.city-sister', { x: '5vw', duration: 0.18, ease: 'none' }, 0.73)
-    .to('.city-brother', { x: '-5vw', duration: 0.18, ease: 'none' }, 0.73)
-    .to('.distance-line-three', { opacity: 1, duration: 0.2 }, 0.77);
+    // Scene 1: Initial City beacons & First Line
+    .to('.distance-line-one', { opacity: 1, yPercent: -5, duration: 0.15 }, 0.04)
+    .to('.distance-line-one', { opacity: 0, yPercent: -15, duration: 0.12 }, 0.28)
+    
+    // Scene 2: Thread draws from Mumbai across to London
+    .to(distanceThread, { strokeDashoffset: 0, duration: 0.42, ease: 'power1.inOut' }, 0.22)
+    .to(ambientGlowThread, { strokeDashoffset: 0, duration: 0.42, ease: 'power1.inOut' }, 0.22)
+    .to('.distance-line-two', { opacity: 1, yPercent: -5, duration: 0.15 }, 0.38)
+    .to('.distance-line-two', { opacity: 0, yPercent: -15, duration: 0.12 }, 0.62)
+    
+    // Scene 3: Convergence - Both cards glide smoothly toward the center
+    .to('.city-sister', { x: '18vw', duration: 0.28, ease: 'power2.out' }, 0.65)
+    .to('.city-brother', { x: '-18vw', duration: 0.28, ease: 'power2.out' }, 0.65)
+    .to('.distance-line-three', { opacity: 1, yPercent: 0, scale: 1, duration: 0.22, ease: 'back.out(1.4)' }, 0.74);
 
   // Chapter 06: Finale
   gsap.from('.finale-rakhi', {
