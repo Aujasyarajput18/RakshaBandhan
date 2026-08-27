@@ -729,8 +729,8 @@ function setupScrollStory() {
     .to('.distance-line-two', { opacity: 0, yPercent: -15, duration: 0.12 }, 0.62)
     
     // Scene 3: Convergence - Both cards glide smoothly toward the center
-    .to('.city-sister', { x: '18vw', duration: 0.28, ease: 'power2.out' }, 0.65)
-    .to('.city-brother', { x: '-18vw', duration: 0.28, ease: 'power2.out' }, 0.65)
+    .to('.city-sister', { x: '12vw', duration: 0.28, ease: 'power2.out' }, 0.65)
+    .to('.city-brother', { x: '-12vw', duration: 0.28, ease: 'power2.out' }, 0.65)
     .to('.distance-line-three', { opacity: 1, yPercent: 0, scale: 1, duration: 0.22, ease: 'back.out(1.4)' }, 0.74);
 
   // Chapter 06: Finale

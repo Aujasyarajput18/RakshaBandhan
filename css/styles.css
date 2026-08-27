@@ -1439,13 +1439,13 @@ img { display: block; max-width: 100%; }
 /* Narrative Center Floating Headlines */
 .distance-narrative {
   position: absolute;
-  top: 48%;
+  top: 22%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90%;
   max-width: 900px;
   text-align: center;
-  z-index: 4;
+  z-index: 5;
   pointer-events: none;
 }
 .distance-line {
@@ -1457,9 +1457,9 @@ img { display: block; max-width: 100%; }
   margin: 0;
   color: #fff6e8;
   opacity: 0;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
-  font: 600 clamp(32px, 4.5vw, 68px)/1.08 var(--display);
-  letter-spacing: -0.03em;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.85);
+  font: 700 clamp(28px, 4vw, 56px)/1.12 var(--display);
+  letter-spacing: -0.02em;
 }
 .distance-line-three {
   color: #ffffff;
@@ -1468,14 +1468,17 @@ img { display: block; max-width: 100%; }
   font-family: var(--script);
   color: var(--marigold);
   font-style: normal;
-  font-size: 1.15em;
-  text-shadow: 0 0 25px rgba(217, 155, 56, 0.8);
+  font-size: 1.2em;
+  text-shadow: 0 0 25px rgba(217, 155, 56, 0.9);
+  display: inline-block;
+  margin-top: 4px;
 }
 
 /* Connection Field */
 .connection-field {
   position: absolute;
   inset: 0;
+  top: 15%;
   z-index: 2;
   display: flex;
   align-items: center;
@@ -1486,9 +1489,9 @@ img { display: block; max-width: 100%; }
 /* City Cards & Beacons */
 .city-card {
   position: absolute;
-  top: 50%;
+  top: 58%;
   transform: translateY(-50%);
-  z-index: 3;
+  z-index: 4;
   display: flex;
   flex-direction: column;
   align-items: center;
