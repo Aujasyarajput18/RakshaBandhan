@@ -194,27 +194,66 @@
       </div>
     </section>
 
-    <section class="photo-journey" id="photo-journey" aria-label="A journey through photographs">
-      <div class="photo-journey-header">
+    <section class="kinetic-hero-section" id="photo-journey" aria-label="A journey through memories">
+      <!-- Ambient Dynamic Background Slider -->
+      <div class="kinetic-bg-wrap" id="kinetic-bg">
+        <div class="kinetic-bg-slide is-active" style="background-image: url('assets/images/demo/img1.svg');"></div>
+        <div class="kinetic-bg-slide" style="background-image: url('assets/images/demo/img2.svg');"></div>
+        <div class="kinetic-bg-slide" style="background-image: url('assets/images/demo/img3.svg');"></div>
+        <div class="kinetic-bg-slide" style="background-image: url('assets/images/demo/img4.svg');"></div>
+        <div class="kinetic-bg-slide" style="background-image: url('assets/images/demo/img5.svg');"></div>
+        <div class="kinetic-bg-overlay"></div>
+      </div>
+
+      <!-- Initial Hero Header -->
+      <div class="kinetic-hero-header" id="kinetic-header">
         <div class="journey-badge">
           <span class="chapter-gold-pill">CHAPTER 02</span>
-          <span class="chapter-label">A TIMELINE OF CHAOS</span>
+          <span class="chapter-label">A LIFETIME OF MEMORIES</span>
         </div>
         <h2 class="journey-title">Some proof that time has passed<br><em>and we somehow stayed us.</em></h2>
-        <p class="journey-subtitle">Hover or tap any memory strip to expand the moment in full focus.</p>
+        <p class="journey-subtitle">Scroll down to assemble our journey ✦</p>
       </div>
 
-      <!-- Grand Interactive Expanding Memory Reel -->
-      <div class="memory-reel-stage">
-        <div class="memory-reel-container" id="photo-stream">
-          <!-- Populated dynamically via JS with noise texture and hover expansion -->
+      <!-- Floating Animated Thumbnails Row -->
+      <div class="kinetic-animated-icons" id="kinetic-icons">
+        <div class="kinetic-icon-card" data-idx="0">
+          <img src="assets/images/demo/img1.svg" alt="Memory 1">
+        </div>
+        <div class="kinetic-icon-card" data-idx="1">
+          <img src="assets/images/demo/img2.svg" alt="Memory 2">
+        </div>
+        <div class="kinetic-icon-card" data-idx="2">
+          <img src="assets/images/demo/img3.svg" alt="Memory 3">
+        </div>
+        <div class="kinetic-icon-card" data-idx="3">
+          <img src="assets/images/demo/img4.svg" alt="Memory 4">
+        </div>
+        <div class="kinetic-icon-card" data-idx="4">
+          <img src="assets/images/demo/img5.svg" alt="Memory 5">
         </div>
       </div>
 
-      <div class="photo-wall-end" aria-hidden="true">
-        <span>still stealing my food.</span>
-        <div class="wall-thread"></div>
-      </div>
+      <!-- Kinetic Story Typography with Placeholders -->
+      <h1 class="kinetic-animated-text" id="kinetic-text">
+        <span class="kinetic-text-segment">Childhood fights</span>
+        <div class="kinetic-placeholder-icon"></div>
+
+        <span class="kinetic-text-segment">built the foundation</span>
+        <div class="kinetic-placeholder-icon"></div>
+
+        <span class="kinetic-text-segment">where unspoken trust</span>
+        <div class="kinetic-placeholder-icon"></div>
+
+        <span class="kinetic-text-segment">and endless laughter</span>
+        <div class="kinetic-placeholder-icon"></div>
+
+        <span class="kinetic-text-segment">
+          forged an unbreakable
+          <div class="kinetic-placeholder-icon"></div>
+          lifelong bond.
+        </span>
+      </h1>
     </section>
 
     <section class="remember-section" id="memories" aria-labelledby="remember-title">

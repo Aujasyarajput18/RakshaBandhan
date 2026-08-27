@@ -654,10 +654,163 @@ img { display: block; max-width: 100%; }
   }
 }
 
-/* Photograph stream */
-.photo-journey { min-height: 235vh; position: relative; padding: 17vh 8vw 13vh; overflow: hidden; background: #f5efe4; }
-.photo-journey::before { content: ''; position: absolute; inset: 0; opacity: .47; background-image: linear-gradient(90deg, transparent 0 49.8%, rgba(111,44,66,.05) 50%, transparent 50.2%), linear-gradient(rgba(111,44,66,.025) 1px, transparent 1px); background-size: auto, 100% 57px; }
-.photo-journey-heading { position: relative; z-index: 1; max-width: 480px; }
+/* ==========================================================================
+   Chapter 02: Kinetic Landing Scroll Storytelling (HomeHeroLandingScrollAnimation)
+   ========================================================================== */
+.kinetic-hero-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #faf8f5;
+  color: var(--ink);
+  padding: 24px;
+}
+
+/* Dynamic Ambient Background Slider */
+.kinetic-bg-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+.kinetic-bg-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+  transform: scale(1.05);
+}
+.kinetic-bg-slide.is-active {
+  opacity: 1;
+}
+.kinetic-bg-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(circle at 50% 50%, rgba(250, 248, 245, 0.72) 0%, rgba(250, 248, 245, 0.88) 60%, rgba(245, 238, 228, 0.96) 100%);
+  backdrop-filter: blur(4px);
+}
+
+/* Initial Hero Header */
+.kinetic-hero-header {
+  position: absolute;
+  top: 15vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  will-change: transform, opacity;
+  padding: 0 20px;
+}
+.journey-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.journey-title {
+  margin: 0 0 10px;
+  font: 600 clamp(32px, 4.5vw, 64px)/1.05 var(--display);
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+.journey-title em {
+  color: var(--rose);
+  font-family: var(--script);
+  font-style: normal;
+  font-size: 1.15em;
+}
+.journey-subtitle {
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.16em;
+  color: var(--faded);
+  text-transform: uppercase;
+}
+
+/* Floating Bottom Thumbnails Row */
+.kinetic-animated-icons {
+  position: absolute;
+  bottom: 8vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: min(90vw, 750px);
+  z-index: 10;
+  will-change: transform, opacity;
+}
+.kinetic-icon-card {
+  flex: 1;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 10px 25px rgba(41, 27, 37, 0.12), 0 2px 6px rgba(0,0,0,0.06);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  will-change: transform;
+  transition: box-shadow 0.3s ease;
+}
+.kinetic-icon-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Flying Duplicate Icon */
+.duplicate-kinetic-icon {
+  position: absolute;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(111, 44, 66, 0.35);
+  border: 2px solid var(--marigold);
+  z-index: 100;
+  pointer-events: none;
+}
+.duplicate-kinetic-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Kinetic Story Typography */
+.kinetic-animated-text {
+  position: relative;
+  z-index: 15;
+  max-width: min(90vw, 1100px);
+  text-align: center;
+  font: 600 clamp(24px, 4.2vw, 56px)/1.35 var(--display);
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.kinetic-text-segment {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.kinetic-placeholder-icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: clamp(35px, 4.5vw, 62px);
+  height: clamp(35px, 4.5vw, 62px);
+  margin: 0 8px -6px;
+  border-radius: 12px;
+  visibility: hidden;
+}
 .photo-journey-heading h2 { margin: 15px 0; font: 500 clamp(46px,6.2vw,92px)/.9 var(--display); letter-spacing: -.065em; }
 .photo-journey-heading em { color: var(--rose); }
 .photo-stream { position: relative; z-index: 1; height: 165vh; min-height: 1130px; max-width: 1130px; margin: -60px auto 0; }

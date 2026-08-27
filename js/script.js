@@ -264,6 +264,196 @@ function setupIntroMouseParallax() {
 }
 
 /**
+ * Chapter 02: Kinetic Landing Scroll Storytelling Engine
+ * Replicating HomeHeroLandingScrollAnimation with dynamic flight & kinetic text
+ */
+function setupKineticStorytelling() {
+  const { gsap, ScrollTrigger } = window;
+  const heroSection = document.getElementById('photo-journey');
+  const heroHeader = document.getElementById('kinetic-header');
+  const animatedIconsContainer = document.getElementById('kinetic-icons');
+  if (!heroSection || !animatedIconsContainer || !gsap || !ScrollTrigger) return;
+
+  const iconElements = Array.from(animatedIconsContainer.querySelectorAll('.kinetic-icon-card'));
+  const textSegments = Array.from(document.querySelectorAll('.kinetic-text-segment'));
+  const placeholders = Array.from(document.querySelectorAll('.kinetic-placeholder-icon'));
+  const bgSlides = Array.from(document.querySelectorAll('.kinetic-bg-slide'));
+
+  // Background slide cycler
+  let currentSlide = 0;
+  if (bgSlides.length > 1) {
+    setInterval(() => {
+      bgSlides[currentSlide].classList.remove('is-active');
+      currentSlide = (currentSlide + 1) % bgSlides.length;
+      bgSlides[currentSlide].classList.add('is-active');
+    }, 3200);
+  }
+
+  // Shuffle text animation order
+  const animationOrder = textSegments.map((segment, index) => ({ segment, originalIndex: index }));
+  for (let i = animationOrder.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [animationOrder[i], animationOrder[j]] = [animationOrder[j], animationOrder[i]];
+  }
+
+  let duplicateIcons = null;
+
+  ScrollTrigger.create({
+    trigger: heroSection,
+    start: 'top top',
+    end: () => `+=${window.innerHeight * 5}px`,
+    pin: true,
+    pinSpacing: true,
+    scrub: 1,
+    onUpdate: (self) => {
+      const progress = self.progress;
+      const isMobile = window.innerWidth < 1000;
+      const headerIconSize = isMobile ? 36 : 58;
+      const currentIconSize = iconElements[0]?.getBoundingClientRect().width || 1;
+      const exactScale = headerIconSize / currentIconSize;
+
+      textSegments.forEach((segment) => {
+        if (segment) gsap.set(segment, { opacity: 0 });
+      });
+
+      if (progress < 0.3) {
+        const moveProgress = progress / 0.3;
+        const containerMoveY = -window.innerHeight * 0.3 * moveProgress;
+
+        if (progress < 0.15) {
+          const headerProgress = progress / 0.15;
+          gsap.set(heroHeader, {
+            transform: `translateY(${-50 * headerProgress}px)`,
+            opacity: 1 - headerProgress,
+          });
+        } else {
+          gsap.set(heroHeader, { transform: 'translateY(-50px)', opacity: 0 });
+        }
+
+        if (duplicateIcons) {
+          duplicateIcons.forEach((d) => d.parentNode?.removeChild(d));
+          duplicateIcons = null;
+        }
+
+        gsap.set(animatedIconsContainer, { x: 0, y: containerMoveY, scale: 1, opacity: 1 });
+
+        iconElements.forEach((icon, index) => {
+          if (icon) {
+            const staggerDelay = index * 0.1;
+            const iconProgress = gsap.utils.mapRange(staggerDelay, staggerDelay + 0.5, 0, 1, moveProgress);
+            const clamped = Math.max(0, Math.min(1, iconProgress));
+            gsap.set(icon, { x: 0, y: (-containerMoveY) * (1 - clamped) });
+          }
+        });
+
+      } else if (progress < 0.6) {
+        const scaleProgress = (progress - 0.3) / 0.3;
+
+        gsap.set(heroHeader, { transform: 'translateY(-50px)', opacity: 0 });
+
+        if (duplicateIcons) {
+          duplicateIcons.forEach((d) => d.parentNode?.removeChild(d));
+          duplicateIcons = null;
+        }
+
+        const containerRect = animatedIconsContainer.getBoundingClientRect();
+        const deltaX = (window.innerWidth / 2 - (containerRect.left + containerRect.width / 2)) * scaleProgress;
+        const deltaY = (window.innerHeight / 2 - (containerRect.top + containerRect.height / 2)) * scaleProgress;
+
+        gsap.set(animatedIconsContainer, {
+          x: deltaX,
+          y: -window.innerHeight * 0.3 + deltaY,
+          scale: 1 + (exactScale - 1) * scaleProgress,
+          opacity: 1,
+        });
+
+        iconElements.forEach((icon) => { if (icon) gsap.set(icon, { x: 0, y: 0 }); });
+
+      } else if (progress < 0.75) {
+        const moveProgress = (progress - 0.6) / 0.15;
+
+        gsap.set(heroHeader, { transform: 'translateY(-50px)', opacity: 0 });
+
+        const containerRect = animatedIconsContainer.getBoundingClientRect();
+        const deltaX = window.innerWidth / 2 - (containerRect.left + containerRect.width / 2);
+        const deltaY = window.innerHeight / 2 - (containerRect.top + containerRect.height / 2);
+
+        gsap.set(animatedIconsContainer, {
+          x: deltaX,
+          y: -window.innerHeight * 0.3 + deltaY,
+          scale: exactScale,
+          opacity: 0,
+        });
+
+        iconElements.forEach((icon) => { if (icon) gsap.set(icon, { x: 0, y: 0 }); });
+
+        if (!duplicateIcons) {
+          duplicateIcons = [];
+          iconElements.forEach((icon) => {
+            if (icon) {
+              const duplicate = icon.cloneNode(true);
+              duplicate.className = 'duplicate-kinetic-icon';
+              Object.assign(duplicate.style, {
+                position: 'fixed',
+                width: headerIconSize + 'px',
+                height: headerIconSize + 'px',
+                zIndex: '50',
+              });
+              document.body.appendChild(duplicate);
+              duplicateIcons.push(duplicate);
+            }
+          });
+        }
+
+        duplicateIcons?.forEach((duplicate, index) => {
+          if (index < placeholders.length && iconElements[index]) {
+            const iconRect = iconElements[index].getBoundingClientRect();
+            const startX = iconRect.left + iconRect.width / 2;
+            const startY = iconRect.top + iconRect.height / 2;
+
+            const targetRect = placeholders[index].getBoundingClientRect();
+            const targetX = targetRect.left + targetRect.width / 2;
+            const targetY = targetRect.top + targetRect.height / 2;
+
+            const moveX = targetX - startX;
+            const moveY = targetY - startY;
+
+            let currentX = 0;
+            let currentY = moveProgress < 0.5 ? moveY * (moveProgress / 0.5) : moveY;
+            if (moveProgress >= 0.5) currentX = moveX * ((moveProgress - 0.5) / 0.5);
+
+            duplicate.style.left = startX + currentX - headerIconSize / 2 + 'px';
+            duplicate.style.top = startY + currentY - headerIconSize / 2 + 'px';
+            duplicate.style.opacity = '1';
+            duplicate.style.display = 'block';
+          }
+        });
+
+      } else {
+        gsap.set(heroHeader, { transform: 'translateY(-100px)', opacity: 0 });
+        gsap.set(animatedIconsContainer, { opacity: 0 });
+
+        duplicateIcons?.forEach((duplicate, index) => {
+          if (index < placeholders.length) {
+            const targetRect = placeholders[index].getBoundingClientRect();
+            duplicate.style.left = targetRect.left + 'px';
+            duplicate.style.top = targetRect.top + 'px';
+            duplicate.style.opacity = '1';
+            duplicate.style.display = 'block';
+          }
+        });
+
+        animationOrder.forEach((item, randomIndex) => {
+          const segStart = 0.75 + randomIndex * 0.04;
+          const segProgress = gsap.utils.mapRange(segStart, segStart + 0.02, 0, 1, progress);
+          gsap.set(item.segment, { opacity: Math.max(0, Math.min(1, segProgress)) });
+        });
+      }
+    },
+  });
+}
+
+/**
  * Master GSAP Cinematic Scroll Choreography
  */
 function setupScrollStory() {
@@ -417,26 +607,8 @@ function setupScrollStory() {
     scrollTrigger: { trigger: '.sister-section', start: 'top 65%' }
   });
 
-  // Chapter 02: Photo Journey River Parallax
-  gsap.utils.toArray('.memory-photo').forEach((photo, index) => {
-    const isEven = index % 2 === 0;
-    gsap.from(photo, {
-      y: isEven ? 140 : 100,
-      x: isEven ? -40 : 40,
-      rotate: isEven ? -12 : 12,
-      opacity: 0,
-      scale: 0.86,
-      duration: 1,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: photo, start: 'top 88%' }
-    });
-
-    gsap.to(photo, {
-      yPercent: isEven ? -18 : 18,
-      ease: 'none',
-      scrollTrigger: { trigger: photo, start: 'top bottom', end: 'bottom top', scrub: 1.2 }
-    });
-  });
+  // Chapter 02: Kinetic Landing Scroll Storytelling (HomeHeroLandingScrollAnimation)
+  setupKineticStorytelling();
 
   // Chapter 03: Remember When Timeline
   gsap.from('.remember-intro > *', {
