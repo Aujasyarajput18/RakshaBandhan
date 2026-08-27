@@ -1,8 +1,60 @@
 /*
- * Rakhi story engine
- * All client-specific content comes from js/config.js (or its shareable URL payload).
- * The animation layer is deliberately small: SVG, CSS, canvas dust, and GSAP only.
+ * ==========================================================================
+ * Rakhi Story Engine — High-End Cinematic Interactive Experience
+ * Features: Lenis Smooth Scroll, GSAP ScrollTrigger Parallax,
+ * 3D Physics Tilt, Web Audio Haptics, Wax Seal Letter & Memory Stream
+ * ==========================================================================
  */
+
+// ── Web Audio Synthesizer (Zero-Dependency Micro-Haptics) ──
+const SoundFX = {
+  ctx: null,
+  init() {
+    if (!this.ctx) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) this.ctx = new AudioCtx();
+    }
+    if (this.ctx && this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+  },
+  playChime() {
+    this.init();
+    if (!this.ctx) return;
+    const notes = [528, 792, 1056];
+    notes.forEach((freq, idx) => {
+      const t = this.ctx.currentTime + (idx * 0.045);
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, t);
+      gain.gain.setValueAtTime(0.25, t);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + 1.6);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(t);
+      osc.stop(t + 1.65);
+    });
+  },
+  playWaxCrack() {
+    this.init();
+    if (!this.ctx) return;
+    const t = this.ctx.currentTime;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(190, t);
+    osc.frequency.exponentialRampToValueAtTime(35, t + 0.16);
+    gain.gain.setValueAtTime(0.5, t);
+    gain.gain.exponentialRampToValueAtTime(0.01, t + 0.16);
+    osc.connect(gain);
+    gain.connect(this.ctx.destination);
+    osc.start(t);
+    osc.stop(t + 0.17);
+  }
+};
+
+let lenisInstance = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
   const config = typeof window.loadRakhiConfig === 'function'
@@ -10,12 +62,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     : (window.rakhiConfig || {});
 
   const story = hydrateStory(config);
+  setupLenis();
   setupAudio(config);
   setupLetter();
   setupTilt();
   setupReplay();
   setupPetalDust();
   setupScrollProgress();
+  setupIntroMouseParallax();
 
   if (window.gsap && window.ScrollTrigger && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.documentElement.classList.add('js-motion');
@@ -23,9 +77,37 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupScrollStory();
   }
 
-  // Updating this attribute makes the personalized version easy to identify in a CMS preview.
   document.body.dataset.siblings = `${story.sister}-${story.brother}`.toLowerCase().replace(/\s+/g, '-');
 });
+
+/**
+ * Buttery Smooth Inertia Scroll (Lenis + GSAP Integration)
+ */
+function setupLenis() {
+  if (typeof Lenis === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  try {
+    lenisInstance = new Lenis({
+      duration: 1.25,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1.05,
+      touchMultiplier: 1.6
+    });
+
+    if (window.ScrollTrigger) {
+      lenisInstance.on('scroll', window.ScrollTrigger.update);
+    }
+
+    if (window.gsap) {
+      window.gsap.ticker.add((time) => {
+        lenisInstance.raf(time * 1000);
+      });
+      window.gsap.ticker.lagSmoothing(0);
+    }
+  } catch (_) {}
+}
 
 function hydrateStory(config) {
   const sister = cleanText(config.names?.sister, 'Ananya');
@@ -102,7 +184,7 @@ function renderTimeline(memories, photos) {
     const title = cleanText(memory.title, defaultItem[1]);
     const description = cleanText(memory.description, defaultItem[2]);
     const image = cleanUrl(memory.image || photos[index]?.url || `assets/images/demo/img${index + 1}.svg`);
-    return `<article class="memory-stop">
+    return `<article class="memory-stop" data-step="${index}">
       <span class="memory-node" aria-hidden="true"></span>
       <div class="memory-card">
         <figure><img src="${escapeAttr(image)}" alt="${escapeAttr(title)}" loading="lazy"></figure>
@@ -132,6 +214,32 @@ function renderLetter(letter, sister, brother) {
   if (body) body.innerHTML = paragraphs.slice(0, 4).map(paragraph => `<p>${escapeHtml(cleanText(paragraph, ''))}</p>`).join('');
 }
 
+/**
+ * Multi-layer Mouse Parallax in Intro Scene
+ */
+function setupIntroMouseParallax() {
+  const intro = document.querySelector('.intro-scene');
+  if (!intro || !window.matchMedia('(pointer: fine)').matches) return;
+
+  intro.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 30;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+    const toran = document.querySelector('.intro-toran');
+    const fabric1 = document.querySelector('.fabric-one');
+    const fabric2 = document.querySelector('.fabric-two');
+    const mandala = document.querySelector('.intro-mandala');
+
+    if (toran) toran.style.transform = `translateX(calc(-50% + ${x * 0.4}px)) translateY(${y * 0.3}px)`;
+    if (fabric1) fabric1.style.transform = `translateX(${x * 0.7}px) translateY(${y * 0.7}px) rotate(-10deg)`;
+    if (fabric2) fabric2.style.transform = `translateX(${x * -0.6}px) translateY(${y * -0.6}px)`;
+    if (mandala) mandala.style.transform = `translateX(${x * -0.3}px) translateY(${y * -0.3}px)`;
+  });
+}
+
+/**
+ * Master GSAP Cinematic Scroll Choreography
+ */
 function setupScrollStory() {
   const { gsap, ScrollTrigger } = window;
   const intro = document.querySelector('.intro-scene');
@@ -141,77 +249,215 @@ function setupScrollStory() {
 
   // Initial load entrance
   gsap.from(['.word-happy', '.word-raksha', '.word-bandhan'], {
-    y: 35,
+    y: 40,
     opacity: 0,
-    stagger: 0.15,
-    duration: 1.1,
+    stagger: 0.16,
+    duration: 1.2,
     ease: 'power3.out'
   });
 
   const introTimeline = gsap.timeline({
-    scrollTrigger: { trigger: intro, start: 'top top', end: 'bottom bottom', scrub: 0.8 }
+    scrollTrigger: { trigger: intro, start: 'top top', end: 'bottom bottom', scrub: 0.85 }
   });
   introTimeline
-    .to('.intro-prompt', { opacity: 0, y: -20, duration: 0.15 }, 0)
-    .to(introThread, { strokeDashoffset: 0, duration: 0.5, ease: 'none' }, 0)
-    .to('.word-happy', { xPercent: -25, yPercent: -15, duration: 0.45, ease: 'none' }, 0)
-    .to('.word-raksha', { xPercent: 20, yPercent: -10, duration: 0.45, ease: 'none' }, 0)
-    .to('.word-bandhan', { xPercent: -15, yPercent: 20, duration: 0.45, ease: 'none' }, 0)
-    .to('.fabric-one', { xPercent: 20, yPercent: -9, duration: 1 }, 0)
-    .to('.fabric-two', { xPercent: -20, yPercent: 10, duration: 1 }, 0)
-    .to(['.word-happy', '.word-raksha', '.word-bandhan'], { opacity: 0, yPercent: -20, duration: 0.2, stagger: 0.03 }, 0.55)
-    .fromTo('.bond-statement', { opacity: 0, yPercent: 25 }, { opacity: 1, yPercent: 0, duration: 0.2 }, 0.62)
-    .to('.bond-statement', { opacity: 0, yPercent: -25, duration: 0.15 }, 0.85);
+    .to('.intro-prompt', { opacity: 0, y: -25, duration: 0.14 }, 0)
+    .to(introThread, { strokeDashoffset: 0, duration: 0.45, ease: 'none' }, 0)
+    .to('.word-happy', { xPercent: -28, yPercent: -18, duration: 0.45, ease: 'none' }, 0)
+    .to('.word-raksha', { xPercent: 24, yPercent: -12, duration: 0.45, ease: 'none' }, 0)
+    .to('.word-bandhan', { xPercent: -18, yPercent: 22, duration: 0.45, ease: 'none' }, 0)
+    .to('.fabric-one', { xPercent: 25, yPercent: -12, duration: 1 }, 0)
+    .to('.fabric-two', { xPercent: -25, yPercent: 12, duration: 1 }, 0)
+    .to(['.word-happy', '.word-raksha', '.word-bandhan'], { opacity: 0, yPercent: -25, duration: 0.18, stagger: 0.03 }, 0.52)
+    .fromTo('.bond-statement', { opacity: 0, yPercent: 30, scale: 0.95 }, { opacity: 1, yPercent: 0, scale: 1, duration: 0.22 }, 0.58)
+    .to('.bond-statement', { opacity: 0, yPercent: -30, duration: 0.15 }, 0.85);
+
+  // Threshold Button & Rangoli Scroll Spin
+  gsap.to('.thread-cta svg', {
+    rotate: 180,
+    ease: 'none',
+    scrollTrigger: { trigger: '.threshold', start: 'top bottom', end: 'bottom top', scrub: 1 }
+  });
+  gsap.to('.threshold-rangoli.rangoli-left', {
+    rotate: 45,
+    ease: 'none',
+    scrollTrigger: { trigger: '.threshold', start: 'top bottom', end: 'bottom top', scrub: 1 }
+  });
+  gsap.to('.threshold-rangoli.rangoli-right', {
+    rotate: -45,
+    ease: 'none',
+    scrollTrigger: { trigger: '.threshold', start: 'top bottom', end: 'bottom top', scrub: 1 }
+  });
 
   const enter = document.getElementById('enter-bond');
-  enter?.addEventListener('click', () => document.getElementById('her')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
-
-  gsap.from('.sister-intro > *', { y: 42, opacity: 0, stagger: .13, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '.sister-section', start: 'top 67%' } });
-  gsap.from('.portrait-stage', { y: 100, rotate: 7, opacity: 0, duration: 1.25, ease: 'power3.out', scrollTrigger: { trigger: '.sister-section', start: 'top 62%' } });
-  gsap.utils.toArray('.memory-photo').forEach((photo, index) => {
-    gsap.from(photo, { y: index % 2 ? 130 : 95, x: index % 2 ? 45 : -45, opacity: 0, scale: .88, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: photo, start: 'top 86%' } });
+  enter?.addEventListener('click', () => {
+    SoundFX.playChime();
+    triggerSparkleBurst();
+    if (lenisInstance) {
+      lenisInstance.scrollTo('#her', { duration: 1.4 });
+    } else {
+      document.getElementById('her')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   });
-  gsap.from('.remember-intro > *', { y: 40, opacity: 0, stagger: .1, duration: .8, scrollTrigger: { trigger: '.remember-section', start: 'top 72%' } });
+
+  // Chapter 01: Sister Spotlight
+  gsap.from('.sister-intro > *', {
+    y: 50,
+    opacity: 0,
+    stagger: 0.14,
+    duration: 1.1,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.sister-section', start: 'top 70%' }
+  });
+  gsap.from('.portrait-stage', {
+    y: 110,
+    rotate: 9,
+    opacity: 0,
+    duration: 1.35,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.sister-section', start: 'top 65%' }
+  });
+
+  // Chapter 02: Photo Journey River Parallax
+  gsap.utils.toArray('.memory-photo').forEach((photo, index) => {
+    const isEven = index % 2 === 0;
+    gsap.from(photo, {
+      y: isEven ? 140 : 100,
+      x: isEven ? -40 : 40,
+      rotate: isEven ? -12 : 12,
+      opacity: 0,
+      scale: 0.86,
+      duration: 1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: photo, start: 'top 88%' }
+    });
+
+    gsap.to(photo, {
+      yPercent: isEven ? -18 : 18,
+      ease: 'none',
+      scrollTrigger: { trigger: photo, start: 'top bottom', end: 'bottom top', scrub: 1.2 }
+    });
+  });
+
+  // Chapter 03: Remember When Timeline
+  gsap.from('.remember-intro > *', {
+    y: 45,
+    opacity: 0,
+    stagger: 0.12,
+    duration: 0.9,
+    scrollTrigger: { trigger: '.remember-section', start: 'top 72%' }
+  });
   gsap.utils.toArray('.memory-stop').forEach((stop, index) => {
     const card = stop.querySelector('.memory-card');
-    gsap.from(card, { x: index % 2 ? 45 : -45, opacity: 0, duration: .8, ease: 'power2.out', scrollTrigger: { trigger: stop, start: 'top 80%' } });
-  });
-  gsap.from('.letter-lead > *', { x: -45, opacity: 0, stagger: .1, duration: .9, scrollTrigger: { trigger: '.letter-section', start: 'top 70%' } });
-  gsap.from('.envelope-wrap', { y: 70, rotate: 4, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: '.letter-section', start: 'top 66%' } });
+    const node = stop.querySelector('.memory-node');
+    const isEven = index % 2 === 0;
 
+    gsap.from(card, {
+      x: isEven ? -55 : 55,
+      opacity: 0,
+      duration: 0.85,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: stop, start: 'top 82%' }
+    });
+
+    gsap.fromTo(node, { scale: 0.4, opacity: 0.3 }, {
+      scale: 1.25,
+      opacity: 1,
+      duration: 0.5,
+      ease: 'back.out(1.7)',
+      scrollTrigger: { trigger: stop, start: 'top 75%' }
+    });
+  });
+
+  // Chapter 04: Letter Section
+  gsap.from('.letter-lead > *', {
+    x: -50,
+    opacity: 0,
+    stagger: 0.12,
+    duration: 1,
+    scrollTrigger: { trigger: '.letter-section', start: 'top 70%' }
+  });
+  gsap.from('.envelope-wrap', {
+    y: 80,
+    rotate: 5,
+    opacity: 0,
+    duration: 1.2,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.letter-section', start: 'top 66%' }
+  });
+
+  // Chapter 05: Distance Section
   const distanceThread = document.getElementById('distance-thread');
   const distanceLength = safelyGetPathLength(distanceThread);
   if (distanceThread && distanceLength) gsap.set(distanceThread, { strokeDasharray: distanceLength, strokeDashoffset: distanceLength });
-  const distanceTimeline = gsap.timeline({ scrollTrigger: { trigger: '.distance-section', start: 'top top', end: 'bottom bottom', scrub: 1 } });
+  
+  const distanceTimeline = gsap.timeline({
+    scrollTrigger: { trigger: '.distance-section', start: 'top top', end: 'bottom bottom', scrub: 1 }
+  });
   distanceTimeline
-    .to('.distance-line-one', { opacity: 1, duration: .18 }, .05)
-    .to('.distance-line-one', { opacity: 0, duration: .14 }, .29)
-    .to(distanceThread, { strokeDashoffset: 0, duration: .3, ease: 'none' }, .25)
-    .to('.city-sister', { x: '14vw', duration: .3, ease: 'none' }, .27)
-    .to('.city-brother', { x: '-14vw', duration: .3, ease: 'none' }, .27)
-    .to('.distance-line-two', { opacity: 1, duration: .16 }, .42)
-    .to('.distance-line-two', { opacity: 0, duration: .13 }, .60)
-    .to('.city-sister', { x: '27vw', duration: .22, ease: 'none' }, .55)
-    .to('.city-brother', { x: '-27vw', duration: .22, ease: 'none' }, .55)
-    .to('.city-sister', { x: '5vw', duration: .18, ease: 'none' }, .73)
-    .to('.city-brother', { x: '-5vw', duration: .18, ease: 'none' }, .73)
-    .to('.distance-line-three', { opacity: 1, duration: .2 }, .77);
+    .to('.distance-line-one', { opacity: 1, duration: 0.18 }, 0.05)
+    .to('.distance-line-one', { opacity: 0, duration: 0.14 }, 0.28)
+    .to(distanceThread, { strokeDashoffset: 0, duration: 0.32, ease: 'none' }, 0.24)
+    .to('.city-sister', { x: '14vw', duration: 0.3, ease: 'none' }, 0.26)
+    .to('.city-brother', { x: '-14vw', duration: 0.3, ease: 'none' }, 0.26)
+    .to('.distance-line-two', { opacity: 1, duration: 0.16 }, 0.42)
+    .to('.distance-line-two', { opacity: 0, duration: 0.13 }, 0.60)
+    .to('.city-sister', { x: '27vw', duration: 0.22, ease: 'none' }, 0.55)
+    .to('.city-brother', { x: '-27vw', duration: 0.22, ease: 'none' }, 0.55)
+    .to('.city-sister', { x: '5vw', duration: 0.18, ease: 'none' }, 0.73)
+    .to('.city-brother', { x: '-5vw', duration: 0.18, ease: 'none' }, 0.73)
+    .to('.distance-line-three', { opacity: 1, duration: 0.2 }, 0.77);
 
-  gsap.from('.finale-rakhi', { scale: .65, opacity: 0, duration: 1.2, ease: 'back.out(1.2)', scrollTrigger: { trigger: '.finale', start: 'top 70%' } });
-  gsap.from('.finale h2 span', { y: 42, opacity: 0, stagger: .16, duration: .85, ease: 'power3.out', scrollTrigger: { trigger: '.finale', start: 'top 58%' } });
+  // Chapter 06: Finale
+  gsap.from('.finale-rakhi', {
+    scale: 0.6,
+    opacity: 0,
+    duration: 1.3,
+    ease: 'back.out(1.3)',
+    scrollTrigger: { trigger: '.finale', start: 'top 72%' }
+  });
+  gsap.from('.finale h2 span', {
+    y: 45,
+    opacity: 0,
+    stagger: 0.18,
+    duration: 0.9,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.finale', start: 'top 60%' }
+  });
 }
 
+/**
+ * Royal Wax Seal Letter
+ */
 function setupLetter() {
   const envelope = document.getElementById('open-letter');
   const paper = document.getElementById('letter-paper');
   envelope?.addEventListener('click', () => {
     const opening = !envelope.classList.contains('is-open');
+    if (opening) {
+      SoundFX.playWaxCrack();
+      SoundFX.playChime();
+      triggerSparkleBurst();
+    }
     envelope.classList.toggle('is-open', opening);
     paper?.classList.toggle('is-visible', opening);
     envelope.setAttribute('aria-expanded', String(opening));
     paper?.setAttribute('aria-hidden', String(!opening));
-    if (opening && window.gsap) window.gsap.from('.letter-body p', { y: 17, opacity: 0, stagger: .14, delay: .5, duration: .55, ease: 'power2.out' });
+    if (opening && window.gsap) {
+      window.gsap.from('.letter-body p', { y: 20, opacity: 0, stagger: 0.15, delay: 0.45, duration: 0.6, ease: 'power2.out' });
+      window.gsap.from('.letter-signature', { y: 15, opacity: 0, delay: 1, duration: 0.6, ease: 'power2.out' });
+    }
   });
+}
+
+function triggerSparkleBurst() {
+  if (typeof confetti === 'function') {
+    confetti({
+      particleCount: 45,
+      spread: 60,
+      origin: { y: 0.6 },
+      colors: ['#d99b38', '#a94f5c', '#e6b84f', '#6f2c42']
+    });
+  }
 }
 
 function setupAudio(config) {
@@ -234,7 +480,7 @@ function setupAudio(config) {
         button.setAttribute('aria-pressed', 'false');
         button.setAttribute('aria-label', 'Play ambient music');
       }
-    } catch (_) { /* Browser playback policy can decline a failed gesture gracefully. */ }
+    } catch (_) {}
   };
 
   button.addEventListener('click', toggleMusic);
@@ -253,15 +499,24 @@ function setupTilt() {
   if (!stage || !window.matchMedia('(pointer: fine)').matches) return;
   stage.addEventListener('pointermove', event => {
     const rect = stage.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - .5;
-    const y = (event.clientY - rect.top) / rect.height - .5;
-    stage.style.transform = `perspective(1000px) rotateY(${x * 4}deg) rotateX(${y * -4}deg)`;
+    const x = (event.clientX - rect.left) / rect.width - 0.5;
+    const y = (event.clientY - rect.top) / rect.height - 0.5;
+    stage.style.transform = `perspective(1000px) rotateY(${x * 12}deg) rotateX(${y * -12}deg) translateZ(10px)`;
   });
-  stage.addEventListener('pointerleave', () => { stage.style.transform = ''; });
+  stage.addEventListener('pointerleave', () => {
+    stage.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) translateZ(0px)';
+  });
 }
 
 function setupReplay() {
-  document.getElementById('replay-story')?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  document.getElementById('replay-story')?.addEventListener('click', () => {
+    SoundFX.playChime();
+    if (lenisInstance) {
+      lenisInstance.scrollTo(0, { duration: 1.5 });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
 }
 
 function setupScrollProgress() {
@@ -290,20 +545,42 @@ function setupPetalDust() {
   const canvas = document.getElementById('petal-dust');
   const context = canvas?.getContext('2d');
   if (!canvas || !context) return;
-  let width = 0, height = 0;
   const reduced = window.matchMedia('(max-width: 760px)').matches;
-  const flecks = Array.from({ length: reduced ? 7 : 15 }, () => ({ x: Math.random(), y: Math.random(), size: 1 + Math.random() * 2.1, speed: .00007 + Math.random() * .00018, drift: Math.random() * Math.PI * 2, tone: Math.random() > .55 ? '169,79,92' : '217,155,56' }));
-  const resize = () => { width = canvas.width = window.innerWidth * devicePixelRatio; height = canvas.height = window.innerHeight * devicePixelRatio; canvas.style.width = `${window.innerWidth}px`; canvas.style.height = `${window.innerHeight}px`; context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0); };
-  resize(); window.addEventListener('resize', resize, { passive: true });
-  const draw = time => {
+  const flecks = Array.from({ length: reduced ? 8 : 18 }, () => ({
+    x: Math.random(),
+    y: Math.random(),
+    size: 1 + Math.random() * 2.2,
+    speed: 0.00008 + Math.random() * 0.0002,
+    drift: Math.random() * Math.PI * 2,
+    tone: Math.random() > 0.55 ? '169,79,92' : '217,155,56'
+  }));
+
+  const resize = () => {
+    canvas.width = window.innerWidth * devicePixelRatio;
+    canvas.height = window.innerHeight * devicePixelRatio;
+    canvas.style.width = `${window.innerWidth}px`;
+    canvas.style.height = `${window.innerHeight}px`;
+    context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+  };
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  const draw = () => {
     context.clearRect(0, 0, window.innerWidth, window.innerHeight);
     flecks.forEach(fleck => {
       fleck.y += fleck.speed;
-      fleck.drift += .006;
-      if (fleck.y > 1.05) { fleck.y = -.04; fleck.x = Math.random(); }
-      const x = fleck.x * window.innerWidth + Math.sin(fleck.drift) * 16;
+      fleck.drift += 0.006;
+      if (fleck.y > 1.05) { fleck.y = -0.04; fleck.x = Math.random(); }
+      const x = fleck.x * window.innerWidth + Math.sin(fleck.drift) * 18;
       const y = fleck.y * window.innerHeight;
-      context.save(); context.translate(x, y); context.rotate(fleck.drift); context.fillStyle = `rgba(${fleck.tone},.32)`; context.beginPath(); context.ellipse(0, 0, fleck.size, fleck.size * 1.7, 0, 0, Math.PI * 2); context.fill(); context.restore();
+      context.save();
+      context.translate(x, y);
+      context.rotate(fleck.drift);
+      context.fillStyle = `rgba(${fleck.tone},.34)`;
+      context.beginPath();
+      context.ellipse(0, 0, fleck.size, fleck.size * 1.8, 0, 0, Math.PI * 2);
+      context.fill();
+      context.restore();
     });
     requestAnimationFrame(draw);
   };
