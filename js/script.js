@@ -494,7 +494,6 @@ function setupScrollStory() {
     scrollTrigger: { trigger: intro, start: 'top top', end: 'bottom bottom', scrub: 0.8 }
   });
   introTimeline
-    .to('.intro-prompt', { opacity: 0, y: -25, duration: 0.14 }, 0)
     .to(introThread, { strokeDashoffset: 0, duration: 0.45, ease: 'none' }, 0)
     .to('.word-happy', { xPercent: -28, yPercent: -18, duration: 0.45, ease: 'none' }, 0)
     .to('.word-raksha', { xPercent: 24, yPercent: -12, duration: 0.45, ease: 'none' }, 0)
