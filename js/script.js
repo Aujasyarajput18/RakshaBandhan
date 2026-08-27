@@ -825,21 +825,32 @@ function triggerGrandFestivalConfetti() {
 function setupLetter() {
   const envelope = document.getElementById('open-letter');
   const paper = document.getElementById('letter-paper');
-  envelope?.addEventListener('click', () => {
-    const opening = !envelope.classList.contains('is-open');
-    if (opening) {
+  const closeBtn = document.getElementById('letter-close-btn');
+
+  function toggleLetter(open) {
+    if (open) {
       SoundFX.playWaxCrack();
       SoundFX.playChime();
       triggerSparkleBurst();
     }
-    envelope.classList.toggle('is-open', opening);
-    paper?.classList.toggle('is-visible', opening);
-    envelope.setAttribute('aria-expanded', String(opening));
-    paper?.setAttribute('aria-hidden', String(!opening));
-    if (opening && window.gsap) {
+    envelope?.classList.toggle('is-open', open);
+    paper?.classList.toggle('is-visible', open);
+    envelope?.setAttribute('aria-expanded', String(open));
+    paper?.setAttribute('aria-hidden', String(!open));
+    if (open && window.gsap) {
       window.gsap.from('.letter-body p', { y: 20, opacity: 0, stagger: 0.15, delay: 0.45, duration: 0.6, ease: 'power2.out' });
       window.gsap.from('.letter-signature', { y: 15, opacity: 0, delay: 1, duration: 0.6, ease: 'power2.out' });
     }
+  }
+
+  envelope?.addEventListener('click', () => {
+    const opening = !envelope.classList.contains('is-open');
+    toggleLetter(opening);
+  });
+
+  closeBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleLetter(false);
   });
 }
 

@@ -1297,6 +1297,28 @@ img { display: block; max-width: 100%; }
   visibility: visible;
   transform: translateX(-50%) translateY(0) rotate(-1.5deg) scale(1);
 }
+.letter-close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(111, 44, 66, 0.08);
+  border: 1px solid rgba(111, 44, 66, 0.2);
+  color: var(--wine);
+  font: 700 13px/1 var(--sans);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+.letter-close-btn:hover {
+  background: var(--wine);
+  color: #ffffff;
+}
 .paper-tape {
   position: absolute;
   top: -10px;
@@ -2237,10 +2259,21 @@ img { display: block; max-width: 100%; }
     width: min(88vw, 350px);
   }
   .letter-paper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.92);
     width: min(92vw, 380px);
-    padding: 30px 18px 24px;
-    min-height: 420px;
-    top: -10px;
+    max-height: 82vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 200;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.75);
+    border-radius: 12px;
+    padding: 34px 18px 24px;
+  }
+  .letter-paper.is-visible {
+    transform: translate(-50%, -50%) scale(1) !important;
   }
   .letter-salutation {
     font-size: 22px;
@@ -2254,6 +2287,7 @@ img { display: block; max-width: 100%; }
   .letter-signoff {
     font-size: 18px;
   }
+
   /* Component 8: Chapter 05: Unified Global Sibling Hub */
   .distance-section {
     height: 230vh;
@@ -2263,122 +2297,123 @@ img { display: block; max-width: 100%; }
     width: 92%;
   }
   .distance-line {
-    font-size: clamp(20px, 6vw, 30px);
+    font-size: clamp(19px, 5.5vw, 28px);
     line-height: 1.25;
   }
   .distance-stage {
     margin-top: 6vh;
-    padding: 0 8px;
+    padding: 0 6px;
     max-width: 440px;
   }
   .sibling-hub-card {
-    width: clamp(100px, 28vw, 130px);
-    padding: 8px;
+    width: clamp(96px, 27vw, 125px);
+    padding: 7px;
     border-radius: 12px;
   }
   .hub-role-badge {
     font-size: 7.5px;
-    padding: 2px 5px;
+    padding: 2px 4px;
   }
   .hub-city-name {
-    font-size: 9px;
+    font-size: 8.5px;
   }
   .hub-tagline {
-    font-size: 10px;
+    font-size: 9.5px;
     line-height: 1.2;
   }
   .hub-time {
-    font-size: 8px;
-  }
-  .distance-conduit {
-    height: 50px;
-    margin: 0 4px;
-  }
-  .conduit-medallion {
-    width: 34px;
-    height: 34px;
-  }
-  .medallion-knot {
-    width: 22px;
-    height: 22px;
-    font-size: 10px;
-  }
-  .medallion-counter {
-    bottom: -20px;
     font-size: 7.5px;
   }
+  .distance-conduit {
+    height: 44px;
+    margin: 0 3px;
+  }
+  .conduit-medallion {
+    width: 32px;
+    height: 32px;
+  }
+  .medallion-knot {
+    width: 20px;
+    height: 20px;
+    font-size: 9px;
+  }
+  .medallion-counter {
+    bottom: -18px;
+    font-size: 7px;
+  }
+
   /* Component 9: Chapter 06: The Grand Sacred Finale */
   .finale {
     min-height: 100svh;
     height: auto;
-    padding: 7vh 4vw 6vh;
+    padding: 6vh 4vw 5vh;
   }
   .finale-royal-sanctum {
-    gap: 10px;
+    gap: 8px;
     max-width: 95vw;
   }
   .finale-badge .chapter-gold-pill {
-    font-size: 10px;
-    padding: 4px 10px;
+    font-size: 9.5px;
+    padding: 4px 9px;
   }
   .finale-badge .chapter-label {
-    font-size: 10px;
+    font-size: 9.5px;
   }
   .sanctum-rakhi-altar {
-    width: clamp(100px, 26vw, 130px);
+    width: clamp(90px, 24vw, 115px);
   }
   .sanctum-headline {
-    font-size: clamp(23px, 6.5vw, 34px);
+    font-size: clamp(21px, 6vw, 30px);
     line-height: 1.1;
   }
   .sanctum-blessing-slate {
-    padding: 14px 12px 12px;
+    padding: 12px 10px 10px;
     width: 100%;
-    max-width: 390px;
-    border-radius: 16px;
-    gap: 7px;
+    max-width: 380px;
+    border-radius: 14px;
+    gap: 6px;
   }
   .sanctum-sacred-crest {
-    font-size: 8px;
+    font-size: 7.5px;
     letter-spacing: 0.12em;
   }
   .sanctum-wish-title {
-    font-size: 18px;
+    font-size: 17px;
   }
   .sanctum-quote {
-    font-size: 13px;
-    line-height: 1.4;
+    font-size: 12.5px;
+    line-height: 1.38;
   }
   .sanctum-signature {
-    font-size: 9px;
+    font-size: 8.5px;
   }
   .sanctum-actions {
-    gap: 8px;
+    gap: 7px;
   }
   .sanctum-celebrate-btn {
-    padding: 13px 20px;
-    font-size: 11px;
-    width: min(270px, 88vw);
+    padding: 12px 18px;
+    font-size: 10.5px;
+    width: min(260px, 88vw);
   }
   .sanctum-top-link {
-    font-size: 9px;
+    font-size: 8.5px;
   }
   .sanctum-diya {
-    bottom: 10px;
+    bottom: 8px;
   }
   .diya-left {
-    left: 10px;
+    left: 8px;
   }
   .diya-right {
-    right: 10px;
+    right: 8px;
   }
   .sanctum-diya img {
-    width: 36px;
+    width: 30px;
   }
   .diya-flame-halo {
-    width: 20px;
-    height: 20px;
-    top: -8px;
+    width: 16px;
+    height: 16px;
+    top: -6px;
   }
 }
 
