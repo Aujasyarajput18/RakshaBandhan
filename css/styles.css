@@ -1705,24 +1705,23 @@ img { display: block; max-width: 100%; }
    Chapter 06: The Grand Sacred Finale (Royal Sanctum Altar)
    ========================================================================== */
 .finale {
-  height: 100vh;
-  min-height: 640px;
+  min-height: 100vh;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 40px 20px;
+  padding: clamp(60px, 8vh, 100px) 24px clamp(40px, 6vh, 80px);
   text-align: center;
-  background: radial-gradient(circle at 50% 40%, #2e1628 0%, #1a0b18 60%, #0d050c 100%);
+  background: radial-gradient(circle at 50% 35%, #2e1628 0%, #1a0b18 60%, #0d050c 100%);
   color: var(--milk);
 }
 
 .finale-starfield {
   position: absolute;
   inset: 0;
-  opacity: 0.35;
-  background-image: radial-gradient(#d99b38 1px, transparent 1px), radial-gradient(#ffffff 1px, transparent 1px);
+  opacity: 0.45;
+  background-image: radial-gradient(#d99b38 1.2px, transparent 1.2px), radial-gradient(#ffffff 1px, transparent 1px);
   background-size: 60px 60px, 110px 110px;
   background-position: 0 0, 30px 45px;
   pointer-events: none;
@@ -1730,40 +1729,53 @@ img { display: block; max-width: 100%; }
 }
 .finale-ambient-glow {
   position: absolute;
-  width: min(80vw, 800px);
+  width: min(90vw, 900px);
   aspect-ratio: 1;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(217, 155, 56, 0.18) 0%, rgba(169, 79, 92, 0.1) 45%, transparent 70%);
-  filter: blur(50px);
+  background: radial-gradient(circle, rgba(217, 155, 56, 0.22) 0%, rgba(169, 79, 92, 0.12) 45%, transparent 70%);
+  filter: blur(60px);
   pointer-events: none;
   z-index: 0;
 }
 
-/* Royal Sanctum Frame (Compact, Balanced Viewport Fitting) */
+/* Royal Sanctum Frame (Comfortable Desktop Presence) */
 .finale-royal-sanctum {
   position: relative;
   z-index: 3;
   width: 100%;
-  max-width: 680px;
+  max-width: 820px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(10px, 2vh, 18px);
+  gap: clamp(14px, 2.4vh, 24px);
   margin: 0 auto;
 }
 
 .finale-badge {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+}
+.finale-badge .chapter-gold-pill {
+  font: 700 12px/1 var(--mono);
+  letter-spacing: 0.14em;
+  padding: 5px 14px;
+  border-radius: 20px;
+  background: var(--marigold);
+  color: #1a0b18;
+}
+.finale-badge .chapter-label {
+  font: 600 12px/1 var(--mono);
+  letter-spacing: 0.16em;
+  color: rgba(255, 246, 232, 0.75);
 }
 
 /* 3D Floating Sacred Rakhi Iconography */
 .sanctum-rakhi-altar {
   position: relative;
-  width: clamp(140px, 18vh, 190px);
+  width: clamp(160px, 22vh, 220px);
   aspect-ratio: 1;
   display: flex;
   align-items: center;
@@ -1773,21 +1785,21 @@ img { display: block; max-width: 100%; }
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1px dashed rgba(217, 155, 56, 0.7);
-  box-shadow: 0 0 35px rgba(217, 155, 56, 0.35);
+  border: 1.5px dashed rgba(217, 155, 56, 0.75);
+  box-shadow: 0 0 45px rgba(217, 155, 56, 0.45);
   animation: slowSpin 28s linear infinite;
 }
 .rakhi-radiant-halo {
   position: absolute;
-  inset: -12px;
+  inset: -16px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(217, 155, 56, 0.25) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(217, 155, 56, 0.3) 0%, transparent 70%);
   animation: auraPulse 2.4s infinite alternate ease-in-out;
 }
 .rakhi-hero-img-wrap {
   position: relative;
   z-index: 2;
-  width: 125%;
+  width: 130%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1799,7 +1811,7 @@ img { display: block; max-width: 100%; }
 .rakhi-hero-img {
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6));
 }
 
 /* Headline */
@@ -1809,85 +1821,80 @@ img { display: block; max-width: 100%; }
 .sanctum-headline {
   margin: 0;
   font-family: var(--display);
-  font-weight: 600;
-  font-size: clamp(26px, 3.2vw, 44px);
-  line-height: 1.15;
-  letter-spacing: -0.025em;
+  font-weight: 700;
+  font-size: clamp(36px, 4.8vw, 64px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
   color: #ffffff;
 }
 .sanctum-headline em {
   font-family: var(--display);
   font-style: italic;
   font-weight: 500;
-  background: linear-gradient(135deg, #fff2be 0%, #e5b967 50%, #f6c87a 100%);
+  font-size: 1.05em;
+  background: linear-gradient(135deg, #fff7d6 0%, #e5b967 50%, #f6c87a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
-  filter: drop-shadow(0 2px 8px rgba(217, 155, 56, 0.4));
+  filter: drop-shadow(0 2px 12px rgba(217, 155, 56, 0.45));
 }
 
 /* Luxury Glassmorphic Dedication Slate */
 .sanctum-blessing-slate {
   position: relative;
   width: 100%;
-  max-width: 480px;
-  border-radius: 18px;
-  background: rgba(36, 22, 34, 0.85);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(217, 155, 56, 0.38);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  padding: 18px 28px 18px;
+  max-width: 640px;
+  border-radius: 20px;
+  background: rgba(36, 22, 34, 0.88);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(217, 155, 56, 0.42);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  padding: 26px 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 .slate-crown {
-  font: 700 9.5px/1 var(--mono);
+  font: 700 11.5px/1 var(--mono);
   color: var(--marigold);
-  letter-spacing: 0.22em;
-  opacity: 0.9;
+  letter-spacing: 0.24em;
+  opacity: 0.95;
 }
 .slate-wish {
-  margin: 2px 0 0;
+  margin: 4px 0 2px;
   font-family: var(--display);
   font-weight: 700;
-  font-size: clamp(22px, 2.3vw, 28px);
-  letter-spacing: -0.02em;
+  font-size: clamp(26px, 3.2vw, 38px);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
   color: #ffffff;
 }
-.slate-sister-tag {
-  margin: 0;
-  font: 700 10.5px/1 var(--mono);
-  letter-spacing: 0.16em;
+.slate-wish span {
   color: var(--marigold);
-  background: rgba(217, 155, 56, 0.15);
-  border: 1px solid rgba(217, 155, 56, 0.35);
-  padding: 4px 12px;
-  border-radius: 12px;
+}
+.slate-quote {
+  margin: 4px 0 2px;
+  color: rgba(255, 246, 232, 0.88);
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(16px, 1.4vw, 20px);
+  line-height: 1.45;
 }
 .slate-divider {
-  width: 40px;
+  width: 60px;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--marigold), transparent);
   margin: 4px 0;
 }
-.slate-quote {
-  margin: 0;
-  color: rgba(255, 246, 232, 0.8);
-  font-family: var(--display);
-  font-style: italic;
-  font-size: clamp(14px, 1.15vw, 16px);
-  line-height: 1.4;
-}
 .slate-signature {
   margin: 2px 0 0;
-  color: rgba(255, 246, 232, 0.6);
-  font: 500 11px/1.4 var(--sans);
+  color: rgba(255, 246, 232, 0.72);
+  font: 500 clamp(13px, 1.15vw, 15.5px)/1.4 var(--sans);
   letter-spacing: 0.04em;
 }
 .slate-signature strong {
-  color: #fff6e8;
+  color: #ffffff;
   font-weight: 600;
 }
 
@@ -1896,50 +1903,51 @@ img { display: block; max-width: 100%; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 16px;
   margin-top: 6px;
+  flex-wrap: wrap;
 }
 .celebrate-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 11px 22px;
-  border-radius: 24px;
+  gap: 10px;
+  padding: 14px 30px;
+  border-radius: 30px;
   background: linear-gradient(135deg, #d99b38 0%, #b3771e 100%);
   color: #ffffff;
-  font: 700 11px/1 var(--mono);
+  font: 700 13px/1 var(--mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  border: 1px solid rgba(255, 240, 190, 0.4);
+  border: 1px solid rgba(255, 240, 190, 0.45);
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(217, 155, 56, 0.35);
+  box-shadow: 0 10px 28px rgba(217, 155, 56, 0.4);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
 }
 .celebrate-btn:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 12px 30px rgba(217, 155, 56, 0.55);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 15px 35px rgba(217, 155, 56, 0.6);
 }
 .btn-sparkle {
-  font-size: 13px;
+  font-size: 15px;
   animation: auraPulse 1.5s infinite alternate;
 }
 
 .replay-btn {
   display: inline-flex;
   align-items: center;
-  padding: 10px 18px;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 246, 232, 0.85);
-  font: 600 11px/1 var(--mono);
+  padding: 13px 24px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.09);
+  color: rgba(255, 246, 232, 0.9);
+  font: 600 12.5px/1 var(--mono);
   letter-spacing: 0.08em;
-  border: 1px solid rgba(217, 155, 56, 0.25);
+  border: 1px solid rgba(217, 155, 56, 0.3);
   cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, border-color 0.3s;
 }
 .replay-btn:hover {
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.2);
   border-color: var(--marigold);
 }
 
@@ -1963,17 +1971,17 @@ img { display: block; max-width: 100%; }
   transform: scaleX(-1);
 }
 .sanctum-diya img {
-  width: clamp(48px, 5vw, 68px);
-  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.4));
+  width: clamp(56px, 6vw, 84px);
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.45));
 }
 .diya-flame-halo {
   position: absolute;
-  top: -12px;
-  width: 28px;
-  height: 28px;
+  top: -14px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(217, 155, 56, 0.9) 0%, transparent 70%);
-  filter: blur(5px);
+  filter: blur(6px);
   animation: auraPulse 1.8s infinite alternate ease-in-out;
 }
 
