@@ -39,11 +39,12 @@ img { display: block; max-width: 100%; }
 
 .site-header { position: fixed; inset: 0 0 auto; z-index: 30; display: flex; align-items: center; justify-content: flex-end; padding: 24px 3.3vw; color: var(--ink); pointer-events: none; }
 .site-header > * { pointer-events: auto; }
-.sound-toggle { color: inherit; text-decoration: none; text-transform: uppercase; letter-spacing: .14em; font: 500 10px/1 var(--mono); display: flex; gap: 7px; align-items: center; padding: 6px 12px; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,250,240,.6); backdrop-filter: blur(8px); cursor: pointer; transition: all .3s ease; }
-.sound-toggle:hover { background: rgba(255,250,240,.9); border-color: var(--rose); }
-.sound-bars { display: inline-flex; align-items: flex-end; gap: 2.5px; height: 11px; }
-.sound-bars span { width: 2px; height: 3px; background: currentColor; border-radius: 1px; transition: height 0.2s; }
-.sound-toggle.is-playing { color: var(--rose); border-color: rgba(169,79,92,.4); background: rgba(255,250,240,.95); }
+.sound-toggle { color: var(--wine); text-decoration: none; text-transform: uppercase; letter-spacing: .14em; font: 600 10.5px/1 var(--mono); display: flex; gap: 7px; align-items: center; padding: 7px 14px; border: 1.5px solid var(--marigold); border-radius: 20px; background: rgba(255,250,240,.88); backdrop-filter: blur(10px); cursor: pointer; box-shadow: 0 4px 16px rgba(217, 155, 56, 0.25); transition: all .3s ease; }
+.sound-toggle:hover { background: #ffffff; transform: translateY(-1px) scale(1.03); box-shadow: 0 6px 22px rgba(217, 155, 56, 0.4); }
+.sound-bars { display: inline-flex; align-items: flex-end; gap: 2.5px; height: 12px; }
+.sound-bars span { width: 2.5px; height: 4px; background: currentColor; border-radius: 1px; transition: height 0.2s; }
+.sound-toggle.is-playing { color: #ffffff; border-color: var(--wine); background: linear-gradient(135deg, var(--rose) 0%, var(--wine) 100%); box-shadow: 0 4px 18px rgba(169, 79, 92, 0.45); }
+.sound-toggle.is-playing .sound-bars span { background: #ffffff; }
 .sound-toggle.is-playing .sound-bars span:nth-child(1) { animation: barPlay 0.8s infinite alternate ease-in-out; }
 .sound-toggle.is-playing .sound-bars span:nth-child(2) { animation: barPlay 1.2s infinite alternate ease-in-out 0.2s; }
 .sound-toggle.is-playing .sound-bars span:nth-child(3) { animation: barPlay 0.9s infinite alternate ease-in-out 0.4s; }

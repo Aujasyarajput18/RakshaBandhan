@@ -910,9 +910,13 @@ function setupAudio(config) {
   const button = document.querySelector('.sound-toggle');
   const enterBtn = document.getElementById('enter-bond');
   if (!audio || !button || config.music?.enabled === false) return;
-  if (config.music?.source) audio.src = cleanUrl(config.music.source);
 
-  audio.volume = 0.75;
+  const audioSrc = cleanUrl(config.music?.source || 'assets/audio/song.mp3');
+  if (!audio.src || !audio.src.includes('song.mp3')) {
+    audio.src = audioSrc;
+  }
+  audio.volume = 0.85;
+  try { audio.load(); } catch (_) {}
 
   const updatePlayingState = (isPlaying) => {
     if (isPlaying) {
@@ -926,27 +930,26 @@ function setupAudio(config) {
     }
   };
 
-  const playMusic = async () => {
-    try {
-      if (audio.paused) {
-        await audio.play();
+  const playMusic = () => {
+    try { SoundFX.init(); } catch (_) {}
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
         updatePlayingState(true);
-      }
-    } catch (_) {
-      // Browser blocked headless autoplay; will play on first interaction
+      }).catch(err => {
+        console.log('Autoplay waiting for user gesture:', err);
+      });
     }
   };
 
-  const toggleMusic = async () => {
-    try {
-      if (audio.paused) {
-        await audio.play();
-        updatePlayingState(true);
-      } else {
-        audio.pause();
-        updatePlayingState(false);
-      }
-    } catch (_) {}
+  const toggleMusic = () => {
+    try { SoundFX.init(); } catch (_) {}
+    if (audio.paused) {
+      playMusic();
+    } else {
+      audio.pause();
+      updatePlayingState(false);
+    }
   };
 
   button.addEventListener('click', (e) => {
@@ -958,18 +961,24 @@ function setupAudio(config) {
     playMusic();
   });
 
-  // 1. Attempt immediate autoplay on page load
+  // 1. Attempt immediate autoplay on load
   playMusic();
 
-  // 2. One-time gesture listener to guarantee playback on very first touch/scroll/click
-  const gestureEvents = ['pointerdown', 'touchstart', 'click', 'scroll', 'wheel', 'keydown'];
-  const onFirstInteraction = () => {
-    playMusic();
-    gestureEvents.forEach(evt => window.removeEventListener(evt, onFirstInteraction, { passive: true }));
+  // 2. Attach global user gesture unlockers
+  const gestureEvents = ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown', 'scroll', 'wheel'];
+  const onGesture = () => {
+    if (audio.paused) {
+      playMusic();
+    }
   };
-  gestureEvents.forEach(evt => window.addEventListener(evt, onFirstInteraction, { passive: true, once: true }));
+
+  gestureEvents.forEach(evt => {
+    window.addEventListener(evt, onGesture, { passive: true });
+    document.addEventListener(evt, onGesture, { passive: true });
+  });
 
   audio.addEventListener('play', () => updatePlayingState(true));
+  audio.addEventListener('playing', () => updatePlayingState(true));
   audio.addEventListener('pause', () => updatePlayingState(false));
 }
 
