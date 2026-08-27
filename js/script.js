@@ -1,299 +1,511 @@
-/*
- * Rakhi story engine
- * All client-specific content comes from js/config.js (or its shareable URL payload).
- * The animation layer is deliberately small: SVG, CSS, canvas dust, and GSAP only.
+/**
+ * ==========================================================================
+ * script.js — MASTER SIBLING STORYTELLING & INTERACTIVE MOTION ENGINE
+ * Features: Lenis Smooth Scroll, GSAP ScrollTrigger, 3D Tilt Physics,
+ * Particle Canvas, Audio Synthesizer, Quiz Duel, Wax Seal Letter, Virtual Rakhi.
+ * ==========================================================================
  */
 
+// ── Web Audio Synthesizer Engine (100% Zero-Dependency Reliable Sound FX) ──
+const SoundFX = {
+    ctx: null,
+    init() {
+        if (!this.ctx) {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) this.ctx = new AudioCtx();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+        }
+    },
+    playChime() {
+        this.init();
+        if (!this.ctx) return;
+        const notes = [528, 792, 1056];
+        notes.forEach((freq, idx) => {
+            const t = this.ctx.currentTime + (idx * 0.04);
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, t);
+            gain.gain.setValueAtTime(0.3, t);
+            gain.gain.exponentialRampToValueAtTime(0.001, t + 1.8);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(t);
+            osc.stop(t + 1.85);
+        });
+    },
+    playWaxCrack() {
+        this.init();
+        if (!this.ctx) return;
+        const t = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(180, t);
+        osc.frequency.exponentialRampToValueAtTime(35, t + 0.18);
+        gain.gain.setValueAtTime(0.6, t);
+        gain.gain.exponentialRampToValueAtTime(0.01, t + 0.18);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.19);
+    },
+    playPop() {
+        this.init();
+        if (!this.ctx) return;
+        const t = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(340, t);
+        osc.frequency.exponentialRampToValueAtTime(920, t + 0.08);
+        gain.gain.setValueAtTime(0.35, t);
+        gain.gain.exponentialRampToValueAtTime(0.01, t + 0.09);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.1);
+    }
+};
+
 document.addEventListener('DOMContentLoaded', async () => {
-  const config = typeof window.loadRakhiConfig === 'function'
-    ? await window.loadRakhiConfig()
-    : (window.rakhiConfig || {});
+    // 1. Initialize Lenis Smooth Scrolling
+    let lenis = null;
+    if (typeof Lenis !== 'undefined') {
+        lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            touchMultiplier: 2
+        });
 
-  const story = hydrateStory(config);
-  setupAudio(config);
-  setupLetter();
-  setupTilt();
-  setupReplay();
-  setupPetalDust();
-  setupScrollProgress();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
 
-  if (window.gsap && window.ScrollTrigger && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.documentElement.classList.add('js-motion');
-    window.gsap.registerPlugin(window.ScrollTrigger);
-    setupScrollStory();
-  }
+        if (typeof ScrollTrigger !== 'undefined') {
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+            });
+            gsap.ticker.lagSmoothing(0);
+        }
+    }
 
-  // Updating this attribute makes the personalized version easy to identify in a CMS preview.
-  document.body.dataset.siblings = `${story.sister}-${story.brother}`.toLowerCase().replace(/\s+/g, '-');
+    // 2. Load and Hydrate Dynamic Config
+    const config = await loadRakhiConfig();
+    hydrateStoryDOM(config);
+
+    // 3. Setup Custom Cursor & Background Particles
+    setupCustomCursor();
+    setupParticleCanvas();
+
+    // 4. Setup Intro Screen Gate
+    setupIntroGate();
+
+    // 5. Setup Interactive Quiz
+    setupSiblingQuiz(config);
+
+    // 6. Setup Interactive Puja Thali
+    setupThaliInteractions(config);
+
+    // 7. Setup Royal Wax Seal Letter
+    setupWaxSealLetter();
+
+    // 8. Setup Signature "Tie The Rakhi" Ceremony
+    setupTieRakhiCeremony();
+
+    // 9. Setup Audio & Export Handlers
+    setupAudioSystem(config);
+    setupExportAndSharing(config, lenis);
+
+    // 10. Setup GSAP Entrance Transitions
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        initScrollAnimations();
+    }
 });
 
-function hydrateStory(config) {
-  const sister = cleanText(config.names?.sister, 'Ananya');
-  const brother = cleanText(config.names?.brother, 'Aarav');
-  const sisterProfile = config.profiles?.sister || {};
-  const brotherProfile = config.profiles?.brother || {};
-  const memories = Array.isArray(config.memories) && config.memories.length ? config.memories : [];
-  const childhood = Array.isArray(config.childhoodPhotos) && config.childhoodPhotos.length ? config.childhoodPhotos : [];
-  const photos = makePhotoSet(childhood, memories);
-  const sisterPhoto = cleanUrl(sisterProfile.photo || config.hero?.sisterPhoto || config.hero?.image || 'assets/images/demo/portrait.svg');
-  const brotherPhoto = cleanUrl(brotherProfile.photo || config.hero?.brotherPhoto || photos.at(-1)?.url || 'assets/images/demo/img6.svg');
+/**
+ * Hydrates DOM with config data
+ */
+function hydrateStoryDOM(config) {
+    const sister = config.names?.sister || "Ananya";
+    const brother = config.names?.brother || "Aarav";
 
-  setText('threshold-names', `${sister.toUpperCase()} & ${brother.toUpperCase()}`);
-  setText('sister-name', sister.toUpperCase());
-  setText('header-year', cleanText(config.festival?.year || config.year, '2026'));
-  setImage('hero-portrait', sisterPhoto, `A portrait of ${sister}`);
-  setImage('distance-sister-photo', sisterPhoto, `A memory of ${sister}`);
-  setImage('distance-brother-photo', brotherPhoto, `A memory of ${brother}`);
-  setText('sister-city', cleanText(config.distanceSection?.sisterCity || sisterProfile.city, 'Mumbai').toUpperCase());
-  setText('brother-city', cleanText(config.distanceSection?.brotherCity || brotherProfile.city, 'London').toUpperCase());
-  document.title = `${sister} & ${brother} — a Rakhi story`;
+    const heroNames = document.getElementById('hero-sibling-names');
+    if (heroNames) heroNames.textContent = `${sister.toUpperCase()} × ${brother.toUpperCase()}`;
 
-  renderPhotoStream(photos);
-  renderTimeline(memories, photos);
-  renderLetter(config.letter || {}, sister, brother);
+    const finaleNames = document.getElementById('finale-sibling-banner');
+    if (finaleNames) finaleNames.textContent = `${sister.toUpperCase()} & ${brother.toUpperCase()}`;
 
-  const finalSignoff = cleanText(config.finale?.signoff || config.letter?.signoff, `Always your brother, ${brother}`);
-  const signoff = document.getElementById('finale-signoff');
-  if (signoff) signoff.innerHTML = escapeHtml(finalSignoff).replace(/,\s*/, ',<br>');
-
-  return { sister, brother };
-}
-
-function makePhotoSet(childhood, memories) {
-  const fallback = [
-    { url: 'assets/images/demo/img1.svg', caption: 'Before we knew what growing up meant.' },
-    { url: 'assets/images/demo/img2.svg', caption: 'You were annoying then too.' },
-    { url: 'assets/images/demo/img3.svg', caption: 'An excellent partnership in chaos.' },
-    { url: 'assets/images/demo/img4.svg', caption: 'The photo we almost did not take.' },
-    { url: 'assets/images/demo/img5.svg', caption: 'Somehow, you grew up.' }
-  ];
-  const supplied = childhood.map((photo, index) => ({
-    url: cleanUrl(photo.url || photo.image || memories[index]?.image || fallback[index % fallback.length].url),
-    caption: cleanText(photo.caption || memories[index]?.description, fallback[index % fallback.length].caption)
-  }));
-  return (supplied.length ? supplied : fallback).slice(0, 5);
-}
-
-function renderPhotoStream(photos) {
-  const container = document.getElementById('photo-stream');
-  if (!container) return;
-  container.innerHTML = photos.map((photo, index) => `
-    <figure class="memory-photo" data-photo="${index}">
-      <img src="${escapeAttr(photo.url)}" alt="Memory ${index + 1}" loading="lazy">
-      <figcaption>${escapeHtml(photo.caption)}</figcaption>
-    </figure>
-  `).join('');
-}
-
-function renderTimeline(memories, photos) {
-  const container = document.getElementById('memory-route');
-  if (!container) return;
-  const defaults = [
-    ['2010', 'The first Rakhi', 'Before we knew how much of life we would share.'],
-    ['2014', 'The big fight', 'No one remembers why. Both of us remember winning.'],
-    ['2018', 'The year we grew up', 'Slightly. At least on paper.'],
-    ['2022', 'Different cities', 'New routines, same person on speed dial.'],
-    ['2026', 'Still us', 'A little older. Every bit as connected.']
-  ];
-  const entries = memories.length ? memories.slice(0, 5) : defaults.map(([year, title, description], index) => ({ year, title, description, image: photos[index]?.url }));
-  container.innerHTML = entries.map((memory, index) => {
-    const defaultItem = defaults[index % defaults.length];
-    const year = cleanText(memory.year, defaultItem[0]);
-    const title = cleanText(memory.title, defaultItem[1]);
-    const description = cleanText(memory.description, defaultItem[2]);
-    const image = cleanUrl(memory.image || photos[index]?.url || `assets/images/demo/img${index + 1}.svg`);
-    return `<article class="memory-stop">
-      <span class="memory-node" aria-hidden="true"></span>
-      <div class="memory-card">
-        <figure><img src="${escapeAttr(image)}" alt="${escapeAttr(title)}" loading="lazy"></figure>
-        <p class="memory-year">${escapeHtml(year)}</p>
-        <h3>${escapeHtml(title)}</h3>
-        <p>${escapeHtml(description)}</p>
-      </div>
-    </article>`;
-  }).join('');
-}
-
-function renderLetter(letter, sister, brother) {
-  const date = cleanText(letter.date, 'August, 2026');
-  const salutation = cleanText(letter.salutation, `Dearest ${sister},`);
-  const paragraphs = Array.isArray(letter.bodyParagraphs) && letter.bodyParagraphs.length
-    ? letter.bodyParagraphs
-    : [
-      `We have grown up, changed, argued, laughed — and somehow you have remained one of the most important people in my life.`,
-      `Whenever the world feels too much, knowing I have you in my corner gives me a quiet kind of strength.`,
-      `No matter how far life takes us, our bond stays right here. Happy Raksha Bandhan, always.`
-    ];
-  const signoff = cleanText(letter.signoff, `Forever your brother, ${brother}`);
-  setText('letter-date', date.toUpperCase());
-  setText('letter-salutation', salutation);
-  setText('letter-signature', signoff);
-  const body = document.getElementById('letter-body');
-  if (body) body.innerHTML = paragraphs.slice(0, 4).map(paragraph => `<p>${escapeHtml(cleanText(paragraph, ''))}</p>`).join('');
-}
-
-function setupScrollStory() {
-  const { gsap, ScrollTrigger } = window;
-  const intro = document.querySelector('.intro-scene');
-  const introThread = document.getElementById('intro-thread-path');
-  const pathLength = safelyGetPathLength(introThread);
-  if (introThread && pathLength) gsap.set(introThread, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
-
-  const introTimeline = gsap.timeline({
-    scrollTrigger: { trigger: intro, start: 'top top', end: 'bottom bottom', scrub: .8 }
-  });
-  introTimeline
-    .to('.intro-prompt', { opacity: 0, y: -20, duration: .12 }, 0)
-    .to(introThread, { strokeDashoffset: 0, duration: .3, ease: 'none' }, .04)
-    .fromTo('.word-happy', { xPercent: -70, yPercent: -40, opacity: 0 }, { xPercent: 0, yPercent: 0, opacity: 1, duration: .24, ease: 'power2.out' }, .11)
-    .fromTo('.word-raksha', { xPercent: 65, yPercent: 35, opacity: 0 }, { xPercent: 0, yPercent: 0, opacity: 1, duration: .23, ease: 'power2.out' }, .25)
-    .fromTo('.word-bandhan', { xPercent: -40, yPercent: 50, opacity: 0 }, { xPercent: 0, yPercent: 0, opacity: 1, duration: .23, ease: 'power2.out' }, .39)
-    .to('.festival-words', { scale: 1.07, duration: .18, ease: 'none' }, .47)
-    .to(['.word-happy', '.word-raksha', '.word-bandhan'], { opacity: 0, yPercent: -16, duration: .16, stagger: .025 }, .64)
-    .to('.bond-statement', { opacity: 1, duration: .16 }, .69)
-    .to('.bond-statement', { opacity: 0, yPercent: -35, duration: .15 }, .89)
-    .to('.fabric-one', { xPercent: 20, yPercent: -9, duration: 1 }, 0)
-    .to('.fabric-two', { xPercent: -20, yPercent: 10, duration: 1 }, 0);
-
-  const enter = document.getElementById('enter-bond');
-  enter?.addEventListener('click', () => document.getElementById('her')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
-
-  gsap.from('.sister-intro > *', { y: 42, opacity: 0, stagger: .13, duration: 1, ease: 'power3.out', scrollTrigger: { trigger: '.sister-section', start: 'top 67%' } });
-  gsap.from('.portrait-stage', { y: 100, rotate: 7, opacity: 0, duration: 1.25, ease: 'power3.out', scrollTrigger: { trigger: '.sister-section', start: 'top 62%' } });
-  gsap.utils.toArray('.memory-photo').forEach((photo, index) => {
-    gsap.from(photo, { y: index % 2 ? 130 : 95, x: index % 2 ? 45 : -45, opacity: 0, scale: .88, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: photo, start: 'top 86%' } });
-  });
-  gsap.from('.remember-intro > *', { y: 40, opacity: 0, stagger: .1, duration: .8, scrollTrigger: { trigger: '.remember-section', start: 'top 72%' } });
-  gsap.utils.toArray('.memory-stop').forEach((stop, index) => {
-    const card = stop.querySelector('.memory-card');
-    gsap.from(card, { x: index % 2 ? 45 : -45, opacity: 0, duration: .8, ease: 'power2.out', scrollTrigger: { trigger: stop, start: 'top 80%' } });
-  });
-  gsap.from('.letter-lead > *', { x: -45, opacity: 0, stagger: .1, duration: .9, scrollTrigger: { trigger: '.letter-section', start: 'top 70%' } });
-  gsap.from('.envelope-wrap', { y: 70, rotate: 4, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: '.letter-section', start: 'top 66%' } });
-
-  const distanceThread = document.getElementById('distance-thread');
-  const distanceLength = safelyGetPathLength(distanceThread);
-  if (distanceThread && distanceLength) gsap.set(distanceThread, { strokeDasharray: distanceLength, strokeDashoffset: distanceLength });
-  const distanceTimeline = gsap.timeline({ scrollTrigger: { trigger: '.distance-section', start: 'top top', end: 'bottom bottom', scrub: 1 } });
-  distanceTimeline
-    .to('.distance-line-one', { opacity: 1, duration: .18 }, .05)
-    .to('.distance-line-one', { opacity: 0, duration: .14 }, .29)
-    .to(distanceThread, { strokeDashoffset: 0, duration: .3, ease: 'none' }, .25)
-    .to('.city-sister', { x: '14vw', duration: .3, ease: 'none' }, .27)
-    .to('.city-brother', { x: '-14vw', duration: .3, ease: 'none' }, .27)
-    .to('.distance-line-two', { opacity: 1, duration: .16 }, .42)
-    .to('.distance-line-two', { opacity: 0, duration: .13 }, .60)
-    .to('.city-sister', { x: '27vw', duration: .22, ease: 'none' }, .55)
-    .to('.city-brother', { x: '-27vw', duration: .22, ease: 'none' }, .55)
-    .to('.city-sister', { x: '5vw', duration: .18, ease: 'none' }, .73)
-    .to('.city-brother', { x: '-5vw', duration: .18, ease: 'none' }, .73)
-    .to('.distance-line-three', { opacity: 1, duration: .2 }, .77);
-
-  gsap.from('.finale-rakhi', { scale: .65, opacity: 0, duration: 1.2, ease: 'back.out(1.2)', scrollTrigger: { trigger: '.finale', start: 'top 70%' } });
-  gsap.from('.finale h2 span', { y: 42, opacity: 0, stagger: .16, duration: .85, ease: 'power3.out', scrollTrigger: { trigger: '.finale', start: 'top 58%' } });
-}
-
-function setupLetter() {
-  const envelope = document.getElementById('open-letter');
-  const paper = document.getElementById('letter-paper');
-  envelope?.addEventListener('click', () => {
-    const opening = !envelope.classList.contains('is-open');
-    envelope.classList.toggle('is-open', opening);
-    paper?.classList.toggle('is-visible', opening);
-    envelope.setAttribute('aria-expanded', String(opening));
-    paper?.setAttribute('aria-hidden', String(!opening));
-    if (opening && window.gsap) window.gsap.from('.letter-body p', { y: 17, opacity: 0, stagger: .14, delay: .5, duration: .55, ease: 'power2.out' });
-  });
-}
-
-function setupAudio(config) {
-  const audio = document.getElementById('ambient-audio');
-  const button = document.querySelector('.sound-toggle');
-  if (!audio || !button || config.music?.enabled === false) return;
-  if (config.music?.source) audio.src = cleanUrl(config.music.source);
-  button.addEventListener('click', async () => {
-    try {
-      if (audio.paused) {
-        await audio.play();
-        button.classList.add('is-playing');
-        button.setAttribute('aria-pressed', 'true');
-        button.setAttribute('aria-label', 'Pause ambient music');
-      } else {
-        audio.pause();
-        button.classList.remove('is-playing');
-        button.setAttribute('aria-pressed', 'false');
-        button.setAttribute('aria-label', 'Play ambient music');
-      }
-    } catch (_) { /* Browser playback policy can decline a failed gesture gracefully. */ }
-  });
-}
-
-function setupTilt() {
-  const stage = document.querySelector('[data-tilt]');
-  if (!stage || !window.matchMedia('(pointer: fine)').matches) return;
-  stage.addEventListener('pointermove', event => {
-    const rect = stage.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - .5;
-    const y = (event.clientY - rect.top) / rect.height - .5;
-    stage.style.transform = `perspective(1000px) rotateY(${x * 4}deg) rotateX(${y * -4}deg)`;
-  });
-  stage.addEventListener('pointerleave', () => { stage.style.transform = ''; });
-}
-
-function setupReplay() {
-  document.getElementById('replay-story')?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-}
-
-function setupScrollProgress() {
-  const thread = document.querySelector('.story-progress span');
-  if (!thread) return;
-  let frameRequested = false;
-  const update = () => {
-    const scrollable = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    const progress = Math.min(1, Math.max(0, window.scrollY / scrollable));
-    thread.style.transform = `scaleX(${progress})`;
-    frameRequested = false;
-  };
-  const requestUpdate = () => {
-    if (!frameRequested) {
-      frameRequested = true;
-      requestAnimationFrame(update);
+    const tagline = document.getElementById('hero-tagline-text');
+    if (tagline && config.hero?.tagline) {
+        tagline.textContent = `${config.hero.tagline.toUpperCase()} ${config.hero.subtagline ? config.hero.subtagline.toUpperCase() : ''}`;
     }
-  };
-  update();
-  window.addEventListener('scroll', requestUpdate, { passive: true });
-  window.addEventListener('resize', requestUpdate, { passive: true });
+
+    // Memories Grid
+    const memoriesList = document.getElementById('memories-grid-list');
+    if (memoriesList && config.memories && Array.isArray(config.memories)) {
+        memoriesList.innerHTML = config.memories.map((m, i) => `
+            <div class="luxury-memory-card" data-idx="${i}">
+                <div class="card-image-wrap">
+                    <img src="${m.image || 'assets/images/demo/img1.svg'}" alt="${m.title}">
+                </div>
+                <div class="card-era-badge">${m.year || `Era 0${i+1}`}</div>
+                <h3 class="card-title">${m.title}</h3>
+                <p class="card-desc">${m.description}</p>
+            </div>
+        `).join('');
+    }
+
+    // Letter
+    const salutation = document.getElementById('letter-salutation');
+    const paragraphs = document.getElementById('letter-body-paragraphs');
+    const signature = document.getElementById('letter-signature');
+
+    if (salutation && config.letter?.salutation) salutation.textContent = config.letter.salutation;
+    if (paragraphs && config.letter?.bodyParagraphs) {
+        paragraphs.innerHTML = config.letter.bodyParagraphs.map(p => `<p style="margin-bottom:18px;">${p}</p>`).join('');
+    }
+    if (signature && config.letter?.signoff) signature.textContent = config.letter.signoff;
+
+    // Vows Grid
+    const vowsList = document.getElementById('vows-grid-list');
+    if (vowsList && config.vows && Array.isArray(config.vows)) {
+        vowsList.innerHTML = config.vows.map(v => `
+            <div class="luxury-vow-card">
+                <span class="vow-badge-icon">${v.icon || '🛡️'}</span>
+                <h4 class="vow-card-title">${v.title}</h4>
+                <p class="vow-card-desc">${v.desc}</p>
+            </div>
+        `).join('');
+    }
 }
 
-function setupPetalDust() {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const canvas = document.getElementById('petal-dust');
-  const context = canvas?.getContext('2d');
-  if (!canvas || !context) return;
-  let width = 0, height = 0;
-  const reduced = window.matchMedia('(max-width: 760px)').matches;
-  const flecks = Array.from({ length: reduced ? 7 : 15 }, () => ({ x: Math.random(), y: Math.random(), size: 1 + Math.random() * 2.1, speed: .00007 + Math.random() * .00018, drift: Math.random() * Math.PI * 2, tone: Math.random() > .55 ? '169,79,92' : '217,155,56' }));
-  const resize = () => { width = canvas.width = window.innerWidth * devicePixelRatio; height = canvas.height = window.innerHeight * devicePixelRatio; canvas.style.width = `${window.innerWidth}px`; canvas.style.height = `${window.innerHeight}px`; context.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0); };
-  resize(); window.addEventListener('resize', resize, { passive: true });
-  const draw = time => {
-    context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    flecks.forEach(fleck => {
-      fleck.y += fleck.speed;
-      fleck.drift += .006;
-      if (fleck.y > 1.05) { fleck.y = -.04; fleck.x = Math.random(); }
-      const x = fleck.x * window.innerWidth + Math.sin(fleck.drift) * 16;
-      const y = fleck.y * window.innerHeight;
-      context.save(); context.translate(x, y); context.rotate(fleck.drift); context.fillStyle = `rgba(${fleck.tone},.32)`; context.beginPath(); context.ellipse(0, 0, fleck.size, fleck.size * 1.7, 0, 0, Math.PI * 2); context.fill(); context.restore();
+/**
+ * Intro Gate Screen
+ */
+function setupIntroGate() {
+    const gate = document.getElementById('cinematic-intro-gate');
+    const enterBtn = document.getElementById('btn-enter-experience');
+    const audio = document.getElementById('festive-audio');
+    const visBars = document.getElementById('audio-vis-bars');
+
+    enterBtn?.addEventListener('click', () => {
+        SoundFX.playChime();
+        gate?.classList.add('gate-opened');
+
+        // Play festive audio
+        if (audio) {
+            audio.play().then(() => {
+                visBars?.classList.add('is-playing');
+            }).catch(e => console.warn("Audio autoplay blocked:", e));
+        }
     });
-    requestAnimationFrame(draw);
-  };
-  requestAnimationFrame(draw);
 }
 
-function safelyGetPathLength(path) { try { return path?.getTotalLength() || 0; } catch (_) { return 0; } }
-function cleanText(value, fallback) { return typeof value === 'string' && value.trim() ? value.trim() : fallback; }
-function cleanUrl(value) { return typeof value === 'string' && value.trim() ? value.trim() : ''; }
-function setText(id, value) { const element = document.getElementById(id); if (element) element.textContent = value; }
-function setImage(id, source, alt) { const element = document.getElementById(id); if (element && source) { element.src = source; element.alt = alt; } }
-function escapeHtml(value) { return String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]); }
-function escapeAttr(value) { return escapeHtml(value); }
+/**
+ * Desktop Custom Cursor
+ */
+function setupCustomCursor() {
+    const cursor = document.getElementById('custom-cursor');
+    const dot = document.getElementById('custom-cursor-dot');
+    if (!cursor || !dot) return;
+
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.left = `${mouseX}px`;
+        dot.style.top = `${mouseY}px`;
+    });
+
+    function animateCursor() {
+        cursorX += (mouseX - cursorX) * 0.2;
+        cursorY += (mouseY - cursorY) * 0.2;
+        cursor.style.left = `${cursorX}px`;
+        cursor.style.top = `${cursorY}px`;
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    const hoverables = document.querySelectorAll('button, a, .luxury-memory-card, .thali-node, .wax-seal-button');
+    hoverables.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+    });
+}
+
+/**
+ * Background Particle Dust
+ */
+function setupParticleCanvas() {
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    });
+
+    const particles = Array.from({ length: 30 }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 2 + 1,
+        speedY: Math.random() * -0.4 - 0.1,
+        speedX: Math.random() * 0.3 - 0.15,
+        opacity: Math.random() * 0.6 + 0.2
+    }));
+
+    function render() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+            p.y += p.speedY;
+            p.x += p.speedX;
+            if (p.y < 0) p.y = height;
+            if (p.x < 0) p.x = width;
+            if (p.x > width) p.x = 0;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(229, 185, 92, ${p.opacity})`;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = '#ffd54f';
+            ctx.fill();
+        });
+        requestAnimationFrame(render);
+    }
+    render();
+}
+
+/**
+ * Sibling Menace Quiz
+ */
+function setupSiblingQuiz(config) {
+    const btnSister = document.getElementById('btn-vote-sister');
+    const btnBrother = document.getElementById('btn-vote-brother');
+    const qText = document.getElementById('quiz-question-text');
+    const feedback = document.getElementById('quiz-feedback-text');
+
+    const sisterName = config.names?.sister || "Sister";
+    const brotherName = config.names?.brother || "Brother";
+
+    if (btnSister) btnSister.textContent = `${sisterName.toUpperCase()} 👧`;
+    if (btnBrother) btnBrother.textContent = `${brotherName.toUpperCase()} 👦`;
+
+    const disputes = [
+        { q: "Who stole food from the fridge at 2:00 AM? 🍫", winner: sisterName, remark: "Caught red-handed with the chocolates! 🍫" },
+        { q: "Who gets angry first in an argument? 😤", winner: brotherName, remark: "Zero chill, 100% drama! ⚡" },
+        { q: "Who is Mom's favorite child? 🏆", winner: brotherName, remark: "A fiercely debated family mystery! 👑" },
+        { q: "Who threw the first remote control? 📺", winner: sisterName, remark: "Aggressive TV scheduling tactics! 🎮" },
+        { q: "Who says sorry first? 🕊️", winner: brotherName, remark: "Peace restored in record time! 🤍" }
+    ];
+    let disputeIdx = 0;
+
+    function handleVote(choice) {
+        SoundFX.playPop();
+        triggerConfettiBurst();
+
+        const current = disputes[disputeIdx];
+        if (feedback) {
+            feedback.textContent = `🎯 Voted for ${choice.toUpperCase()}! ${current.remark}`;
+        }
+
+        setTimeout(() => {
+            disputeIdx = (disputeIdx + 1) % disputes.length;
+            if (qText) qText.textContent = disputes[disputeIdx].q;
+        }, 2200);
+    }
+
+    btnSister?.addEventListener('click', () => handleVote(sisterName));
+    btnBrother?.addEventListener('click', () => handleVote(brotherName));
+}
+
+/**
+ * Interactive Puja Thali
+ */
+function setupThaliInteractions(config) {
+    const nodes = document.querySelectorAll('.thali-node, .thali-center-flame');
+    const titleEl = document.getElementById('thali-item-title');
+    const descEl = document.getElementById('thali-item-desc');
+    const thaliElements = config.thali?.elements || {
+        rakhi: { label: "Rakhi", meaning: "A sacred promise of eternal protection." },
+        diya: { label: "Aarti Diya", meaning: "A divine light guiding our path through every darkness." },
+        kumkum: { label: "Roli Kumkum", meaning: "An auspicious blessing for longevity and good health." },
+        rice: { label: "Akshat Rice", meaning: "Sacred grains of unbroken prosperity and peace." },
+        sweets: { label: "Mithai", meaning: "A little sweetness to celebrate life's joyful moments." },
+        flowers: { label: "Marigold Petals", meaning: "A lifetime of vibrant, fragrant memories." }
+    };
+
+    nodes.forEach(node => {
+        node.addEventListener('click', () => {
+            const key = node.getAttribute('data-key');
+            const data = thaliElements[key];
+            if (!data) return;
+
+            SoundFX.playPop();
+            if (titleEl) titleEl.textContent = `✨ ${data.label}`;
+            if (descEl) descEl.textContent = `"${data.meaning}"`;
+        });
+    });
+}
+
+/**
+ * Royal Wax Seal Letter
+ */
+function setupWaxSealLetter() {
+    const sealBtn = document.getElementById('btn-break-seal');
+    const closedView = document.getElementById('envelope-closed-view');
+    const openedView = document.getElementById('parchment-opened-view');
+
+    sealBtn?.addEventListener('click', () => {
+        SoundFX.playWaxCrack();
+        triggerConfettiBurst();
+
+        if (closedView) closedView.style.display = 'none';
+        if (openedView) openedView.style.display = 'block';
+        SoundFX.playChime();
+    });
+}
+
+/**
+ * Signature "Tie The Rakhi" Ceremony
+ */
+function setupTieRakhiCeremony() {
+    const btnTie = document.getElementById('btn-tie-rakhi');
+    const stage = document.getElementById('wrist-canvas-zone');
+    const rakhi = document.getElementById('ceremony-rakhi-piece');
+
+    btnTie?.addEventListener('click', () => {
+        SoundFX.playChime();
+        triggerConfettiBurst();
+
+        if (stage) stage.classList.add('is-tied');
+        if (rakhi) {
+            rakhi.style.transform = 'scale(1.15) rotate(5deg)';
+            rakhi.style.filter = 'drop-shadow(0 0 32px rgba(255, 215, 0, 1))';
+        }
+        if (btnTie) btnTie.textContent = "✅ Rakhi Tied. Promise Kept. 🪔✨";
+    });
+}
+
+/**
+ * GSAP Scroll Animations
+ */
+function initScrollAnimations() {
+    gsap.utils.toArray('.story-section').forEach(section => {
+        gsap.from(section.querySelectorAll('.section-eyebrow, .section-headline, .section-tagline, .luxury-memory-card, .quiz-glass-card, .thali-stage-box, .envelope-closed-state, .ceremony-card-stage, .finale-celebration-card'), {
+            scrollTrigger: {
+                trigger: section,
+                start: 'top 80%',
+                toggleActions: 'play none none none'
+            },
+            y: 35,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: 'power3.out'
+        });
+    });
+}
+
+/**
+ * Export & Sharing
+ */
+function setupExportAndSharing(config, lenis) {
+    const btnDownload = document.getElementById('btn-download-keepsake');
+    const btnNavDownload = document.getElementById('btn-nav-download');
+    const btnShareWA = document.getElementById('btn-share-whatsapp');
+    const btnReplay = document.getElementById('btn-replay-story');
+
+    const sister = config.names?.sister || "Sister";
+    const brother = config.names?.brother || "Brother";
+
+    async function exportKeepsakeCard() {
+        const poster = document.getElementById('hero-poster-card');
+        if (!poster) return;
+
+        SoundFX.playChime();
+        try {
+            if (window.html2canvas) {
+                const canvas = await html2canvas(poster, {
+                    scale: 3,
+                    useCORS: true,
+                    backgroundColor: null,
+                    logging: false
+                });
+                const link = document.createElement('a');
+                link.download = `RakshaBandhan_${sister}_${brother}_2026.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }
+        } catch (err) {
+            console.error("Download keepsake error:", err);
+        }
+    }
+
+    [btnDownload, btnNavDownload].forEach(b => b?.addEventListener('click', exportKeepsakeCard));
+
+    btnShareWA?.addEventListener('click', () => {
+        const url = window.location.href;
+        const text = encodeURIComponent(`🪔 Happy Raksha Bandhan! ✨\n\nI personalized this sacred interactive digital tribute for ${sister} & ${brother}:\n\n${url}`);
+        window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+    });
+
+    btnReplay?.addEventListener('click', () => {
+        if (lenis) {
+            lenis.scrollTo(0, { duration: 1.5 });
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+}
+
+/**
+ * Confetti Burst
+ */
+function triggerConfettiBurst() {
+    if (typeof confetti === 'function') {
+        confetti({
+            particleCount: 85,
+            spread: 75,
+            origin: { y: 0.65 },
+            colors: ['#e5b95c', '#b71c1c', '#fff4d0', '#d97706', '#2e7d32']
+        });
+    }
+}
+
+/**
+ * Audio System
+ */
+function setupAudioSystem(config) {
+    const audio = document.getElementById('festive-audio');
+    const btnMusic = document.getElementById('btn-nav-music');
+    const visBars = document.getElementById('audio-vis-bars');
+
+    if (config.music?.source && audio) audio.src = config.music.source;
+
+    let isPlaying = false;
+    btnMusic?.addEventListener('click', () => {
+        if (!audio) return;
+        if (isPlaying) {
+            audio.pause();
+            isPlaying = false;
+            if (visBars) visBars.classList.remove('is-playing');
+        } else {
+            audio.play().then(() => {
+                isPlaying = true;
+                if (visBars) visBars.classList.add('is-playing');
+            }).catch(e => console.warn("Audio play prevented:", e));
+        }
+    });
+}

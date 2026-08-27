@@ -18,16 +18,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevTagline = document.getElementById('prev-tagline-display');
     const prevHeroArt = document.getElementById('prev-hero-art');
 
-    const profilePhotos = {
-        sister: "assets/images/demo/portrait.svg",
-        brother: "assets/images/demo/img6.svg"
-    };
-
     const photos = [
+        "assets/images/editorial/wrist_seamless.png",
         "assets/images/demo/img1.svg",
         "assets/images/demo/img2.svg",
-        "assets/images/demo/img3.svg",
-        "assets/images/demo/img4.svg"
+        "assets/images/demo/img3.svg"
     ];
 
     function updateLivePreview() {
@@ -86,24 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.classList.add('active');
     }
 
-    // Profile photos are deliberately separate from shared memories: the story uses
-    // both at the distance scene and the sister portrait uses the sister photo.
-    ["sister", "brother"].forEach(role => {
-        const fileInput = document.getElementById(`file-profile-${role}`);
-        const imgPrev = document.getElementById(`prev-profile-${role}`);
-
-        fileInput?.addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            const compressedBase64 = await compressImage(file, 640, 640, 0.78);
-            profilePhotos[role] = compressedBase64;
-            if (imgPrev) imgPrev.src = compressedBase64;
-            if (role === "sister" && prevHeroArt) prevHeroArt.src = compressedBase64;
-        });
-    });
-
-    // Shared memory photo compression
+    // Photo Compression
     [0, 1, 2, 3].forEach(idx => {
         const fileInput = document.getElementById(`file-${idx}`);
         const imgPrev = document.getElementById(`prev-${idx}`);
@@ -115,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const compressedBase64 = await compressImage(file, 400, 400, 0.72);
             photos[idx] = compressedBase64;
             if (imgPrev) imgPrev.src = compressedBase64;
+            if (idx === 0 && prevHeroArt) prevHeroArt.src = compressedBase64;
         });
     });
 
@@ -161,20 +140,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 sister: inputSister ? inputSister.value : "Ananya",
                 brother: inputBrother ? inputBrother.value : "Aarav"
             },
-            profiles: {
-                sister: {
-                    photo: profilePhotos.sister,
-                    city: inputSisterCity ? inputSisterCity.value : "Mumbai"
-                },
-                brother: {
-                    photo: profilePhotos.brother,
-                    city: inputBrotherCity ? inputBrotherCity.value : "London"
-                }
-            },
             hero: {
                 tagline: inputTagline ? inputTagline.value : "Some bonds are tied by a thread.",
-                sisterPhoto: profilePhotos.sister,
-                brotherPhoto: profilePhotos.brother
+                image: photos[0]
             },
             letter: {
                 salutation: inputSalutation ? inputSalutation.value : "Dearest Sister,",

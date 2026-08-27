@@ -199,11 +199,6 @@ body {
     margin-top: 10px;
 }
 
-.profile-photo-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    max-width: 360px;
-}
-
 @media (max-width: 600px) {
     .photo-upload-grid {
         grid-template-columns: repeat(2, 1fr);
