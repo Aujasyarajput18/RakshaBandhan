@@ -1,85 +1,48 @@
-# 🪔 Premium Raksha Bandhan Interactive Sibling Story Experience
+# Rakhi — client story template
 
-An art-directed, motion-designed, highly emotional **Raksha Bandhan Digital Experience & Storytelling Template** built with pure HTML5, CSS3, and Vanilla JavaScript. 
+A lightweight, scroll-led Raksha Bandhan experience built as a reusable static-site template. It is intentionally story-first: kinetic opening typography, personal portraits, editorial memory prints, a thread timeline, a letter, a distance/reconnection scene, and a quiet finale.
 
-Designed specifically as a **turnkey digital product to be sold to customers** who want to send a bespoke, interactive tribute to their brother or sister.
+## Personalize one story
 
----
+Open `customize.html`. It accepts:
 
-## ✨ The 5-Act Emotional Story Journey
+- Sister and brother names
+- One portrait for each sibling
+- Four shared memory photos
+- Cities, letter date, salutation, body, and signoff
 
-1. **Act I — Curiosity**:
-   - **Cinematic Opening Sequence**: Dark room, glowing thread forming a circular Rakhi, kinetic typography (*"A bond doesn't need words... but this one deserves a story"*).
-   - **Hero Poster**: Layered depth sibling portrait, luxury Roman typography, Devanagari & Gurmukhi script emblems.
-   - **Signature Interactive Rakhi**: 3D-like rotating Rakhi responding to cursor & touch with expanding golden thread auras.
+The generated link can be sent directly to a client. Its information is embedded into the link, which is convenient for small, quick handoffs.
 
-2. **Act II — Playfulness**:
-   - **Interactive Puja Thali**: Tap/hover Rakhi (*"A promise"*), Diya (*"A light"*), Kumkum (*"A blessing"*), Sweets (*"A little sweetness"*), and Flowers (*"A lifetime of memories"*).
-   - **"Before We Grew Up" Childhood Gallery**: Horizontal scrolling childhood photo memories with handwritten captions.
-   - **Continuous Memory Timeline**: Vertical golden Rakhi thread spine connecting childhood to the present era.
-   - **Sibling Game ("Who Is More Likely?")**: Interactive quiz with real-time voting, scoring, and witty commentary.
+## Deliver 100 client stories efficiently
 
-3. **Act III — Emotion**:
-   - **"Things I Don't Say Enough"**: Full-screen cinematic dark scroll pause with sentence-by-sentence emotional confessions.
-   - **Royal Prem Patra**: Crimson wax-sealed envelope that opens with audio fracture haptics, sliding out a personalized deckle-edge parchment letter.
-   - **Draggable Polaroids**: Interactive draggable physical polaroid memories.
-   - **Distance Bridge (Optional)**: Connecting siblings living across different cities/countries (*"Different cities. Different lives. Same bond"*).
+For a large batch, use external image files and one small JSON file per client. This is much more reliable than embedding many photos in long URLs.
 
-4. **Act IV — Climax**:
-   - **Cinematic Transition**: Screen darkens into glowing gold: *"No matter how much life changes... some things stay forever."*
-   - **Signature "Tie the Rakhi" Ceremony**: Drag/tap Rakhi onto the wrist, 360° rotating Aarti Diya, Vedic Sanskrit Shlokas (*ॐ येन बद्धो बली राजा...*), and golden marigold confetti explosion!
+1. Create a folder per client, for example `assets/clients/pooja-aujasya/`, and place `sister.jpg`, `brother.jpg`, and `memory-01.jpg` through `memory-05.jpg` inside.
+2. Duplicate [gifts/client-template.json](gifts/client-template.json) as `gifts/pooja-aujasya.json`.
+3. Replace the names, cities, letter, memory captions, dates, and image paths in that copy.
+4. Send the client this URL: `https://your-domain.com/index.html?g=pooja-aujasya`.
 
-5. **Act V — Afterglow**:
-   - **Lifelong Sibling Vows**: Golden cards with unbreakable brother/sister promises.
-   - **Grand Festival Finale**: Floating mandalas, audio player with equalizer, 1-Click WhatsApp delivery, and HD Keepsake Card download.
+The page reads the JSON and hydrates the same cinematic design automatically. See the working [gifts/demo.json](gifts/demo.json) with `index.html?g=demo`.
 
----
+## Content schema
 
-## 🛠️ How Customers Customize This Template
+The important fields are:
 
-### Method 1: The In-Browser Story Studio (`customize.html`)
-1. Open `customize.html` in your browser.
-2. Edit sibling names, letter, and upload photos (automatically compressed in-browser).
-3. Click **"Generate Client Story Link"**.
-4. Send via WhatsApp or copy the permanent, serverless link!
-
-### Method 2: Direct Code Customization (`js/config.js`)
-All content is centralized in **`js/config.js`**:
-```js
-window.rakhiConfig = {
-    names: {
-        sister: "Ananya",
-        brother: "Aarav"
-    },
-    hero: {
-        tagline: "Some bonds are tied by a thread.",
-        subtagline: "Ours was tied long before the Rakhi."
-    },
-    letter: {
-        salutation: "Dearest Ananya,",
-        bodyParagraphs: [
-            "We've grown up. We've changed. We've argued. We've laughed...",
-            "Whenever the world feels overwhelming, knowing that I have you gives me quiet strength."
-        ],
-        signoff: "Forever your loving brother ❤️, Aarav"
-    },
-    childhoodPhotos: [
-        { url: "assets/images/demo/img1.svg", caption: "The unstoppable duo." },
-        { url: "assets/images/demo/img2.svg", caption: "Who started this fight?" }
-    ],
-    // ...
-};
+```json
+{
+  "names": { "sister": "Pooja", "brother": "Aujasya" },
+  "profiles": {
+    "sister": { "photo": "assets/clients/pooja-aujasya/sister.jpg", "city": "Mumbai" },
+    "brother": { "photo": "assets/clients/pooja-aujasya/brother.jpg", "city": "Delhi" }
+  },
+  "childhoodPhotos": [{ "url": "...", "caption": "..." }],
+  "memories": [{ "year": "2026", "title": "...", "description": "...", "image": "..." }],
+  "letter": { "date": "August, 2026", "salutation": "...", "bodyParagraphs": ["..."], "signoff": "..." }
+}
 ```
 
----
+## Deployment
 
-## 🚀 100% Free-Tier Deployment (Zero Backend Needed)
+It is a static site—upload the repository unchanged to Netlify, Vercel, Cloudflare Pages, GitHub Pages, or any ordinary web host. There is no build command and no database.
 
-Deploy for ₹0 cost on **Vercel**, **Netlify**, **Cloudflare Pages**, or **GitHub Pages**:
-- **Build Command**: *(None needed - Pure Static HTML/CSS/JS)*
-- **Output Directory**: `.` (Root)
-
----
-
-## 📄 License
-Commercial Template & Digital Product License.
+For client images, use optimised JPEG/WebP files at around 1200px on the long side; that keeps the story premium without making it slow on mobile.

@@ -12,6 +12,19 @@ const DEFAULT_RAKHI_CONFIG = {
         brother: "Aarav"
     },
 
+    // ── Client Profile Photos (used in the hero and distance scenes) ──
+    // Each client can have independent, named photos for both siblings.
+    profiles: {
+        sister: {
+            photo: "assets/images/demo/portrait.svg",
+            city: "Mumbai"
+        },
+        brother: {
+            photo: "assets/images/demo/img6.svg",
+            city: "London"
+        }
+    },
+
     // ── Hero Section ──
     hero: {
         tagline: "Some bonds are tied by a thread.",
