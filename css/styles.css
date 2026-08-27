@@ -113,27 +113,6 @@ img { display: block; max-width: 100%; }
   0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
   100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
 }
-.threshold-flow-thread {
-  position: absolute;
-  top: 38%;
-  left: 0;
-  width: 100%;
-  height: 400px;
-  transform: translateY(-50%);
-  pointer-events: none;
-  z-index: 1;
-  overflow: visible;
-}
-#threshold-thread-line {
-  fill: none;
-  stroke: var(--marigold);
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-dasharray: 6 8;
-  opacity: 0.65;
-  filter: drop-shadow(0 0 8px rgba(217,155,56,0.6));
-}
-
 .threshold-header {
   position: relative;
   z-index: 2;
@@ -168,16 +147,40 @@ img { display: block; max-width: 100%; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(30px, 5.5vw, 85px);
   width: 100%;
   max-width: 1200px;
   margin: 2vh auto 3vh;
 }
 
+/* Thread Bridges Connecting Polaroids to Center */
+.thread-bridge {
+  flex: 1 1 clamp(30px, 6vw, 110px);
+  max-width: 130px;
+  min-width: 25px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.thread-bridge svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.thread-bridge path {
+  fill: none;
+  stroke: var(--marigold);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-dasharray: 6 7;
+  filter: drop-shadow(0 0 6px rgba(217,155,56,0.6));
+}
+
 /* Floating Polaroids */
 .portal-polaroid {
   position: relative;
-  width: clamp(160px, 18vw, 225px);
+  width: clamp(155px, 17vw, 220px);
   margin: 0;
   padding: 10px 10px 34px;
   background: #ffffff;
@@ -210,7 +213,7 @@ img { display: block; max-width: 100%; }
 }
 .portal-polaroid img {
   width: 100%;
-  height: clamp(150px, 17vw, 210px);
+  height: clamp(145px, 16vw, 205px);
   object-fit: cover;
   background: var(--paper-dark);
 }
@@ -231,20 +234,24 @@ img { display: block; max-width: 100%; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: clamp(240px, 24vw, 275px);
 }
-.portal-rakhi-emblem {
-  margin-bottom: 8px;
+.portal-rakhi-crown {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  pointer-events: none;
 }
 .portal-kundan-rakhi {
-  width: 82px;
+  width: 80px;
   height: auto;
-  filter: drop-shadow(0 6px 16px rgba(111,44,66,0.25));
+  filter: drop-shadow(0 6px 14px rgba(111,44,66,0.3));
   animation: floatSlow 4s infinite ease-in-out;
 }
 .thread-cta {
   position: relative;
-  width: clamp(240px, 24vw, 275px);
+  width: clamp(230px, 23vw, 270px);
   aspect-ratio: 1;
   display: grid;
   place-items: center;

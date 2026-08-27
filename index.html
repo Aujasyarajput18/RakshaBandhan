@@ -47,11 +47,6 @@
       <div class="threshold-ambient-glow" aria-hidden="true"></div>
       <span class="threshold-rangoli rangoli-left" aria-hidden="true"></span>
       <span class="threshold-rangoli rangoli-right" aria-hidden="true"></span>
-      
-      <!-- Flowing connecting SVG thread across the section -->
-      <svg class="threshold-flow-thread" viewBox="0 0 1440 300" preserveAspectRatio="none" aria-hidden="true">
-        <path id="threshold-thread-line" d="M-50,150 C300,90 480,210 720,150 C960,90 1140,210 1500,150" />
-      </svg>
 
       <!-- Headline Block -->
       <div class="threshold-header">
@@ -60,7 +55,7 @@
         <p class="threshold-tagline">Where secrets are safe, food is stolen, and promises are eternal.</p>
       </div>
 
-      <!-- Interactive 3-Element Stage: Sister Floating Photo, Center Cosmic Portal, Brother Floating Photo -->
+      <!-- Interactive 3-Element Interconnected Stage -->
       <div class="threshold-stage-grid">
         <!-- Floating Left Photo (Sister) -->
         <figure class="portal-polaroid polaroid-left" data-tilt>
@@ -69,13 +64,20 @@
           <figcaption id="portal-sister-caption">the keeper of secrets</figcaption>
         </figure>
 
-        <!-- Center Glowing Cosmic Portal Button -->
+        <!-- Golden Thread Connecting Left Polaroid to Center Rakhi -->
+        <div class="thread-bridge thread-bridge-left" aria-hidden="true">
+          <svg viewBox="0 0 160 40" preserveAspectRatio="none">
+            <path d="M0,20 Q80,35 160,20" />
+          </svg>
+        </div>
+
+        <!-- Center Glowing Cosmic Portal Button with Rakhi Crown -->
         <div class="portal-core-wrapper">
           <div class="portal-sun-aura"></div>
-          <div class="portal-rakhi-emblem">
-            <img src="assets/images/rakhis/kundan-rakhi.svg" alt="Sacred Rakhi" class="portal-kundan-rakhi">
-          </div>
           <button class="thread-cta" id="enter-bond" type="button" aria-label="Enter the bond">
+            <div class="portal-rakhi-crown">
+              <img src="assets/images/rakhis/kundan-rakhi.svg" alt="Sacred Rakhi" class="portal-kundan-rakhi">
+            </div>
             <svg viewBox="0 0 260 260" aria-hidden="true">
               <defs>
                 <path id="cta-circle" d="M130,130 m-101,0 a101,101 0 1,1 202,0 a101,101 0 1,1 -202,0"/>
@@ -89,6 +91,13 @@
             </div>
             <i></i>
           </button>
+        </div>
+
+        <!-- Golden Thread Connecting Center Rakhi to Right Polaroid -->
+        <div class="thread-bridge thread-bridge-right" aria-hidden="true">
+          <svg viewBox="0 0 160 40" preserveAspectRatio="none">
+            <path d="M0,20 Q80,5 160,20" />
+          </svg>
         </div>
 
         <!-- Floating Right Photo (Brother) -->
