@@ -691,15 +691,7 @@ function setupScrollStory() {
     scrollTrigger: { trigger: '.letter-section', start: 'top 66%' }
   });
 
-  // Chapter 05: Distance Section (Infinite Connection)
-  const distanceThread = document.getElementById('distance-thread');
-  const ambientGlowThread = document.querySelector('.thread-ambient-glow');
-  const distanceLength = safelyGetPathLength(distanceThread);
-  if (distanceThread && distanceLength) {
-    gsap.set(distanceThread, { strokeDasharray: distanceLength, strokeDashoffset: distanceLength });
-    if (ambientGlowThread) gsap.set(ambientGlowThread, { strokeDasharray: distanceLength, strokeDashoffset: distanceLength });
-  }
-  
+  // Chapter 05: Distance Section (Unified Global Sibling Hub)
   const distanceTimeline = gsap.timeline({
     scrollTrigger: {
       trigger: '.distance-section',
@@ -708,30 +700,35 @@ function setupScrollStory() {
       scrub: 0.8,
       onUpdate: (self) => {
         const medallion = document.getElementById('connection-medallion');
-        if (self.progress > 0.72) {
+        const counter = document.getElementById('distance-counter-text');
+        if (self.progress > 0.65) {
           medallion?.classList.add('is-active');
+          if (counter) counter.textContent = '0 MILES • 1 SACRED BOND';
         } else {
           medallion?.classList.remove('is-active');
+          if (counter) counter.textContent = '4,487 MILES • 0 SECONDS OF DISTANCE';
         }
       }
     }
   });
 
   distanceTimeline
-    // Scene 1: Initial City beacons & First Line
-    .to('.distance-line-one', { opacity: 1, yPercent: -5, duration: 0.15 }, 0.04)
-    .to('.distance-line-one', { opacity: 0, yPercent: -15, duration: 0.12 }, 0.28)
+    // Scene 1: Initial Cards Entrance & First Line
+    .from('.sister-hub', { x: -60, opacity: 0, duration: 0.2 }, 0)
+    .from('.brother-hub', { x: 60, opacity: 0, duration: 0.2 }, 0)
+    .to('.distance-line-one', { opacity: 1, y: 0, duration: 0.15 }, 0.04)
+    .to('.distance-line-one', { opacity: 0, y: -20, duration: 0.12 }, 0.28)
     
-    // Scene 2: Thread draws from Mumbai across to London
-    .to(distanceThread, { strokeDashoffset: 0, duration: 0.42, ease: 'power1.inOut' }, 0.22)
-    .to(ambientGlowThread, { strokeDashoffset: 0, duration: 0.42, ease: 'power1.inOut' }, 0.22)
-    .to('.distance-line-two', { opacity: 1, yPercent: -5, duration: 0.15 }, 0.38)
-    .to('.distance-line-two', { opacity: 0, yPercent: -15, duration: 0.12 }, 0.62)
+    // Scene 2: Golden Light Conduit activates across to Brother
+    .to('#conduit-glow', { width: '100%', duration: 0.45, ease: 'power1.inOut' }, 0.22)
+    .to('#conduit-particle', { left: '100%', duration: 0.45, ease: 'power1.inOut' }, 0.22)
+    .to('.distance-line-two', { opacity: 1, y: 0, duration: 0.15 }, 0.38)
+    .to('.distance-line-two', { opacity: 0, y: -20, duration: 0.12 }, 0.62)
     
-    // Scene 3: Convergence - Both cards glide smoothly toward the center
-    .to('.city-sister', { x: '12vw', duration: 0.28, ease: 'power2.out' }, 0.65)
-    .to('.city-brother', { x: '-12vw', duration: 0.28, ease: 'power2.out' }, 0.65)
-    .to('.distance-line-three', { opacity: 1, yPercent: 0, scale: 1, duration: 0.22, ease: 'back.out(1.4)' }, 0.74);
+    // Scene 3: Heartfelt Climax - Sacred Medallion blooms & Final Line shines
+    .to('.sister-hub', { scale: 1.04, duration: 0.25, ease: 'power2.out' }, 0.66)
+    .to('.brother-hub', { scale: 1.04, duration: 0.25, ease: 'power2.out' }, 0.66)
+    .to('.distance-line-three', { opacity: 1, y: 0, scale: 1, duration: 0.22, ease: 'back.out(1.4)' }, 0.72);
 
   // Chapter 06: Finale
   gsap.from('.finale-rakhi', {
