@@ -208,8 +208,9 @@ img { display: block; max-width: 100%; }
 }
 .portal-polaroid img {
   width: 100%;
-  height: clamp(145px, 16vw, 205px);
+  height: clamp(160px, 18vw, 225px);
   object-fit: cover;
+  object-position: center 15%;
   background: var(--paper-dark);
 }
 .portal-polaroid figcaption {
@@ -578,6 +579,7 @@ img { display: block; max-width: 100%; }
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
+  object-position: center 15%;
   background: #e9ba64;
   display: block;
   transition: transform 0.5s ease;
@@ -755,6 +757,7 @@ img { display: block; max-width: 100%; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 15%;
   display: block;
 }
 
@@ -772,6 +775,7 @@ img { display: block; max-width: 100%; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 15%;
   display: block;
 }
 
@@ -821,6 +825,7 @@ img { display: block; max-width: 100%; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 15%;
   display: block;
 }
 .kinetic-placeholder-icon.is-docked {
@@ -1026,8 +1031,9 @@ img { display: block; max-width: 100%; }
 }
 .slate-polaroid img {
   width: 100%;
-  height: clamp(160px, 18vh, 210px);
+  height: clamp(210px, 24vh, 270px);
   object-fit: cover;
+  object-position: center 15%;
   border-radius: 3px;
   display: block;
 }
@@ -1604,6 +1610,7 @@ img { display: block; max-width: 100%; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 15%;
   display: block;
 }
 
