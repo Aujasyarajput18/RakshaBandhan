@@ -40,10 +40,15 @@ img { display: block; max-width: 100%; }
 .wordmark, .sound-toggle { color: inherit; text-decoration: none; text-transform: uppercase; letter-spacing: .14em; font: 500 10px/1 var(--mono); }
 .wordmark { display: flex; align-items: center; gap: 9px; }
 .wordmark-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--rose); box-shadow: 0 0 0 5px rgba(169,79,92,.1); }
-.sound-toggle { display: flex; gap: 6px; align-items: center; padding: 0; border: 0; background: transparent; cursor: pointer; }
-.sound-toggle svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
-.sound-toggle.is-playing svg { color: var(--rose); animation: soundPulse 1.7s infinite ease-in-out; }
-@keyframes soundPulse { 50% { transform: scale(1.2); } }
+.sound-toggle { display: flex; gap: 7px; align-items: center; padding: 6px 12px; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,250,240,.6); backdrop-filter: blur(8px); cursor: pointer; transition: all .3s ease; }
+.sound-toggle:hover { background: rgba(255,250,240,.9); border-color: var(--rose); }
+.sound-bars { display: inline-flex; align-items: flex-end; gap: 2.5px; height: 11px; }
+.sound-bars span { width: 2px; height: 3px; background: currentColor; border-radius: 1px; transition: height 0.2s; }
+.sound-toggle.is-playing { color: var(--rose); border-color: rgba(169,79,92,.4); background: rgba(255,250,240,.95); }
+.sound-toggle.is-playing .sound-bars span:nth-child(1) { animation: barPlay 0.8s infinite alternate ease-in-out; }
+.sound-toggle.is-playing .sound-bars span:nth-child(2) { animation: barPlay 1.2s infinite alternate ease-in-out 0.2s; }
+.sound-toggle.is-playing .sound-bars span:nth-child(3) { animation: barPlay 0.9s infinite alternate ease-in-out 0.4s; }
+@keyframes barPlay { 0% { height: 3px; } 100% { height: 12px; } }
 
 .eyebrow { margin: 0; text-transform: uppercase; letter-spacing: .14em; font: 500 clamp(9px, .73vw, 11px)/1.4 var(--mono); color: var(--rose); }
 .section-index { text-transform: uppercase; letter-spacing: .07em; font: 500 11px/1 var(--mono); color: var(--wine); }

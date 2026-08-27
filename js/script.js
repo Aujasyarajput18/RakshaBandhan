@@ -217,9 +217,11 @@ function setupLetter() {
 function setupAudio(config) {
   const audio = document.getElementById('ambient-audio');
   const button = document.querySelector('.sound-toggle');
+  const enterBtn = document.getElementById('enter-bond');
   if (!audio || !button || config.music?.enabled === false) return;
   if (config.music?.source) audio.src = cleanUrl(config.music.source);
-  button.addEventListener('click', async () => {
+
+  const toggleMusic = async () => {
     try {
       if (audio.paused) {
         await audio.play();
@@ -233,6 +235,16 @@ function setupAudio(config) {
         button.setAttribute('aria-label', 'Play ambient music');
       }
     } catch (_) { /* Browser playback policy can decline a failed gesture gracefully. */ }
+  };
+
+  button.addEventListener('click', toggleMusic);
+  enterBtn?.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play().then(() => {
+        button.classList.add('is-playing');
+        button.setAttribute('aria-pressed', 'true');
+      }).catch(() => {});
+    }
   });
 }
 
