@@ -22,7 +22,9 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 82px; background: var(--paper); }
+html { scroll-padding-top: 82px; background: var(--paper); }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
 body { margin: 0; overflow-x: hidden; color: var(--ink); background: var(--paper); font-family: var(--sans); text-rendering: optimizeLegibility; }
 button { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }

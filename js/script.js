@@ -247,17 +247,8 @@ function setupScrollStory() {
   const pathLength = safelyGetPathLength(introThread);
   if (introThread && pathLength) gsap.set(introThread, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
 
-  // Initial load entrance
-  gsap.from(['.word-happy', '.word-raksha', '.word-bandhan'], {
-    y: 40,
-    opacity: 0,
-    stagger: 0.16,
-    duration: 1.2,
-    ease: 'power3.out'
-  });
-
   const introTimeline = gsap.timeline({
-    scrollTrigger: { trigger: intro, start: 'top top', end: 'bottom bottom', scrub: 0.85 }
+    scrollTrigger: { trigger: intro, start: 'top top', end: 'bottom bottom', scrub: 0.8 }
   });
   introTimeline
     .to('.intro-prompt', { opacity: 0, y: -25, duration: 0.14 }, 0)
@@ -423,6 +414,9 @@ function setupScrollStory() {
     ease: 'power3.out',
     scrollTrigger: { trigger: '.finale', start: 'top 60%' }
   });
+
+  ScrollTrigger.refresh();
+  window.addEventListener('load', () => ScrollTrigger.refresh());
 }
 
 /**
