@@ -275,45 +275,31 @@ function setupScrollStory() {
   });
 
   gsap.from('.polaroid-left', {
-    x: -90,
-    rotate: -25,
+    x: -80,
+    rotate: -20,
     opacity: 0,
-    scale: 0.8,
-    duration: 1.2,
-    ease: 'back.out(1.4)',
+    scale: 0.85,
+    duration: 1.1,
+    ease: 'back.out(1.3)',
     scrollTrigger: { trigger: '.threshold', start: 'top 72%' }
   });
 
   gsap.from('.polaroid-right', {
-    x: 90,
-    rotate: 25,
+    x: 80,
+    rotate: 20,
     opacity: 0,
-    scale: 0.8,
-    duration: 1.2,
-    ease: 'back.out(1.4)',
+    scale: 0.85,
+    duration: 1.1,
+    ease: 'back.out(1.3)',
     scrollTrigger: { trigger: '.threshold', start: 'top 72%' }
   });
 
   gsap.from('.portal-core-wrapper', {
-    scale: 0.65,
+    scale: 0.75,
     opacity: 0,
-    duration: 1.3,
-    ease: 'back.out(1.5)',
+    duration: 1.2,
+    ease: 'back.out(1.4)',
     scrollTrigger: { trigger: '.threshold', start: 'top 72%' }
-  });
-
-  // Parallax float as user scrolls through threshold
-  gsap.to('.polaroid-left', {
-    yPercent: -18,
-    rotate: -3,
-    ease: 'none',
-    scrollTrigger: { trigger: '.threshold', start: 'top bottom', end: 'bottom top', scrub: 1 }
-  });
-  gsap.to('.polaroid-right', {
-    yPercent: 18,
-    rotate: 3,
-    ease: 'none',
-    scrollTrigger: { trigger: '.threshold', start: 'top bottom', end: 'bottom top', scrub: 1 }
   });
 
   // Threshold Button & Rangoli Scroll Spin

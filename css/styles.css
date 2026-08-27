@@ -168,18 +168,18 @@ img { display: block; max-width: 100%; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: clamp(45px, 8vw, 120px);
+  gap: clamp(30px, 5.5vw, 85px);
   width: 100%;
-  max-width: 1300px;
-  margin: 1vh auto 3vh;
+  max-width: 1200px;
+  margin: 2vh auto 3vh;
 }
 
 /* Floating Polaroids */
 .portal-polaroid {
   position: relative;
-  width: clamp(145px, 16vw, 215px);
+  width: clamp(160px, 18vw, 225px);
   margin: 0;
-  padding: 9px 9px 30px;
+  padding: 10px 10px 34px;
   background: #ffffff;
   box-shadow: 0 15px 35px rgba(41,27,37,0.18), 0 2px 6px rgba(41,27,37,0.08);
   transform-style: preserve-3d;
@@ -188,10 +188,10 @@ img { display: block; max-width: 100%; }
   will-change: transform;
 }
 .polaroid-left {
-  transform: rotate(-7deg) translateY(6px);
+  transform: rotate(-5deg);
 }
 .polaroid-right {
-  transform: rotate(7deg) translateY(-6px);
+  transform: rotate(5deg);
 }
 .portal-polaroid:hover {
   transform: scale(1.08) rotate(0deg) translateY(-8px) !important;
@@ -203,14 +203,14 @@ img { display: block; max-width: 100%; }
   top: -8px;
   left: 50%;
   transform: translateX(-50%);
-  width: 30px;
-  height: 11px;
+  width: 32px;
+  height: 12px;
   background: rgba(217,155,56,0.65);
   box-shadow: 0 1px 3px rgba(0,0,0,0.15);
 }
 .portal-polaroid img {
   width: 100%;
-  height: clamp(140px, 15vw, 200px);
+  height: clamp(150px, 17vw, 210px);
   object-fit: cover;
   background: var(--paper-dark);
 }
@@ -219,7 +219,7 @@ img { display: block; max-width: 100%; }
   left: 8px;
   right: 8px;
   bottom: 8px;
-  font: 15px/1 var(--script);
+  font: 16px/1 var(--script);
   color: var(--wine);
   text-align: center;
 }
@@ -231,20 +231,20 @@ img { display: block; max-width: 100%; }
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: clamp(210px, 20vw, 250px);
+  width: clamp(240px, 24vw, 275px);
 }
 .portal-rakhi-emblem {
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 .portal-kundan-rakhi {
-  width: 76px;
+  width: 82px;
   height: auto;
   filter: drop-shadow(0 6px 16px rgba(111,44,66,0.25));
   animation: floatSlow 4s infinite ease-in-out;
 }
 .thread-cta {
   position: relative;
-  width: clamp(210px, 20vw, 250px);
+  width: clamp(240px, 24vw, 275px);
   aspect-ratio: 1;
   display: grid;
   place-items: center;
