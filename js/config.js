@@ -16,11 +16,11 @@ const DEFAULT_RAKHI_CONFIG = {
     // Each client can have independent, named photos for both siblings.
     profiles: {
         sister: {
-            photo: "assets/images/demo/portrait.svg",
+            photo: "assets/images/model/portrait.jpg",
             city: "Mumbai"
         },
         brother: {
-            photo: "assets/images/demo/img6.svg",
+            photo: "assets/images/model/img6.jpg",
             city: "London"
         }
     },
@@ -55,10 +55,10 @@ const DEFAULT_RAKHI_CONFIG = {
 
     // ── "Before We Grew Up" Childhood Gallery ──
     childhoodPhotos: [
-        { url: "assets/images/demo/img1.svg", caption: "The unstoppable duo." },
-        { url: "assets/images/demo/img2.svg", caption: "Who started this fight?" },
-        { url: "assets/images/demo/img3.svg", caption: "Definitely not me." },
-        { url: "assets/images/demo/img4.svg", caption: "Mom remembers differently." }
+        { url: "assets/images/model/img1.jpg", caption: "The unstoppable duo." },
+        { url: "assets/images/model/img2.jpg", caption: "Who started this fight?" },
+        { url: "assets/images/model/img3.jpg", caption: "Definitely not me." },
+        { url: "assets/images/model/img4.jpg", caption: "Mom remembers differently." }
     ],
 
     // ── Memory Timeline (Continuous Gold Thread) ──
@@ -67,31 +67,31 @@ const DEFAULT_RAKHI_CONFIG = {
             year: "Era 01",
             title: "The Tiny Humans Era",
             description: "Before we knew how fast time would move. Stealing each other's toys and crying to Mom.",
-            image: "assets/images/demo/img1.svg"
+            image: "assets/images/model/img1.jpg"
         },
         {
             year: "Era 02",
             title: "The Fighting Era",
             description: "Who gets the TV remote? Who took the last slice of pizza? Legendary battles fought and forgotten.",
-            image: "assets/images/demo/img2.svg"
+            image: "assets/images/model/img2.jpg"
         },
         {
             year: "Era 03",
             title: "The Growing Up Era",
             description: "Late-night exam preps, secret crushes, and covering for each other when we came home late.",
-            image: "assets/images/demo/img3.svg"
+            image: "assets/images/model/img3.jpg"
         },
         {
             year: "Era 04",
             title: "The 'Don't Tell Mom' Era",
             description: "The secret unspoken treaties that kept both of us out of trouble.",
-            image: "assets/images/demo/img4.svg"
+            image: "assets/images/model/img4.jpg"
         },
         {
             year: "Era 05",
             title: "We Grew Up But Didn't Really",
             description: "Different cities, busy schedules, but the exact same chaotic kids whenever we meet.",
-            image: "assets/images/demo/img5.svg"
+            image: "assets/images/model/img5.jpg"
         }
     ],
 
@@ -128,11 +128,11 @@ const DEFAULT_RAKHI_CONFIG = {
 
     // ── Draggable Polaroids ──
     polaroids: [
-        { url: "assets/images/demo/img1.svg", caption: "Us." },
-        { url: "assets/images/demo/img2.svg", caption: "Chaos." },
-        { url: "assets/images/demo/img3.svg", caption: "Childhood." },
-        { url: "assets/images/demo/img4.svg", caption: "Home." },
-        { url: "assets/images/demo/img5.svg", caption: "Always." }
+        { url: "assets/images/model/img1.jpg", caption: "Us." },
+        { url: "assets/images/model/img2.jpg", caption: "Chaos." },
+        { url: "assets/images/model/img3.jpg", caption: "Childhood." },
+        { url: "assets/images/model/img4.jpg", caption: "Home." },
+        { url: "assets/images/model/img5.jpg", caption: "Always." }
     ],
 
     // ── Optional Distance Section ──
