@@ -1808,51 +1808,87 @@ img { display: block; max-width: 100%; }
 }
 .sanctum-headline {
   margin: 0;
-  font: 700 clamp(24px, 3.2vw, 42px)/1.08 var(--display);
-  letter-spacing: -0.03em;
-  color: #fff6e8;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: clamp(26px, 3.2vw, 44px);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  color: #ffffff;
 }
 .sanctum-headline em {
-  font-family: var(--script);
-  color: var(--marigold);
-  font-style: normal;
-  font-size: 1.15em;
-  text-shadow: 0 0 20px rgba(217, 155, 56, 0.8);
+  font-family: var(--display);
+  font-style: italic;
+  font-weight: 500;
+  background: linear-gradient(135deg, #fff2be 0%, #e5b967 50%, #f6c87a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  filter: drop-shadow(0 2px 8px rgba(217, 155, 56, 0.4));
 }
 
 /* Luxury Glassmorphic Dedication Slate */
 .sanctum-blessing-slate {
   position: relative;
   width: 100%;
-  max-width: 520px;
-  border-radius: 16px;
-  background: rgba(43, 27, 40, 0.78);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(217, 155, 56, 0.35);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
-  padding: 14px 28px 16px;
+  max-width: 480px;
+  border-radius: 18px;
+  background: rgba(36, 22, 34, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(217, 155, 56, 0.38);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  padding: 18px 28px 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 .slate-crown {
-  font: 700 11px/1 var(--display);
+  font: 700 9.5px/1 var(--mono);
   color: var(--marigold);
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
+  opacity: 0.9;
 }
 .slate-wish {
+  margin: 2px 0 0;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(22px, 2.3vw, 28px);
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+.slate-sister-tag {
   margin: 0;
-  color: #fff6e8;
-  font: 400 clamp(22px, 2.6vw, 32px)/1.1 var(--script);
+  font: 700 10.5px/1 var(--mono);
+  letter-spacing: 0.16em;
+  color: var(--marigold);
+  background: rgba(217, 155, 56, 0.15);
+  border: 1px solid rgba(217, 155, 56, 0.35);
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+.slate-divider {
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--marigold), transparent);
+  margin: 4px 0;
 }
 .slate-quote {
-  margin: 2px 0 0;
-  color: rgba(255, 246, 232, 0.72);
-  font: 400 clamp(13px, 1.1vw, 15px)/1.4 var(--sans);
+  margin: 0;
+  color: rgba(255, 246, 232, 0.8);
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(14px, 1.15vw, 16px);
+  line-height: 1.4;
 }
-.slate-quote strong {
-  color: var(--marigold);
+.slate-signature {
+  margin: 2px 0 0;
+  color: rgba(255, 246, 232, 0.6);
+  font: 500 11px/1.4 var(--sans);
+  letter-spacing: 0.04em;
+}
+.slate-signature strong {
+  color: #fff6e8;
+  font-weight: 600;
 }
 
 /* Action Buttons */
@@ -1861,49 +1897,49 @@ img { display: block; max-width: 100%; }
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 .celebrate-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 24px;
-  border-radius: 25px;
-  background: linear-gradient(135deg, #d99b38 0%, #b87a22 100%);
+  padding: 11px 22px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #d99b38 0%, #b3771e 100%);
   color: #ffffff;
-  font: 700 12px/1 var(--mono);
-  letter-spacing: 0.1em;
+  font: 700 11px/1 var(--mono);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  border: 0;
+  border: 1px solid rgba(255, 240, 190, 0.4);
   cursor: pointer;
-  box-shadow: 0 8px 25px rgba(217, 155, 56, 0.4);
+  box-shadow: 0 8px 24px rgba(217, 155, 56, 0.35);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
 }
 .celebrate-btn:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 12px 30px rgba(217, 155, 56, 0.6);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(217, 155, 56, 0.55);
 }
 .btn-sparkle {
-  font-size: 14px;
+  font-size: 13px;
   animation: auraPulse 1.5s infinite alternate;
 }
 
 .replay-btn {
   display: inline-flex;
   align-items: center;
-  padding: 11px 20px;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff6e8;
+  padding: 10px 18px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 246, 232, 0.85);
   font: 600 11px/1 var(--mono);
   letter-spacing: 0.08em;
-  border: 1px solid rgba(217, 155, 56, 0.3);
+  border: 1px solid rgba(217, 155, 56, 0.25);
   cursor: pointer;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
 }
 .replay-btn:hover {
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.18);
   border-color: var(--marigold);
 }
 

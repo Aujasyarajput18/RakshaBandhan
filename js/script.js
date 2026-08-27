@@ -137,10 +137,9 @@ function hydrateStory(config) {
   renderTimeline(memories, photos);
   renderLetter(config.letter || {}, sister, brother);
 
-  const finalSignoff = cleanText(config.finale?.signoff || config.letter?.signoff, `Always your brother, ${brother}`);
   const signoff = document.getElementById('finale-signoff');
-  if (signoff) signoff.innerHTML = escapeHtml(finalSignoff).replace(/,\s*/, ',<br>');
-  setText('finale-sister-name', sister);
+  if (signoff) signoff.innerHTML = `Forever your brother, <strong>${escapeHtml(brother)}</strong>`;
+  setText('finale-sister-name', sister.toUpperCase());
 
   return { sister, brother };
 }
