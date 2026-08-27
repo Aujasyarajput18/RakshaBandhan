@@ -734,29 +734,6 @@ function setupScrollStory() {
     .to('.distance-line-three', { opacity: 1, y: 0, scale: 1, duration: 0.22, ease: 'back.out(1.4)' }, 0.72);
 
   // Chapter 06: Finale (Royal Sacred Celebration Altar)
-  gsap.from('.finale-toran-drape', {
-    y: -40,
-    opacity: 0,
-    duration: 1.2,
-    ease: 'power2.out',
-    scrollTrigger: { trigger: '.finale', start: 'top 80%' }
-  });
-  gsap.from('.vignette-left', {
-    x: -50,
-    rotate: -12,
-    opacity: 0,
-    duration: 1.2,
-    ease: 'back.out(1.2)',
-    scrollTrigger: { trigger: '.finale', start: 'top 70%' }
-  });
-  gsap.from('.vignette-right', {
-    x: 50,
-    rotate: 12,
-    opacity: 0,
-    duration: 1.2,
-    ease: 'back.out(1.2)',
-    scrollTrigger: { trigger: '.finale', start: 'top 70%' }
-  });
   gsap.from('.sanctum-rakhi-altar', {
     scale: 0.7,
     rotate: -15,
@@ -786,6 +763,13 @@ function setupScrollStory() {
     duration: 0.8,
     ease: 'power2.out',
     scrollTrigger: { trigger: '.finale', start: 'top 58%' }
+  });
+  gsap.from('.sanctum-diya', {
+    y: 20,
+    opacity: 0,
+    duration: 1,
+    ease: 'power2.out',
+    scrollTrigger: { trigger: '.finale', start: 'top 65%' }
   });
 
   ScrollTrigger.refresh();
