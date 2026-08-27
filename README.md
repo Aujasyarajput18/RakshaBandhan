@@ -10,9 +10,32 @@ An ultra-luxurious, scroll-driven interactive Raksha Bandhan celebration web exp
 ## 🌐 Live Demos & Links
 
 - ⚡ **Live Production (Vercel)**: **[https://rakshabandhan-steel.vercel.app](https://rakshabandhan-steel.vercel.app)**
-- 📱 **GitHub Pages Mirror**: **[https://aujasyarajput18.github.io/RakshaBandhan/](https://aujasyarajput18.github.io/RakshaBandhan/)**
+- 📝 **Customer Intake & Order Portal**: **[https://rakshabandhan-steel.vercel.app/order.html](https://rakshabandhan-steel.vercel.app/order.html)**
+- 🎛️ **Admin Orders & Fulfillment Hub**: **[https://rakshabandhan-steel.vercel.app/admin.html](https://rakshabandhan-steel.vercel.app/admin.html)**
 - 🎨 **Online Customizer Studio**: **[https://rakshabandhan-steel.vercel.app/customize.html](https://rakshabandhan-steel.vercel.app/customize.html)**
+- 📱 **GitHub Pages Mirror**: **[https://aujasyarajput18.github.io/RakshaBandhan/](https://aujasyarajput18.github.io/RakshaBandhan/)**
 - 🐙 **GitHub Repository**: **[https://github.com/Aujasyarajput18/RakshaBandhan](https://github.com/Aujasyarajput18/RakshaBandhan)**
+
+---
+
+## 💼 Client Order & Fulfillment Business Operating System
+
+### 1. 📝 Customer Order Intake (`/order.html`)
+- Allows clients or siblings to easily submit their details:
+  - **Contact & Tracking**: Customer Name, WhatsApp Number, Email, Target Delivery Date.
+  - **Sibling Profiles**: Sister & Brother names, cities, and custom opening tagline.
+  - **Photo Uploads**: Sibling portraits + 4 memory milestones with client-side auto-compression and instant preview.
+  - **Royal Letter**: Heartfelt salutation, personal paragraphs, and signature.
+- **Instant Output**: Generates an **Order Reference ID**, pre-formats a **1-click WhatsApp submission message**, and provides immediate downloadable JSON config.
+
+### 2. 🎛️ Admin Fulfillment Dashboard (`/admin.html`)
+- Centralized operations hub for managing all customer orders:
+  - **📊 Live KPI Cards**: Total Orders, New Submissions, In Production, and Delivered.
+  - **🔍 Real-Time Search & Filters**: Instant search by Client Name, Phone, Sibling Duo, or Order ID.
+  - **👁️ 1-Click Live Preview**: Test and open any order's interactive story with full animation in a single click.
+  - **📲 1-Click WhatsApp Delivery**: Pre-fills a gorgeous delivery message to the customer with their live link.
+  - **📥 Download JSON Profile**: Exports `<order-id>.json` ready to place in the `gifts/` folder.
+  - **💾 Backup & Restore**: 1-click Export/Import of the entire customer orders database.
 
 ---
 
@@ -31,8 +54,8 @@ An ultra-luxurious, scroll-driven interactive Raksha Bandhan celebration web exp
 
 ## 🛠️ Personalizing Stories
 
-### Method 1: Instant Web Studio
-Open [customize.html](https://rakshabandhan-steel.vercel.app/customize.html) to edit sibling names, upload custom portraits, pick memories, write a personal letter, and generate an instant shareable link.
+### Method 1: Customer Intake Portal
+Share [order.html](https://rakshabandhan-steel.vercel.app/order.html) with your clients. They fill out their details and upload photos directly.
 
 ### Method 2: High-Volume Client JSON Profiles
 To deploy multiple personalized client stories:

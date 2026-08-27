@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Custom Raksha Bandhan Story | Client Intake Portal</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/order.css">
+  <script src="js/config.js"></script>
+</head>
+<body>
+
+  <div class="portal-wrap">
+    
+    <!-- Portal Header -->
+    <header class="portal-header">
+      <div class="portal-brand">
+        <h1>🪔 RAKSHA BANDHAN INTAKE PORTAL</h1>
+        <p>Fill out your sibling details &amp; photos to generate a bespoke interactive story</p>
+      </div>
+      <div class="nav-actions">
+        <a href="index.html" class="btn-nav btn-nav-outline" target="_blank">👁️ Live Demo</a>
+        <a href="admin.html" class="btn-nav btn-nav-gold">🎛️ Admin Dashboard</a>
+      </div>
+    </header>
+
+    <!-- Main Form Container -->
+    <form id="rakhi-order-form">
+      
+      <!-- Section 1: Customer Contact & Delivery -->
+      <section class="order-card">
+        <h2 class="card-heading">1. 👤 Your Contact &amp; Delivery Information</h2>
+        <p class="card-desc">Where should we deliver the final personalized experience and tracking notifications?</p>
+        
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="cust-name">Your Full Name <span class="req">*</span></label>
+            <input type="text" id="cust-name" class="form-control" placeholder="e.g. Rahul Sharma" required>
+          </div>
+          <div class="form-group">
+            <label for="cust-phone">WhatsApp Number <span class="req">*</span></label>
+            <input type="tel" id="cust-phone" class="form-control" placeholder="e.g. +91 98765 43210" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="cust-email">Email Address</label>
+            <input type="email" id="cust-email" class="form-control" placeholder="e.g. rahul@example.com">
+          </div>
+          <div class="form-group">
+            <label for="delivery-date">Target Delivery / Rakhi Date</label>
+            <input type="text" id="delivery-date" class="form-control" value="Raksha Bandhan 2026" placeholder="e.g. 28th August 2026">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="special-note">Special Instructions / Custom Notes</label>
+          <input type="text" id="special-note" class="form-control" placeholder="e.g. Please emphasize her childhood nickname 'Chhoti' and keep the Punjabi folk tone.">
+        </div>
+      </section>
+
+      <!-- Section 2: Sibling Information -->
+      <section class="order-card">
+        <h2 class="card-heading">2. 👫 Sibling Names &amp; Cities</h2>
+        <p class="card-desc">The stars of the story. These names will be woven into the typography, portals, and golden threads.</p>
+        
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="sister-name">Sister's Name <span class="req">*</span></label>
+            <input type="text" id="sister-name" class="form-control" value="Ananya" placeholder="e.g. Ananya" required>
+          </div>
+          <div class="form-group">
+            <label for="sister-city">Sister's City / Location <span class="req">*</span></label>
+            <input type="text" id="sister-city" class="form-control" value="Mumbai" placeholder="e.g. Mumbai" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="brother-name">Brother / Sender's Name <span class="req">*</span></label>
+            <input type="text" id="brother-name" class="form-control" value="Aarav" placeholder="e.g. Aarav" required>
+          </div>
+          <div class="form-group">
+            <label for="brother-city">Brother's City / Location <span class="req">*</span></label>
+            <input type="text" id="brother-city" class="form-control" value="London" placeholder="e.g. London / Delhi" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="hero-tagline">Custom Opening Tagline</label>
+          <input type="text" id="hero-tagline" class="form-control" value="Some bonds are tied by a thread. Ours was tied long before the Rakhi.">
+        </div>
+      </section>
+
+      <!-- Section 3: Photo Uploads -->
+      <section class="order-card">
+        <h2 class="card-heading">3. 📸 Sibling Portraits &amp; Shared Memories</h2>
+        <p class="card-desc">Upload photos of both siblings. Images are automatically compressed in-browser for zero loading lag.</p>
+        
+        <label style="color:var(--gold-light);font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:10px;">
+          Primary Portraits (Used in Spotlight &amp; Global Hub)
+        </label>
+        
+        <div class="photo-uploader-grid">
+          <!-- Sister Portrait -->
+          <div class="photo-upload-box has-photo" id="box-sister">
+            <img id="prev-sister" class="thumb-preview" src="assets/images/model/portrait.jpg" alt="Sister Preview">
+            <div class="upload-overlay">
+              <span>Tap to change Sister photo 📷</span>
+            </div>
+            <div class="upload-placeholder">
+              <span class="upload-icon">👸</span>
+              <span class="upload-label">Sister Portrait</span>
+              <span class="upload-hint">JPG / PNG / WebP</span>
+            </div>
+            <input type="file" id="photo-sister" accept="image/*">
+          </div>
+
+          <!-- Brother Portrait -->
+          <div class="photo-upload-box has-photo" id="box-brother">
+            <img id="prev-brother" class="thumb-preview" src="assets/images/model/img6.jpg" alt="Brother Preview">
+            <div class="upload-overlay">
+              <span>Tap to change Brother photo 📷</span>
+            </div>
+            <div class="upload-placeholder">
+              <span class="upload-icon">🤴</span>
+              <span class="upload-label">Brother Portrait</span>
+              <span class="upload-hint">JPG / PNG / WebP</span>
+            </div>
+            <input type="file" id="photo-brother" accept="image/*">
+          </div>
+        </div>
+
+        <label style="color:var(--gold-light);font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;display:block;margin:28px 0 10px;">
+          Shared Memory Timeline (4 Key Milestones)
+        </label>
+
+        <div class="photo-uploader-grid">
+          <!-- Memory 1 -->
+          <div class="photo-upload-box has-photo" id="box-mem-0">
+            <img id="prev-mem-0" class="thumb-preview" src="assets/images/model/img1.jpg" alt="Memory 1">
+            <div class="upload-overlay"><span>Change Memory 1</span></div>
+            <div class="upload-placeholder">
+              <span class="upload-icon">🍼</span>
+              <span class="upload-label">Era 01: Tiny Humans</span>
+            </div>
+            <input type="file" id="photo-mem-0" accept="image/*">
+          </div>
+
+          <!-- Memory 2 -->
+          <div class="photo-upload-box has-photo" id="box-mem-1">
+            <img id="prev-mem-1" class="thumb-preview" src="assets/images/model/img2.jpg" alt="Memory 2">
+            <div class="upload-overlay"><span>Change Memory 2</span></div>
+            <div class="upload-placeholder">
+              <span class="upload-icon">🥊</span>
+              <span class="upload-label">Era 02: Fighting Era</span>
+            </div>
+            <input type="file" id="photo-mem-1" accept="image/*">
+          </div>
+
+          <!-- Memory 3 -->
+          <div class="photo-upload-box has-photo" id="box-mem-2">
+            <img id="prev-mem-2" class="thumb-preview" src="assets/images/model/img3.jpg" alt="Memory 3">
+            <div class="upload-overlay"><span>Change Memory 3</span></div>
+            <div class="upload-placeholder">
+              <span class="upload-icon">🎓</span>
+              <span class="upload-label">Era 03: Growing Up</span>
+            </div>
+            <input type="file" id="photo-mem-2" accept="image/*">
+          </div>
+
+          <!-- Memory 4 -->
+          <div class="photo-upload-box has-photo" id="box-mem-3">
+            <img id="prev-mem-3" class="thumb-preview" src="assets/images/model/img4.jpg" alt="Memory 4">
+            <div class="upload-overlay"><span>Change Memory 4</span></div>
+            <div class="upload-placeholder">
+              <span class="upload-icon">✈️</span>
+              <span class="upload-label">Era 04: Always Together</span>
+            </div>
+            <input type="file" id="photo-mem-3" accept="image/*">
+          </div>
+        </div>
+
+        <!-- Custom Captions for Memories -->
+        <div style="margin-top:20px;">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="mem-0-title">Era 01 Title</label>
+              <input type="text" id="mem-0-title" class="form-control" value="The Tiny Humans Era">
+            </div>
+            <div class="form-group">
+              <label for="mem-0-desc">Era 01 Description</label>
+              <input type="text" id="mem-0-desc" class="form-control" value="Stealing each other's toys and crying to Mom.">
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="mem-1-title">Era 02 Title</label>
+              <input type="text" id="mem-1-title" class="form-control" value="The Fighting Era">
+            </div>
+            <div class="form-group">
+              <label for="mem-1-desc">Era 02 Description</label>
+              <input type="text" id="mem-1-desc" class="form-control" value="Who gets the TV remote? Legendary battles fought and forgotten.">
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="mem-2-title">Era 03 Title</label>
+              <input type="text" id="mem-2-title" class="form-control" value="The Growing Up Era">
+            </div>
+            <div class="form-group">
+              <label for="mem-2-desc">Era 03 Description</label>
+              <input type="text" id="mem-2-desc" class="form-control" value="Late-night exam preps, secret crushes, and covering for each other.">
+            </div>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="mem-3-title">Era 04 Title</label>
+              <input type="text" id="mem-3-title" class="form-control" value="Always Unbreakable">
+            </div>
+            <div class="form-group">
+              <label for="mem-3-desc">Era 04 Description</label>
+              <input type="text" id="mem-3-desc" class="form-control" value="Different cities, busy schedules, but the exact same chaotic kids.">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Royal Prem Patra Letter -->
+      <section class="order-card">
+        <h2 class="card-heading">4. 💌 Royal Prem Patra (Personal Letter)</h2>
+        <p class="card-desc">Write your heartfelt message. It will be sealed inside a royal velvet wax-stamped letter on the website.</p>
+        
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label for="letter-salutation">Salutation</label>
+            <input type="text" id="letter-salutation" class="form-control" value="Dearest Ananya,">
+          </div>
+          <div class="form-group">
+            <label for="letter-signoff">Signature Signoff</label>
+            <input type="text" id="letter-signoff" class="form-control" value="Forever your loving brother ❤️, Aarav">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="letter-body">Letter Paragraphs (Separate paragraphs with double Enter)</label>
+          <textarea id="letter-body" class="form-control" style="min-height:130px;">We've grown up. We've changed. We've argued. We've laughed. But somehow, through everything life has thrown at us, you've remained one of the most important people in my life.
+
+Whenever the world feels overwhelming, knowing that I have you in my corner gives me quiet strength. Thank you for your wisdom, your unending patience, and your unconditional warmth.
+
+No matter how far life takes us, our bond will remain unbroken. Happy Raksha Bandhan, always.</textarea>
+        </div>
+      </section>
+
+      <!-- Submit Actions -->
+      <div class="form-actions-row">
+        <button type="submit" class="btn-submit-order">
+          🚀 Submit &amp; Generate Custom Story
+        </button>
+      </div>
+
+    </form>
+
+    <!-- Confirmation Receipt Card (Hidden by default) -->
+    <div class="order-card receipt-card" id="order-receipt-card" style="display:none;">
+      <div class="receipt-icon">🎉🪔</div>
+      <h2 style="font-family:var(--font-display);font-size:2rem;color:var(--gold-light);">Order Successfully Created!</h2>
+      <p style="color:var(--text-muted);font-size:1rem;margin-top:8px;">Your custom Raksha Bandhan digital experience has been registered in the system.</p>
+      
+      <div class="receipt-id-badge" id="receipt-order-id">RB-ORDER-0000</div>
+      
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:20px;">
+        <a id="receipt-btn-preview" href="#" target="_blank" class="btn-submit-order" style="text-decoration:none;">
+          👁️ Preview Live Story
+        </a>
+        <a id="receipt-btn-wa" href="#" target="_blank" class="btn-submit-order btn-wa-direct" style="text-decoration:none;">
+          📲 Send Details via WhatsApp
+        </a>
+        <button id="receipt-btn-download" type="button" class="btn-nav btn-nav-outline" style="padding:14px 24px;font-size:1rem;">
+          📥 Download JSON Profile
+        </button>
+      </div>
+
+      <div style="margin-top:36px;">
+        <button type="button" onclick="location.reload()" class="btn-nav btn-nav-outline" style="font-size:0.88rem;">
+          ➕ Create Another Sibling Story
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/order.js"></script>
+</body>
+</html>

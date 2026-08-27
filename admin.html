@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Orders &amp; Fulfillment Hub | Raksha Bandhan Digital Studio</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/order.css">
+  <script src="js/config.js"></script>
+</head>
+<body>
+
+  <div class="portal-wrap">
+    
+    <!-- Admin Header -->
+    <header class="portal-header">
+      <div class="portal-brand">
+        <h1>🎛️ RAKSHA BANDHAN FULFILLMENT HUB</h1>
+        <p>Manage customer orders, track production pipeline, and deliver 1-click WhatsApp stories</p>
+      </div>
+      <div class="nav-actions">
+        <a href="order.html" class="btn-nav btn-nav-gold">➕ New Client Intake</a>
+        <a href="index.html" class="btn-nav btn-nav-outline" target="_blank">👁️ Live Demo</a>
+        <button id="btn-export-db" class="btn-nav btn-nav-outline">💾 Export DB</button>
+        <label for="input-import-db" class="btn-nav btn-nav-outline" style="cursor:pointer;">
+          📤 Import DB
+          <input type="file" id="input-import-db" accept=".json" style="display:none;">
+        </label>
+      </div>
+    </header>
+
+    <!-- Top KPI Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon-wrap" style="background:rgba(224, 180, 87, 0.15);color:var(--gold-primary);">📦</div>
+        <div>
+          <div class="stat-val" id="stat-total">0</div>
+          <div class="stat-lbl">Total Orders</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrap" style="background:var(--sky-bg);color:#38bdf8;">🆕</div>
+        <div>
+          <div class="stat-val" id="stat-new">0</div>
+          <div class="stat-lbl">New Submissions</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrap" style="background:var(--amber-bg);color:#fbbf24;">🎨</div>
+        <div>
+          <div class="stat-val" id="stat-progress">0</div>
+          <div class="stat-lbl">In Production / Ready</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrap" style="background:var(--emerald-bg);color:#34d399;">🚀</div>
+        <div>
+          <div class="stat-val" id="stat-delivered">0</div>
+          <div class="stat-lbl">Delivered to Clients</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders Management Section -->
+    <section class="order-card" style="padding:24px;">
+      
+      <!-- Toolbar: Search & Filters -->
+      <div class="table-toolbar">
+        <div class="search-input-wrap">
+          <span class="search-icon-abs">🔍</span>
+          <input type="text" id="admin-search-input" class="form-control" placeholder="Search by Order ID, Client, Sibling or Phone...">
+        </div>
+
+        <div class="filter-pills">
+          <button class="filter-pill active" data-filter="all">All Orders</button>
+          <button class="filter-pill" data-filter="new">🆕 New</button>
+          <button class="filter-pill" data-filter="progress">🎨 In Production</button>
+          <button class="filter-pill" data-filter="ready">✅ Ready</button>
+          <button class="filter-pill" data-filter="delivered">🚀 Delivered</button>
+        </div>
+      </div>
+
+      <!-- Orders Table -->
+      <div class="table-responsive">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>Order Ref &amp; Date</th>
+              <th>Customer Contact</th>
+              <th>Sibling Duo &amp; Cities</th>
+              <th>Fulfillment Status</th>
+              <th>1-Click Actions</th>
+            </tr>
+          </thead>
+          <tbody id="orders-table-body">
+            <!-- Dynamically populated by admin.js -->
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
