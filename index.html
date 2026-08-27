@@ -280,9 +280,53 @@
     </section>
 
     <section class="letter-section" id="letter" aria-labelledby="letter-title">
-      <div class="letter-lead"><div class="section-index">03 <span>/ the note</span></div><p class="eyebrow">For all the things that never fit inside a phone call</p><h2 id="letter-title">I wrote<br>something for you.</h2></div>
-      <div class="envelope-wrap"><button class="envelope" id="open-letter" type="button" aria-expanded="false" aria-controls="letter-paper"><div class="envelope-shadow"></div><div class="envelope-back"></div><div class="envelope-flap"></div><div class="wax-seal">R</div><span class="open-instruction">open it</span></button><p class="envelope-note">A small thing, written with a very full heart.</p></div>
-      <article class="letter-paper" id="letter-paper" aria-hidden="true"><div class="paper-tape"></div><p class="letter-date" id="letter-date">AUGUST, 2026</p><h3 id="letter-salutation">Dearest Ananya,</h3><div class="letter-body" id="letter-body"></div><p class="letter-signature" id="letter-signature">Forever your brother, Aarav</p><span class="letter-doodle">p.s. you're still annoying</span></article>
+      <div class="letter-ambient-overlay" aria-hidden="true"></div>
+      
+      <div class="letter-container">
+        <!-- Left Editorial Typography & Story Column -->
+        <div class="letter-lead">
+          <div class="letter-badge">
+            <span class="chapter-gold-pill">CHAPTER 04</span>
+            <span class="chapter-label">A PERSONAL NOTE</span>
+          </div>
+          <h2 class="letter-hero-title" id="letter-title">I wrote<br>something<br><em>for you.</em></h2>
+          <p class="letter-subtitle">For all the things that never quite fit inside a phone call.</p>
+          
+          <div class="letter-hint-pill">
+            <span class="hint-icon">💌</span>
+            <span>Click the wax seal to unfold</span>
+          </div>
+        </div>
+
+        <!-- Right Royal Envelope Showcase -->
+        <div class="envelope-showcase">
+          <div class="envelope-wrap">
+            <button class="envelope" id="open-letter" type="button" aria-expanded="false" aria-controls="letter-paper">
+              <div class="envelope-shadow"></div>
+              <div class="envelope-back"></div>
+              <div class="envelope-pocket"></div>
+              <div class="envelope-flap"></div>
+              <div class="wax-seal">
+                <span class="seal-letter">R</span>
+                <div class="seal-glow"></div>
+              </div>
+              <span class="open-instruction">✦ tap seal to open ✦</span>
+            </button>
+            <p class="envelope-note">A small thing, written with a very full heart.</p>
+          </div>
+
+          <!-- Unfolded Letter Paper -->
+          <article class="letter-paper" id="letter-paper" aria-hidden="true">
+            <div class="paper-tape"></div>
+            <div class="letter-gold-crest">✦ ॐ ✦</div>
+            <p class="letter-date" id="letter-date">AUGUST, 2026</p>
+            <h3 id="letter-salutation">Dearest Ananya,</h3>
+            <div class="letter-body" id="letter-body"></div>
+            <p class="letter-signature" id="letter-signature">Forever your brother, Aarav</p>
+            <span class="letter-doodle">p.s. you're still not getting my fries 🍟</span>
+          </article>
+        </div>
+      </div>
     </section>
 
     <section class="distance-section" id="distance" aria-labelledby="distance-title">
