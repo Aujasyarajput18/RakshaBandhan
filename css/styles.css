@@ -1702,255 +1702,243 @@ img { display: block; max-width: 100%; }
 }
 
 /* ==========================================================================
-   Chapter 06: The Grand Sacred Finale (Royal Celebration & Blessing Altar)
+   Chapter 06: The Grand Sacred Finale (Royal Sanctum Altar)
    ========================================================================== */
 .finale {
-  min-height: 100vh;
+  height: 100vh;
+  min-height: 640px;
   position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 14vh 24px 12vh;
+  padding: 40px 20px;
   text-align: center;
-  background: radial-gradient(circle at 50% 40%, #fffbf2 0%, #f7edd9 55%, #ecdabf 100%);
-  color: var(--wine);
+  background: radial-gradient(circle at 50% 40%, #2e1628 0%, #1a0b18 60%, #0d050c 100%);
+  color: var(--milk);
 }
 
-.finale-ambient-mandala {
+.finale-starfield {
   position: absolute;
-  width: min(110vw, 1100px);
+  inset: 0;
+  opacity: 0.35;
+  background-image: radial-gradient(#d99b38 1px, transparent 1px), radial-gradient(#ffffff 1px, transparent 1px);
+  background-size: 60px 60px, 110px 110px;
+  background-position: 0 0, 30px 45px;
+  pointer-events: none;
+  z-index: 0;
+}
+.finale-ambient-glow {
+  position: absolute;
+  width: min(80vw, 800px);
   aspect-ratio: 1;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity: 0.12;
-  background: url('../assets/images/ornaments/mandala.svg') center / contain no-repeat;
+  background: radial-gradient(circle, rgba(217, 155, 56, 0.18) 0%, rgba(169, 79, 92, 0.1) 45%, transparent 70%);
+  filter: blur(50px);
   pointer-events: none;
-  animation: slowSpin 60s linear infinite;
   z-index: 0;
 }
 
-/* Flanking Animated Festive Diyas */
-.finale-diyas {
-  position: absolute;
-  inset: auto 6vw 6vh;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  pointer-events: none;
-  z-index: 2;
-}
-.diya-stand {
+/* Royal Sanctum Frame (Compact, Balanced Viewport Fitting) */
+.finale-royal-sanctum {
   position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 680px;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.diya-stand img {
-  width: clamp(54px, 6.5vw, 88px);
-  filter: drop-shadow(0 10px 15px rgba(111, 44, 66, 0.25));
-}
-.right-diya img {
-  transform: scaleX(-1);
-}
-.diya-flame-glow {
-  position: absolute;
-  top: -15px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(217, 155, 56, 0.8) 0%, rgba(217, 155, 56, 0) 70%);
-  filter: blur(6px);
-  animation: auraPulse 1.6s infinite alternate ease-in-out;
+  gap: clamp(10px, 2vh, 18px);
+  margin: 0 auto;
 }
 
-/* Sacred Celestial Rakhi Altar */
-.finale-altar {
+.finale-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 3D Floating Sacred Rakhi Iconography */
+.sanctum-rakhi-altar {
   position: relative;
-  z-index: 3;
-  width: min(380px, 75vw);
+  width: clamp(140px, 18vh, 190px);
   aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 24px;
 }
-.altar-mandala-spin {
+.rakhi-sun-mandala {
   position: absolute;
-  inset: 5%;
+  inset: 0;
   border-radius: 50%;
-  border: 1px dashed rgba(217, 155, 56, 0.6);
-  box-shadow: 0 0 40px rgba(217, 155, 56, 0.25);
-  animation: slowSpin 36s linear infinite;
+  border: 1px dashed rgba(217, 155, 56, 0.7);
+  box-shadow: 0 0 35px rgba(217, 155, 56, 0.35);
+  animation: slowSpin 28s linear infinite;
 }
-.altar-orbit {
+.rakhi-radiant-halo {
   position: absolute;
+  inset: -12px;
   border-radius: 50%;
-  border: 1px solid rgba(111, 44, 66, 0.15);
+  background: radial-gradient(circle, rgba(217, 155, 56, 0.25) 0%, transparent 70%);
+  animation: auraPulse 2.4s infinite alternate ease-in-out;
 }
-.orbit-outer {
-  inset: 0%;
-  animation: slowSpin 50s linear infinite reverse;
-}
-.orbit-inner {
-  inset: 15%;
-  border-color: rgba(217, 155, 56, 0.4);
-  animation: slowSpin 25s linear infinite;
-}
-.finale-rakhi-wrap {
+.rakhi-hero-img-wrap {
   position: relative;
   z-index: 2;
-  width: 120%;
+  width: 125%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.finale-rakhi-wrap:hover {
-  transform: scale(1.08) rotate(3deg);
-  filter: drop-shadow(0 20px 30px rgba(217, 155, 56, 0.5));
+.rakhi-hero-img-wrap:hover {
+  transform: scale(1.1) rotate(4deg);
 }
-.finale-rakhi-img {
+.rakhi-hero-img {
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 16px 20px rgba(41, 27, 37, 0.2));
-  transform: rotate(4deg);
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.5));
 }
 
-/* Chapter Badge */
-.finale-badge {
-  position: relative;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 18px;
-}
-
-/* Content & Hero Headline */
-.finale-content {
-  position: relative;
-  z-index: 3;
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-}
-.finale-headline {
+/* Headline */
+.sanctum-headline-group {
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font: 700 clamp(36px, 5.2vw, 76px)/0.96 var(--display);
-  letter-spacing: -0.04em;
-  color: var(--wine);
 }
-.finale-headline em {
-  font-family: var(--display);
-  color: var(--ink);
-  font-style: italic;
-  font-weight: 500;
+.sanctum-headline {
+  margin: 0;
+  font: 700 clamp(24px, 3.2vw, 42px)/1.08 var(--display);
+  letter-spacing: -0.03em;
+  color: #fff6e8;
+}
+.sanctum-headline em {
+  font-family: var(--script);
+  color: var(--marigold);
+  font-style: normal;
+  font-size: 1.15em;
+  text-shadow: 0 0 20px rgba(217, 155, 56, 0.8);
 }
 
-/* Wish & Dedication Card */
-.finale-wish-card {
+/* Luxury Glassmorphic Dedication Slate */
+.sanctum-blessing-slate {
   position: relative;
+  width: 100%;
+  max-width: 520px;
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(14px);
+  background: rgba(43, 27, 40, 0.78);
+  backdrop-filter: blur(16px);
   border: 1px solid rgba(217, 155, 56, 0.35);
-  box-shadow: 0 10px 30px rgba(111, 44, 66, 0.08);
-  padding: 20px 36px;
-  margin: 6px 0;
-  max-width: 580px;
-}
-.wish-sparkle {
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: var(--marigold);
-  color: #ffffff;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  padding: 14px 28px 16px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  box-shadow: 0 2px 8px rgba(217, 155, 56, 0.6);
+  gap: 4px;
 }
-.finale-wish-text {
-  margin: 4px 0 8px;
-  color: var(--rose);
-  font: 400 clamp(28px, 3.5vw, 46px)/1.1 var(--script);
+.slate-crown {
+  font: 700 11px/1 var(--display);
+  color: var(--marigold);
+  letter-spacing: 0.2em;
 }
-.finale-dedication {
+.slate-wish {
   margin: 0;
-  color: var(--faded);
-  font: 400 clamp(14px, 1.2vw, 17px)/1.5 var(--display);
+  color: #fff6e8;
+  font: 400 clamp(22px, 2.6vw, 32px)/1.1 var(--script);
 }
-.finale-dedication strong {
-  color: var(--wine);
-  font-weight: 600;
+.slate-quote {
+  margin: 2px 0 0;
+  color: rgba(255, 246, 232, 0.72);
+  font: 400 clamp(13px, 1.1vw, 15px)/1.4 var(--sans);
+}
+.slate-quote strong {
+  color: var(--marigold);
 }
 
-/* Interactive Action Buttons */
-.finale-actions {
+/* Action Buttons */
+.sanctum-actions {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  margin-top: 10px;
-  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
 }
 .celebrate-btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 28px;
-  border-radius: 30px;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 25px;
   background: linear-gradient(135deg, #d99b38 0%, #b87a22 100%);
   color: #ffffff;
-  font: 700 13px/1 var(--mono);
+  font: 700 12px/1 var(--mono);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   border: 0;
   cursor: pointer;
-  box-shadow: 0 10px 25px rgba(217, 155, 56, 0.4);
+  box-shadow: 0 8px 25px rgba(217, 155, 56, 0.4);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
 }
 .celebrate-btn:hover {
-  transform: translateY(-4px) scale(1.04);
-  box-shadow: 0 16px 35px rgba(217, 155, 56, 0.6);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(217, 155, 56, 0.6);
 }
 .btn-sparkle {
-  font-size: 16px;
+  font-size: 14px;
   animation: auraPulse 1.5s infinite alternate;
 }
 
 .replay-btn {
   display: inline-flex;
   align-items: center;
-  padding: 13px 24px;
-  border-radius: 30px;
-  background: rgba(255, 255, 255, 0.85);
-  color: var(--wine);
-  font: 600 12px/1 var(--mono);
+  padding: 11px 20px;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff6e8;
+  font: 600 11px/1 var(--mono);
   letter-spacing: 0.08em;
-  border: 1px solid rgba(111, 44, 66, 0.2);
+  border: 1px solid rgba(217, 155, 56, 0.3);
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, border-color 0.3s;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
 }
 .replay-btn:hover {
-  transform: translateY(-3px);
-  background: #ffffff;
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.2);
   border-color: var(--marigold);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Ambient Corner Diyas */
+.sanctum-diya {
+  position: absolute;
+  bottom: 4vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 2;
+}
+.diya-left {
+  left: 4vw;
+}
+.diya-right {
+  right: 4vw;
+}
+.diya-right img {
+  transform: scaleX(-1);
+}
+.sanctum-diya img {
+  width: clamp(48px, 5vw, 68px);
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.4));
+}
+.diya-flame-halo {
+  position: absolute;
+  top: -12px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217, 155, 56, 0.9) 0%, transparent 70%);
+  filter: blur(5px);
+  animation: auraPulse 1.8s infinite alternate ease-in-out;
 }
 
 @media (max-width: 760px) {

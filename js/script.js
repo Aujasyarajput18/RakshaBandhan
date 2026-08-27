@@ -733,36 +733,35 @@ function setupScrollStory() {
     .to('.distance-line-three', { opacity: 1, y: 0, scale: 1, duration: 0.22, ease: 'back.out(1.4)' }, 0.72);
 
   // Chapter 06: Finale (Royal Sacred Celebration Altar)
-  gsap.from('.finale-altar', {
-    scale: 0.65,
+  gsap.from('.sanctum-rakhi-altar', {
+    scale: 0.7,
     rotate: -15,
     opacity: 0,
     duration: 1.3,
     ease: 'back.out(1.4)',
     scrollTrigger: { trigger: '.finale', start: 'top 75%' }
   });
-  gsap.from('.finale-headline > *', {
-    y: 35,
+  gsap.from('.sanctum-headline', {
+    y: 30,
     opacity: 0,
-    stagger: 0.14,
     duration: 0.9,
     ease: 'power3.out',
-    scrollTrigger: { trigger: '.finale', start: 'top 65%' }
+    scrollTrigger: { trigger: '.finale', start: 'top 68%' }
   });
-  gsap.from('.finale-wish-card', {
-    y: 30,
-    scale: 0.92,
+  gsap.from('.sanctum-blessing-slate', {
+    y: 25,
+    scale: 0.94,
     opacity: 0,
     duration: 1,
     ease: 'back.out(1.3)',
-    scrollTrigger: { trigger: '.finale', start: 'top 60%' }
+    scrollTrigger: { trigger: '.finale', start: 'top 62%' }
   });
-  gsap.from('.finale-actions', {
-    y: 20,
+  gsap.from('.sanctum-actions', {
+    y: 18,
     opacity: 0,
     duration: 0.8,
     ease: 'power2.out',
-    scrollTrigger: { trigger: '.finale', start: 'top 55%' }
+    scrollTrigger: { trigger: '.finale', start: 'top 58%' }
   });
 
   ScrollTrigger.refresh();
@@ -777,9 +776,9 @@ function setupCelebration() {
   celebrateBtn?.addEventListener('click', () => {
     SoundFX.playChime();
     triggerGrandFestivalConfetti();
-    const altar = document.querySelector('.finale-rakhi-wrap');
+    const altar = document.querySelector('.rakhi-hero-img-wrap');
     if (altar && window.gsap) {
-      window.gsap.fromTo(altar, { scale: 1.25, rotate: 10 }, { scale: 1, rotate: 4, duration: 0.8, ease: 'elastic.out(1, 0.4)' });
+      window.gsap.fromTo(altar, { scale: 1.25, rotate: 10 }, { scale: 1, rotate: 0, duration: 0.8, ease: 'elastic.out(1, 0.4)' });
     }
   });
 }
