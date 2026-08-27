@@ -139,21 +139,29 @@ function setupScrollStory() {
   const pathLength = safelyGetPathLength(introThread);
   if (introThread && pathLength) gsap.set(introThread, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
 
+  // Initial load entrance
+  gsap.from(['.word-happy', '.word-raksha', '.word-bandhan'], {
+    y: 35,
+    opacity: 0,
+    stagger: 0.15,
+    duration: 1.1,
+    ease: 'power3.out'
+  });
+
   const introTimeline = gsap.timeline({
-    scrollTrigger: { trigger: intro, start: 'top top', end: 'bottom bottom', scrub: .8 }
+    scrollTrigger: { trigger: intro, start: 'top top', end: 'bottom bottom', scrub: 0.8 }
   });
   introTimeline
-    .to('.intro-prompt', { opacity: 0, y: -20, duration: .12 }, 0)
-    .to(introThread, { strokeDashoffset: 0, duration: .3, ease: 'none' }, .04)
-    .fromTo('.word-happy', { xPercent: -70, yPercent: -40, opacity: 0 }, { xPercent: 0, yPercent: 0, opacity: 1, duration: .24, ease: 'power2.out' }, .11)
-    .fromTo('.word-raksha', { xPercent: 65, yPercent: 35, opacity: 0 }, { xPercent: 0, yPercent: 0, opacity: 1, duration: .23, ease: 'power2.out' }, .25)
-    .fromTo('.word-bandhan', { xPercent: -40, yPercent: 50, opacity: 0 }, { xPercent: 0, yPercent: 0, opacity: 1, duration: .23, ease: 'power2.out' }, .39)
-    .to('.festival-words', { scale: 1.07, duration: .18, ease: 'none' }, .47)
-    .to(['.word-happy', '.word-raksha', '.word-bandhan'], { opacity: 0, yPercent: -16, duration: .16, stagger: .025 }, .64)
-    .to('.bond-statement', { opacity: 1, duration: .16 }, .69)
-    .to('.bond-statement', { opacity: 0, yPercent: -35, duration: .15 }, .89)
+    .to('.intro-prompt', { opacity: 0, y: -20, duration: 0.15 }, 0)
+    .to(introThread, { strokeDashoffset: 0, duration: 0.5, ease: 'none' }, 0)
+    .to('.word-happy', { xPercent: -25, yPercent: -15, duration: 0.45, ease: 'none' }, 0)
+    .to('.word-raksha', { xPercent: 20, yPercent: -10, duration: 0.45, ease: 'none' }, 0)
+    .to('.word-bandhan', { xPercent: -15, yPercent: 20, duration: 0.45, ease: 'none' }, 0)
     .to('.fabric-one', { xPercent: 20, yPercent: -9, duration: 1 }, 0)
-    .to('.fabric-two', { xPercent: -20, yPercent: 10, duration: 1 }, 0);
+    .to('.fabric-two', { xPercent: -20, yPercent: 10, duration: 1 }, 0)
+    .to(['.word-happy', '.word-raksha', '.word-bandhan'], { opacity: 0, yPercent: -20, duration: 0.2, stagger: 0.03 }, 0.55)
+    .fromTo('.bond-statement', { opacity: 0, yPercent: 25 }, { opacity: 1, yPercent: 0, duration: 0.2 }, 0.62)
+    .to('.bond-statement', { opacity: 0, yPercent: -25, duration: 0.15 }, 0.85);
 
   const enter = document.getElementById('enter-bond');
   enter?.addEventListener('click', () => document.getElementById('her')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
