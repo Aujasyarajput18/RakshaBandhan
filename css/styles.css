@@ -848,30 +848,220 @@ img { display: block; max-width: 100%; }
 .photo-wall-end span { position: relative; z-index: 1; }
 .wall-thread { position: absolute; left: 0; right: 0; bottom: 43px; height: 2px; background: var(--wine); transform: rotate(4deg); }
 
-/* Memory route */
-.remember-section { position: relative; padding: 14vh 8vw 17vh; overflow: hidden; background: #2b202a; color: var(--milk); }
-.remember-section::before { content: ''; position: absolute; width: min(72vw, 800px); aspect-ratio: 1; right: -25vw; top: 7vh; opacity: .2; background: url('../assets/images/ornaments/mandala.svg') center / contain no-repeat; }
-.remember-intro { position: relative; z-index: 1; max-width: 530px; margin-left: 4vw; }
-.remember-intro .section-index { color: var(--marigold); margin-bottom: 12vh; }
-.remember-intro .section-index span { color: rgba(255,250,240,.53); }
-.remember-intro .eyebrow { color: #e4bc6c; }
-.remember-intro h2 { margin: 18px 0; font: 500 clamp(53px,8vw,121px)/.79 var(--display); letter-spacing: -.075em; }
-.remember-intro > p:last-child { max-width: 330px; margin: 0; color: rgba(255,250,240,.72); font: 16px/1.55 var(--sans); }
-.memory-route { position: relative; max-width: 920px; margin: 10vh auto 0; padding: 3vh 0; }
-.memory-route::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: linear-gradient(var(--marigold), var(--rose), var(--marigold)); transform: translateX(-50%); }
-.memory-stop { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 80px 1fr; align-items: center; min-height: 270px; }
-.memory-stop:nth-child(odd) .memory-card { grid-column: 1; text-align: right; }
-.memory-stop:nth-child(even) .memory-card { grid-column: 3; text-align: left; }
-.memory-node { grid-column: 2; grid-row: 1; width: 18px; height: 18px; justify-self: center; border: 4px solid var(--marigold); border-radius: 50%; background: var(--wine); box-shadow: 0 0 0 9px rgba(217,155,56,.1); }
-.memory-card { grid-row: 1; max-width: 290px; color: var(--milk); }
-.memory-stop:nth-child(odd) .memory-card { justify-self: end; }
-.memory-card figure { width: 180px; margin: 0 0 14px; padding: 7px; background: rgba(255,250,240,.91); box-shadow: 7px 10px 25px rgba(0,0,0,.22); }
-.memory-stop:nth-child(odd) .memory-card figure { margin-left: auto; transform: rotate(4deg); }
-.memory-stop:nth-child(even) .memory-card figure { transform: rotate(-4deg); }
-.memory-card img { width: 100%; height: 126px; object-fit: cover; }
-.memory-year { margin: 0 0 6px; color: #e4bc6c; font: 500 10px/1 var(--mono); letter-spacing: .14em; }
-.memory-card h3 { margin: 0 0 7px; font: 500 clamp(21px,2vw,28px)/1 var(--display); }
-.memory-card p:last-child { margin: 0; color: rgba(255,250,240,.67); font: 14px/1.4 var(--sans); }
+/* ==========================================================================
+   Chapter 03: The Chronology of Us (Horizontal Pinned 3D Time-Vault)
+   ========================================================================== */
+.remember-section {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 10vh 0;
+  overflow: hidden;
+  background: radial-gradient(circle at 75% 50%, #2e1d29 0%, #1e131d 60%, #150c14 100%);
+  color: var(--milk);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.remember-ambient-mandala {
+  position: absolute;
+  width: min(85vw, 850px);
+  aspect-ratio: 1;
+  right: -20vw;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.16;
+  background: url('../assets/images/ornaments/mandala.svg') center / contain no-repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Chapter Header */
+.remember-header {
+  position: relative;
+  z-index: 2;
+  padding: 0 8vw;
+  margin-bottom: 5vh;
+  max-width: 800px;
+}
+.remember-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.remember-hero-title {
+  margin: 0 0 14px;
+  font: 700 clamp(48px, 6.8vw, 98px)/0.88 var(--display);
+  letter-spacing: -0.04em;
+  color: #fff6e8;
+}
+.remember-hero-title em {
+  font-family: var(--script);
+  color: var(--marigold);
+  font-style: normal;
+}
+.remember-subtitle {
+  margin: 0 0 16px;
+  color: rgba(255, 246, 232, 0.72);
+  font: 400 clamp(15px, 1.3vw, 19px)/1.55 var(--sans);
+  max-width: 480px;
+}
+.remember-scroll-prompt {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.16em;
+  color: var(--marigold);
+  text-transform: uppercase;
+}
+.prompt-arrow {
+  animation: bounceRight 1.5s infinite ease-in-out;
+}
+@keyframes bounceRight {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
+/* Horizontal Track Viewport */
+.timeline-viewport {
+  position: relative;
+  z-index: 2;
+  width: 100vw;
+  overflow: hidden;
+  padding: 20px 0;
+}
+.timeline-thread-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--marigold) 15%, var(--rose) 50%, var(--marigold) 85%, transparent 100%);
+  box-shadow: 0 0 12px rgba(217, 155, 56, 0.6);
+  z-index: 1;
+  pointer-events: none;
+}
+.memory-horizontal-track {
+  display: flex;
+  gap: clamp(24px, 3.5vw, 48px);
+  padding: 20px 8vw;
+  width: max-content;
+  will-change: transform;
+}
+
+/* Luxury Memory Slate Card */
+.memory-slate-card {
+  position: relative;
+  width: clamp(290px, 28vw, 380px);
+  border-radius: 20px;
+  background: rgba(43, 27, 40, 0.75);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(217, 155, 56, 0.28);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+  padding: 18px;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.4s;
+  cursor: pointer;
+}
+.memory-slate-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--marigold);
+  box-shadow: 0 30px 65px rgba(217, 155, 56, 0.25), 0 0 20px rgba(217, 155, 56, 0.15);
+}
+.slate-glow {
+  position: absolute;
+  inset: -20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217, 155, 56, 0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.slate-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.slate-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.slate-era-pill {
+  padding: 4px 10px;
+  border-radius: 10px;
+  background: rgba(217, 155, 56, 0.2);
+  border: 1px solid rgba(217, 155, 56, 0.45);
+  color: var(--marigold);
+  font: 700 9.5px/1 var(--mono);
+  letter-spacing: 0.12em;
+}
+.slate-year {
+  font: 700 13px/1 var(--mono);
+  color: #fff6e8;
+  letter-spacing: 0.08em;
+}
+
+/* Slate Polaroid Image Frame */
+.slate-polaroid {
+  position: relative;
+  margin: 0;
+  padding: 10px 10px 18px;
+  background: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  transform: rotate(-1.5deg);
+  transition: transform 0.3s ease;
+}
+.memory-slate-card:hover .slate-polaroid {
+  transform: rotate(0deg) scale(1.02);
+}
+.slate-tape {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 14px;
+  background: rgba(217, 155, 56, 0.7);
+  z-index: 3;
+}
+.slate-polaroid img {
+  width: 100%;
+  height: clamp(160px, 18vh, 210px);
+  object-fit: cover;
+  border-radius: 3px;
+  display: block;
+}
+
+.slate-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.slate-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.slate-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+.slate-title-row h3 {
+  margin: 0;
+  font: 600 clamp(18px, 1.8vw, 23px)/1.1 var(--display);
+  color: #fff6e8;
+  letter-spacing: -0.02em;
+}
+.slate-content p {
+  margin: 0;
+  color: rgba(255, 246, 232, 0.75);
+  font: 400 clamp(13px, 1.1vw, 15px)/1.5 var(--sans);
+}
 
 /* Letter */
 .letter-section { min-height: 160vh; position: relative; display: grid; grid-template-columns: minmax(300px, .9fr) minmax(380px, 1.1fr); align-items: center; gap: 6vw; padding: 16vh 11vw 18vh; overflow: hidden; background: #d9c6aa; }

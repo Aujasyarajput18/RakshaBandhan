@@ -254,8 +254,29 @@
     </section>
 
     <section class="remember-section" id="memories" aria-labelledby="remember-title">
-      <div class="remember-intro"><div class="section-index">02 <span>/ remember</span></div><p class="eyebrow">A thread with excellent memory</p><h2 id="remember-title">REMEMBER<br>WHEN?</h2><p>There were fights, tiny victories, a few really terrible haircuts — and always, a way back to each other.</p></div>
-      <div class="memory-route" id="memory-route" aria-label="Memory timeline"></div>
+      <div class="remember-ambient-mandala" aria-hidden="true"></div>
+      
+      <!-- Chapter Header -->
+      <div class="remember-header">
+        <div class="remember-badge">
+          <span class="chapter-gold-pill">CHAPTER 03</span>
+          <span class="chapter-label">TIME-CAPSULE CHRONOLOGY</span>
+        </div>
+        <h2 class="remember-hero-title" id="remember-title">REMEMBER<br><em>WHEN?</em></h2>
+        <p class="remember-subtitle">Fights, tiny victories, terrible haircuts — and always, a way back to each other.</p>
+        <div class="remember-scroll-prompt">
+          <span>Scroll to travel through time</span>
+          <span class="prompt-arrow">→</span>
+        </div>
+      </div>
+
+      <!-- Horizontal Pinned 3D Time-Vault Track -->
+      <div class="timeline-viewport">
+        <div class="timeline-thread-line" aria-hidden="true"></div>
+        <div class="memory-horizontal-track" id="memory-route" aria-label="Memory timeline">
+          <!-- Populated dynamically via JS with luxury memory slates -->
+        </div>
+      </div>
     </section>
 
     <section class="letter-section" id="letter" aria-labelledby="letter-title">

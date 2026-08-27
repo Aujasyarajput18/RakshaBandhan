@@ -197,29 +197,49 @@ function renderTimeline(memories, photos) {
   const container = document.getElementById('memory-route');
   if (!container) return;
   const defaults = [
-    ['2010', 'The first Rakhi', 'Before we knew how much of life we would share.'],
-    ['2014', 'The big fight', 'No one remembers why. Both of us remember winning.'],
-    ['2018', 'The year we grew up', 'Slightly. At least on paper.'],
-    ['2022', 'Different cities', 'New routines, same person on speed dial.'],
-    ['2026', 'Still us', 'A little older. Every bit as connected.']
+    { year: '2010', era: 'ERA 01', icon: '👑', title: 'The Tiny Humans Era', desc: 'Before we knew how fast time would move. Stealing toys and crying to Mom.' },
+    { year: '2014', era: 'ERA 02', icon: '📺', title: 'The Remote Control War', desc: 'No one remembers who started the fight. Both of us firmly remember winning.' },
+    { year: '2018', era: 'ERA 03', icon: '🍕', title: 'Growing Up (Sort of)', desc: 'The year we became secret-keepers and official 50% snack tax partners.' },
+    { year: '2022', era: 'ERA 04', icon: '✈️', title: 'Different Cities, Same Dial', desc: 'Miles apart, but the first call when life got crazy was always you.' },
+    { year: '2026', era: 'ERA 05', icon: '🛡️', title: 'Forever In My Corner', desc: 'A little older, none the wiser, and an unbreakable sacred bond.' }
   ];
-  const entries = memories.length ? memories.slice(0, 5) : defaults.map(([year, title, description], index) => ({ year, title, description, image: photos[index]?.url }));
-  container.innerHTML = entries.map((memory, index) => {
-    const defaultItem = defaults[index % defaults.length];
-    const year = cleanText(memory.year, defaultItem[0]);
-    const title = cleanText(memory.title, defaultItem[1]);
-    const description = cleanText(memory.description, defaultItem[2]);
-    const image = cleanUrl(memory.image || photos[index]?.url || `assets/images/demo/img${index + 1}.svg`);
-    return `<article class="memory-stop" data-step="${index}">
-      <span class="memory-node" aria-hidden="true"></span>
-      <div class="memory-card">
-        <figure><img src="${escapeAttr(image)}" alt="${escapeAttr(title)}" loading="lazy"></figure>
-        <p class="memory-year">${escapeHtml(year)}</p>
-        <h3>${escapeHtml(title)}</h3>
-        <p>${escapeHtml(description)}</p>
+  
+  const entries = defaults.map((item, index) => {
+    const memory = memories[index] || {};
+    return {
+      year: cleanText(memory.year, item.year),
+      era: item.era,
+      icon: item.icon,
+      title: cleanText(memory.title, item.title),
+      desc: cleanText(memory.description, item.desc),
+      image: cleanUrl(memory.image || photos[index]?.url || `assets/images/demo/img${index + 1}.svg`)
+    };
+  });
+
+  container.innerHTML = entries.map((item, index) => `
+    <article class="memory-slate-card" data-step="${index}">
+      <div class="slate-glow"></div>
+      <div class="slate-inner">
+        <div class="slate-header">
+          <span class="slate-era-pill">${escapeHtml(item.era)}</span>
+          <span class="slate-year">${escapeHtml(item.year)}</span>
+        </div>
+        
+        <figure class="slate-polaroid">
+          <div class="slate-tape"></div>
+          <img src="${escapeAttr(item.image)}" alt="${escapeAttr(item.title)}" loading="lazy">
+        </figure>
+
+        <div class="slate-content">
+          <div class="slate-title-row">
+            <span class="slate-icon">${item.icon}</span>
+            <h3>${escapeHtml(item.title)}</h3>
+          </div>
+          <p>${escapeHtml(item.desc)}</p>
+        </div>
       </div>
-    </article>`;
-  }).join('');
+    </article>
+  `).join('');
 }
 
 function renderLetter(letter, sister, brother) {
@@ -612,35 +632,47 @@ function setupScrollStory() {
   // Chapter 02: Kinetic Landing Scroll Storytelling (HomeHeroLandingScrollAnimation)
   setupKineticStorytelling();
 
-  // Chapter 03: Remember When Timeline
-  gsap.from('.remember-intro > *', {
-    y: 45,
+  // Chapter 03: The Chronology of Us (Horizontal Pinned 3D Time-Vault)
+  gsap.from('.remember-header > *', {
+    y: 35,
     opacity: 0,
-    stagger: 0.12,
-    duration: 0.9,
-    scrollTrigger: { trigger: '.remember-section', start: 'top 72%' }
+    stagger: 0.1,
+    duration: 1,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.remember-section', start: 'top 75%' }
   });
-  gsap.utils.toArray('.memory-stop').forEach((stop, index) => {
-    const card = stop.querySelector('.memory-card');
-    const node = stop.querySelector('.memory-node');
-    const isEven = index % 2 === 0;
 
-    gsap.from(card, {
-      x: isEven ? -55 : 55,
+  gsap.to('.remember-ambient-mandala', {
+    rotate: 160,
+    ease: 'none',
+    scrollTrigger: { trigger: '.remember-section', start: 'top bottom', end: 'bottom top', scrub: 1 }
+  });
+
+  const track = document.getElementById('memory-route');
+  if (track) {
+    gsap.to(track, {
+      x: () => -(track.scrollWidth - window.innerWidth + window.innerWidth * 0.16),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.remember-section',
+        start: 'top top',
+        end: () => `+=${track.scrollWidth}`,
+        pin: true,
+        scrub: 1,
+        invalidateOnRefresh: true
+      }
+    });
+
+    gsap.from('.memory-slate-card', {
+      rotateY: -15,
       opacity: 0,
-      duration: 0.85,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: stop, start: 'top 82%' }
+      scale: 0.88,
+      stagger: 0.1,
+      duration: 0.9,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.remember-section', start: 'top 65%' }
     });
-
-    gsap.fromTo(node, { scale: 0.4, opacity: 0.3 }, {
-      scale: 1.25,
-      opacity: 1,
-      duration: 0.5,
-      ease: 'back.out(1.7)',
-      scrollTrigger: { trigger: stop, start: 'top 75%' }
-    });
-  });
+  }
 
   // Chapter 04: Letter Section
   gsap.from('.letter-lead > *', {
