@@ -2382,9 +2382,9 @@ img { display: block; max-width: 100%; }
     font-size: 17px;
   }
 
-  /* Component 8: Chapter 05: Unified Global Sibling Hub (Centered Golden Ratio Layout) */
+  /* Component 8: Chapter 05: Unified Global Sibling Hub (Vertical Top-to-Bottom Layout) */
   .distance-section {
-    height: 220vh;
+    height: 230vh;
   }
   .distance-sticky {
     position: sticky;
@@ -2395,17 +2395,17 @@ img { display: block; max-width: 100%; }
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 60px 12px 24px;
+    padding: 48px 16px 20px;
   }
   .distance-top-bar {
     position: absolute;
-    top: 54px;
-    left: 12px;
-    right: 12px;
+    top: 48px;
+    left: 16px;
+    right: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     z-index: 6;
   }
   .distance-badge {
@@ -2432,11 +2432,12 @@ img { display: block; max-width: 100%; }
     transform: none;
     width: 100%;
     max-width: 360px;
-    height: 64px;
+    height: 54px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-top: 36px;
+    margin-bottom: 12px;
     z-index: 6;
   }
   .distance-line {
@@ -2445,58 +2446,114 @@ img { display: block; max-width: 100%; }
     top: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    font-size: clamp(20px, 5.8vw, 28px);
+    font-size: clamp(19px, 5.2vw, 25px);
     line-height: 1.15;
     margin: 0;
   }
   .distance-stage {
     position: relative;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 370px;
+    max-width: 330px;
     margin: 0 auto;
     padding: 0;
-    gap: 4px;
+    gap: 0;
     z-index: 5;
   }
   .sibling-hub-card {
-    width: clamp(110px, 32vw, 140px);
-    padding: 9px;
-    border-radius: 14px;
+    width: 100%;
+    max-width: 310px;
+    padding: 10px 14px;
+    border-radius: 16px;
+    background: rgba(38, 24, 36, 0.88);
   }
   .hub-radar-ring {
     display: none;
   }
+  .hub-card-inner {
+    display: grid;
+    grid-template-columns: 54px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 12px;
+    row-gap: 3px;
+    align-items: center;
+  }
+  .hub-header {
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2px;
+  }
   .hub-photo-frame {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 54px;
+    height: 54px;
     aspect-ratio: 1;
-    border-radius: 8px;
+    border-radius: 10px;
+  }
+  .hub-footer {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
   .hub-role-badge {
-    font-size: 7.5px;
-    padding: 2px 4px;
+    font-size: 8px;
+    padding: 2.5px 6px;
   }
   .hub-city-name {
-    font-size: 9px;
+    font-size: 10px;
   }
   .hub-tagline {
-    font-size: 9.5px;
+    font-size: 11px;
     line-height: 1.25;
   }
   .hub-time {
-    font-size: 8px;
+    font-size: 8.5px;
   }
   .distance-conduit {
-    flex: 0 1 36px;
-    height: 36px;
-    margin: 0 2px;
-    transform: none !important;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .conduit-line-track {
+    left: 50%;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    height: 100%;
+    transform: translateX(-50%);
+    background: rgba(217, 155, 56, 0.2);
+  }
+  .conduit-line-glow {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(180deg, var(--rose) 0%, var(--marigold) 50%, #ffffff 100%);
+  }
+  .conduit-particle {
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   .conduit-medallion {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
   }
   .medallion-badge {
     font-size: 14px;

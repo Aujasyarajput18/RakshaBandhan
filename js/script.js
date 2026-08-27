@@ -726,23 +726,43 @@ function setupScrollStory() {
     }
   });
 
-  distanceTimeline
-    // Scene 1: Initial Cards Entrance & First Line
-    .from('.sister-hub', { x: -60, opacity: 0, duration: 0.2 }, 0)
-    .from('.brother-hub', { x: 60, opacity: 0, duration: 0.2 }, 0)
-    .to('.distance-line-one', { opacity: 1, y: 0, duration: 0.15 }, 0.04)
-    .to('.distance-line-one', { opacity: 0, y: -20, duration: 0.12 }, 0.28)
-    
-    // Scene 2: Golden Light Conduit activates across to Brother
-    .to('#conduit-glow', { width: '100%', duration: 0.45, ease: 'power1.inOut' }, 0.22)
-    .to('#conduit-particle', { left: '100%', duration: 0.45, ease: 'power1.inOut' }, 0.22)
-    .to('.distance-line-two', { opacity: 1, y: 0, duration: 0.15 }, 0.38)
-    .to('.distance-line-two', { opacity: 0, y: -20, duration: 0.12 }, 0.62)
-    
-    // Scene 3: Heartfelt Climax - Sacred Medallion blooms & Final Line shines
-    .to('.sister-hub', { scale: 1.04, duration: 0.25, ease: 'power2.out' }, 0.66)
-    .to('.brother-hub', { scale: 1.04, duration: 0.25, ease: 'power2.out' }, 0.66)
-    .to('.distance-line-three', { opacity: 1, y: 0, scale: 1, duration: 0.22, ease: 'back.out(1.4)' }, 0.72);
+  if (isMobile) {
+    distanceTimeline
+      // Scene 1: Initial Cards Entrance & First Line
+      .from('.sister-hub', { y: -30, opacity: 0, duration: 0.2 }, 0)
+      .from('.brother-hub', { y: 30, opacity: 0, duration: 0.2 }, 0)
+      .to('.distance-line-one', { opacity: 1, y: 0, duration: 0.15 }, 0.04)
+      .to('.distance-line-one', { opacity: 0, y: -20, duration: 0.12 }, 0.28)
+      
+      // Scene 2: Vertical Golden Light Conduit activates down to Brother
+      .to('#conduit-glow', { height: '100%', duration: 0.45, ease: 'power1.inOut' }, 0.22)
+      .to('#conduit-particle', { top: '100%', duration: 0.45, ease: 'power1.inOut' }, 0.22)
+      .to('.distance-line-two', { opacity: 1, y: 0, duration: 0.15 }, 0.38)
+      .to('.distance-line-two', { opacity: 0, y: -20, duration: 0.12 }, 0.62)
+      
+      // Scene 3: Heartfelt Climax - Sacred Medallion blooms & Final Line shines
+      .to('.sister-hub', { scale: 1.03, duration: 0.25, ease: 'power2.out' }, 0.66)
+      .to('.brother-hub', { scale: 1.03, duration: 0.25, ease: 'power2.out' }, 0.66)
+      .to('.distance-line-three', { opacity: 1, y: 0, scale: 1, duration: 0.22, ease: 'back.out(1.4)' }, 0.72);
+  } else {
+    distanceTimeline
+      // Scene 1: Initial Cards Entrance & First Line
+      .from('.sister-hub', { x: -60, opacity: 0, duration: 0.2 }, 0)
+      .from('.brother-hub', { x: 60, opacity: 0, duration: 0.2 }, 0)
+      .to('.distance-line-one', { opacity: 1, y: 0, duration: 0.15 }, 0.04)
+      .to('.distance-line-one', { opacity: 0, y: -20, duration: 0.12 }, 0.28)
+      
+      // Scene 2: Golden Light Conduit activates across to Brother
+      .to('#conduit-glow', { width: '100%', duration: 0.45, ease: 'power1.inOut' }, 0.22)
+      .to('#conduit-particle', { left: '100%', duration: 0.45, ease: 'power1.inOut' }, 0.22)
+      .to('.distance-line-two', { opacity: 1, y: 0, duration: 0.15 }, 0.38)
+      .to('.distance-line-two', { opacity: 0, y: -20, duration: 0.12 }, 0.62)
+      
+      // Scene 3: Heartfelt Climax - Sacred Medallion blooms & Final Line shines
+      .to('.sister-hub', { scale: 1.04, duration: 0.25, ease: 'power2.out' }, 0.66)
+      .to('.brother-hub', { scale: 1.04, duration: 0.25, ease: 'power2.out' }, 0.66)
+      .to('.distance-line-three', { opacity: 1, y: 0, scale: 1, duration: 0.22, ease: 'back.out(1.4)' }, 0.72);
+  }
 
   // Chapter 06: Finale (Royal Sacred Celebration Altar)
   gsap.from('.sanctum-rakhi-altar', {
