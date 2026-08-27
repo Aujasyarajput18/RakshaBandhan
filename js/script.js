@@ -1034,8 +1034,19 @@ function setupPetalDust() {
 
 function safelyGetPathLength(path) { try { return path?.getTotalLength() || 0; } catch (_) { return 0; } }
 function cleanText(value, fallback) { return typeof value === 'string' && value.trim() ? value.trim() : fallback; }
-function cleanUrl(value) { return typeof value === 'string' && value.trim() ? value.trim() : ''; }
+function cleanUrl(value) {
+  if (typeof value !== 'string' || !value.trim()) return '';
+  let url = value.trim();
+  if (url.includes('portrait.svg') || url.includes('assets/images/demo/portrait')) return 'assets/images/model/portrait.jpg';
+  if (url.includes('img6.svg') || url.includes('assets/images/demo/img6')) return 'assets/images/model/img6.jpg';
+  if (url.includes('img1.svg') || url.includes('assets/images/demo/img1')) return 'assets/images/model/img1.jpg';
+  if (url.includes('img2.svg') || url.includes('assets/images/demo/img2')) return 'assets/images/model/img2.jpg';
+  if (url.includes('img3.svg') || url.includes('assets/images/demo/img3')) return 'assets/images/model/img3.jpg';
+  if (url.includes('img4.svg') || url.includes('assets/images/demo/img4')) return 'assets/images/model/img4.jpg';
+  if (url.includes('img5.svg') || url.includes('assets/images/demo/img5')) return 'assets/images/model/img5.jpg';
+  return url;
+}
 function setText(id, value) { const element = document.getElementById(id); if (element) element.textContent = value; }
-function setImage(id, source, alt) { const element = document.getElementById(id); if (element && source) { element.src = source; element.alt = alt; } }
+function setImage(id, source, alt) { const element = document.getElementById(id); if (element && source) { element.src = cleanUrl(source); element.alt = alt; } }
 function escapeHtml(value) { return String(value).replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' })[char]); }
 function escapeAttr(value) { return escapeHtml(value); }
