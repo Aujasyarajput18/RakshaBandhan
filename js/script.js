@@ -912,31 +912,65 @@ function setupAudio(config) {
   if (!audio || !button || config.music?.enabled === false) return;
   if (config.music?.source) audio.src = cleanUrl(config.music.source);
 
+  audio.volume = 0.75;
+
+  const updatePlayingState = (isPlaying) => {
+    if (isPlaying) {
+      button.classList.add('is-playing');
+      button.setAttribute('aria-pressed', 'true');
+      button.setAttribute('aria-label', 'Pause ambient music');
+    } else {
+      button.classList.remove('is-playing');
+      button.setAttribute('aria-pressed', 'false');
+      button.setAttribute('aria-label', 'Play ambient music');
+    }
+  };
+
+  const playMusic = async () => {
+    try {
+      if (audio.paused) {
+        await audio.play();
+        updatePlayingState(true);
+      }
+    } catch (_) {
+      // Browser blocked headless autoplay; will play on first interaction
+    }
+  };
+
   const toggleMusic = async () => {
     try {
       if (audio.paused) {
         await audio.play();
-        button.classList.add('is-playing');
-        button.setAttribute('aria-pressed', 'true');
-        button.setAttribute('aria-label', 'Pause ambient music');
+        updatePlayingState(true);
       } else {
         audio.pause();
-        button.classList.remove('is-playing');
-        button.setAttribute('aria-pressed', 'false');
-        button.setAttribute('aria-label', 'Play ambient music');
+        updatePlayingState(false);
       }
     } catch (_) {}
   };
 
-  button.addEventListener('click', toggleMusic);
-  enterBtn?.addEventListener('click', () => {
-    if (audio.paused) {
-      audio.play().then(() => {
-        button.classList.add('is-playing');
-        button.setAttribute('aria-pressed', 'true');
-      }).catch(() => {});
-    }
+  button.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMusic();
   });
+
+  enterBtn?.addEventListener('click', () => {
+    playMusic();
+  });
+
+  // 1. Attempt immediate autoplay on page load
+  playMusic();
+
+  // 2. One-time gesture listener to guarantee playback on very first touch/scroll/click
+  const gestureEvents = ['pointerdown', 'touchstart', 'click', 'scroll', 'wheel', 'keydown'];
+  const onFirstInteraction = () => {
+    playMusic();
+    gestureEvents.forEach(evt => window.removeEventListener(evt, onFirstInteraction, { passive: true }));
+  };
+  gestureEvents.forEach(evt => window.addEventListener(evt, onFirstInteraction, { passive: true, once: true }));
+
+  audio.addEventListener('play', () => updatePlayingState(true));
+  audio.addEventListener('pause', () => updatePlayingState(false));
 }
 
 function setupTilt() {
