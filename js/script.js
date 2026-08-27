@@ -330,21 +330,66 @@ function setupScrollStory() {
     }
   });
 
-  // Chapter 01: Sister Spotlight
-  gsap.from('.sister-intro > *', {
-    y: 50,
+  // Chapter 01: Sister Spotlight (Luxury Editorial Showcase)
+  gsap.from('.watermark-number', {
+    yPercent: 40,
     opacity: 0,
-    stagger: 0.14,
+    duration: 1.5,
+    ease: 'power2.out',
+    scrollTrigger: { trigger: '.sister-section', start: 'top 80%', scrub: 1 }
+  });
+
+  gsap.from('.sister-chapter-badge', {
+    y: -25,
+    opacity: 0,
+    duration: 0.8,
+    ease: 'power3.out',
+    scrollTrigger: { trigger: '.sister-section', start: 'top 75%' }
+  });
+
+  gsap.from('.sister-hero-title', {
+    scale: 0.88,
+    y: 35,
+    opacity: 0,
     duration: 1.1,
     ease: 'power3.out',
-    scrollTrigger: { trigger: '.sister-section', start: 'top 70%' }
+    scrollTrigger: { trigger: '.sister-section', start: 'top 72%' }
   });
-  gsap.from('.portrait-stage', {
-    y: 110,
-    rotate: 9,
+
+  gsap.from('.sister-quote-card', {
+    x: -45,
     opacity: 0,
-    duration: 1.35,
+    duration: 0.9,
+    ease: 'power2.out',
+    scrollTrigger: { trigger: '.sister-section', start: 'top 68%' }
+  });
+
+  gsap.from('.trait-card', {
+    y: 30,
+    opacity: 0,
+    scale: 0.9,
+    stagger: 0.12,
+    duration: 0.85,
+    ease: 'back.out(1.4)',
+    scrollTrigger: { trigger: '.sister-section', start: 'top 65%' }
+  });
+
+  gsap.from('.portrait-stage-luxury', {
+    rotateY: -20,
+    rotateX: 10,
+    scale: 0.8,
+    opacity: 0,
+    duration: 1.3,
     ease: 'power3.out',
+    scrollTrigger: { trigger: '.sister-section', start: 'top 65%' }
+  });
+
+  gsap.from('.portrait-diya-glow', {
+    scale: 0.3,
+    opacity: 0,
+    duration: 1,
+    delay: 0.4,
+    ease: 'back.out(1.8)',
     scrollTrigger: { trigger: '.sister-section', start: 'top 65%' }
   });
 
