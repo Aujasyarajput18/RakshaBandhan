@@ -726,3 +726,12 @@ textarea.form-control {
   margin-bottom: 12px;
   opacity: 0.7;
 }
+
+@keyframes shakeLock {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+.shake-anim {
+  animation: shakeLock 0.4s ease;
+}

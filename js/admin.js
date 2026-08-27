@@ -1,8 +1,62 @@
 /**
- * js/admin.js — Master Orders Fulfillment & Tracking Dashboard Engine
+ * js/admin.js — Master Orders Fulfillment & Tracking Dashboard Engine (with PIN Protection)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  const MASTER_PIN = "1818"; // Master Admin Passcode (can also accept 'admin2026' or 'rakhi2026')
+  const ALT_PINS = ["admin2026", "rakhi2026", "pooja18"];
+
+  const authGate = document.getElementById('admin-auth-gate');
+  const mainContent = document.getElementById('admin-main-content');
+  const pinForm = document.getElementById('admin-pin-form');
+  const pinInput = document.getElementById('admin-pin-input');
+  const pinError = document.getElementById('pin-error-msg');
+  const pinCard = document.getElementById('pin-card');
+  const btnLogout = document.getElementById('btn-admin-logout');
+
+  // Check current session state
+  function checkAuth() {
+    const isUnlocked = sessionStorage.getItem('rakhi_admin_unlocked') === 'true';
+    if (isUnlocked) {
+      if (authGate) authGate.style.display = 'none';
+      if (mainContent) mainContent.style.display = 'block';
+      renderDashboard();
+    } else {
+      if (authGate) authGate.style.display = 'flex';
+      if (mainContent) mainContent.style.display = 'none';
+      if (pinInput) pinInput.focus();
+    }
+  }
+
+  // PIN Form Submission
+  pinForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const enteredPin = (pinInput?.value || '').trim();
+
+    if (enteredPin === MASTER_PIN || ALT_PINS.includes(enteredPin)) {
+      sessionStorage.setItem('rakhi_admin_unlocked', 'true');
+      if (pinError) pinError.style.display = 'none';
+      checkAuth();
+    } else {
+      if (pinError) pinError.style.display = 'block';
+      if (pinCard) {
+        pinCard.classList.remove('shake-anim');
+        void pinCard.offsetWidth; // Trigger reflow
+        pinCard.classList.add('shake-anim');
+      }
+      if (pinInput) {
+        pinInput.value = '';
+        pinInput.focus();
+      }
+    }
+  });
+
+  // Logout / Lock Action
+  btnLogout?.addEventListener('click', () => {
+    sessionStorage.removeItem('rakhi_admin_unlocked');
+    location.reload();
+  });
+
   // Default Demo Orders if database is empty
   const defaultSampleOrders = [
     {
@@ -152,10 +206,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const readyCount = orders.filter(o => o.status === 'ready').length;
     const deliveredCount = orders.filter(o => o.status === 'delivered').length;
 
-    document.getElementById('stat-total').textContent = totalCount;
-    document.getElementById('stat-new').textContent = newCount;
-    document.getElementById('stat-progress').textContent = progressCount + readyCount;
-    document.getElementById('stat-delivered').textContent = deliveredCount;
+    const elTotal = document.getElementById('stat-total');
+    const elNew = document.getElementById('stat-new');
+    const elProgress = document.getElementById('stat-progress');
+    const elDelivered = document.getElementById('stat-delivered');
+
+    if (elTotal) elTotal.textContent = totalCount;
+    if (elNew) elNew.textContent = newCount;
+    if (elProgress) elProgress.textContent = progressCount + readyCount;
+    if (elDelivered) elDelivered.textContent = deliveredCount;
 
     // 2. Filter & Search
     let filtered = orders.filter(o => {
@@ -175,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (filtered.length === 0) {
       tbody.innerHTML = `
         <tr>
-          <td colspan="7">
+          <td colspan="5">
             <div class="empty-state-box">
               <div class="empty-icon">🪔</div>
               <h3>No Orders Found</h3>
@@ -187,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    tbody.innerHTML = filtered.map((order, idx) => {
+    tbody.innerHTML = filtered.map((order) => {
       const liveUrl = generateStoryUrl(order);
       const waMsg = encodeURIComponent(
         `Namaste ${order.customer?.name || 'there'}! 🪔\n\n` +
@@ -196,13 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
         `Wishing you both a wonderful and blessed Raksha Bandhan! ❤️`
       );
       const waLink = `https://api.whatsapp.com/send?phone=${(order.customer?.phone || '').replace(/[^0-9]/g, '')}&text=${waMsg}`;
-
-      const statusMap = {
-        new: '<span class="status-badge status-new">🆕 New Order</span>',
-        progress: '<span class="status-badge status-progress">🎨 In Production</span>',
-        ready: '<span class="status-badge status-ready">✅ Ready to Deliver</span>',
-        delivered: '<span class="status-badge status-delivered">🚀 Delivered</span>'
-      };
 
       const dateStr = new Date(order.createdAt || Date.now()).toLocaleDateString('en-IN', {
         day: 'numeric',
@@ -353,6 +405,6 @@ document.addEventListener('DOMContentLoaded', () => {
     reader.readAsText(file);
   });
 
-  // Initial render
-  renderDashboard();
+  // Check Auth on load
+  checkAuth();
 });
