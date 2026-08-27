@@ -88,13 +88,15 @@ function setupLenis() {
   if (typeof Lenis === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   try {
     lenisInstance = new Lenis({
-      duration: 1.25,
+      duration: 1.35,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1.05,
-      touchMultiplier: 1.6
+      wheelMultiplier: 0.95,
+      touchMultiplier: 1.5,
+      syncTouch: true,
+      autoResize: true
     });
 
     if (window.ScrollTrigger) {
@@ -274,12 +276,10 @@ function setupIntroMouseParallax() {
     const x = (e.clientX / window.innerWidth - 0.5) * 30;
     const y = (e.clientY / window.innerHeight - 0.5) * 20;
 
-    const toran = document.querySelector('.intro-toran');
     const fabric1 = document.querySelector('.fabric-one');
     const fabric2 = document.querySelector('.fabric-two');
     const mandala = document.querySelector('.intro-mandala');
 
-    if (toran) toran.style.transform = `translateX(calc(-50% + ${x * 0.4}px)) translateY(${y * 0.3}px)`;
     if (fabric1) fabric1.style.transform = `translateX(${x * 0.7}px) translateY(${y * 0.7}px) rotate(-10deg)`;
     if (fabric2) fabric2.style.transform = `translateX(${x * -0.6}px) translateY(${y * -0.6}px)`;
     if (mandala) mandala.style.transform = `translateX(${x * -0.3}px) translateY(${y * -0.3}px)`;
