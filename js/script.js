@@ -277,17 +277,13 @@ function setupKineticStorytelling() {
   const iconElements = Array.from(animatedIconsContainer.querySelectorAll('.kinetic-icon-card'));
   const textSegments = Array.from(document.querySelectorAll('.kinetic-text-segment'));
   const placeholders = Array.from(document.querySelectorAll('.kinetic-placeholder-icon'));
-  const bgSlides = Array.from(document.querySelectorAll('.kinetic-bg-slide'));
 
-  // Background slide cycler
-  let currentSlide = 0;
-  if (bgSlides.length > 1) {
-    setInterval(() => {
-      bgSlides[currentSlide].classList.remove('is-active');
-      currentSlide = (currentSlide + 1) % bgSlides.length;
-      bgSlides[currentSlide].classList.add('is-active');
-    }, 3200);
-  }
+  // Pre-dock images when progress completes
+  placeholders.forEach((ph, i) => {
+    const src = iconElements[i]?.querySelector('img')?.src || `assets/images/demo/img${i + 1}.svg`;
+    const img = ph.querySelector('img');
+    if (img) img.src = src;
+  });
 
   // Shuffle text animation order
   const animationOrder = textSegments.map((segment, index) => ({ segment, originalIndex: index }));
@@ -298,41 +294,55 @@ function setupKineticStorytelling() {
 
   let duplicateIcons = null;
 
+  function cleanupDuplicates() {
+    if (duplicateIcons) {
+      duplicateIcons.forEach((d) => d.parentNode?.removeChild(d));
+      duplicateIcons = null;
+    }
+  }
+
   ScrollTrigger.create({
     trigger: heroSection,
     start: 'top top',
-    end: () => `+=${window.innerHeight * 5}px`,
+    end: () => `+=${window.innerHeight * 4}px`,
     pin: true,
     pinSpacing: true,
     scrub: 1,
+    onLeave: () => {
+      cleanupDuplicates();
+      placeholders.forEach(ph => ph.classList.add('is-docked'));
+      textSegments.forEach(seg => gsap.set(seg, { opacity: 1 }));
+    },
+    onLeaveBack: () => {
+      cleanupDuplicates();
+      placeholders.forEach(ph => ph.classList.remove('is-docked'));
+      textSegments.forEach(seg => gsap.set(seg, { opacity: 0 }));
+      gsap.set(heroHeader, { transform: 'translateY(0px)', opacity: 1 });
+      gsap.set(animatedIconsContainer, { x: 0, y: 0, scale: 1, opacity: 1 });
+    },
     onUpdate: (self) => {
       const progress = self.progress;
       const isMobile = window.innerWidth < 1000;
-      const headerIconSize = isMobile ? 36 : 58;
+      const targetIconSize = isMobile ? 38 : 54;
       const currentIconSize = iconElements[0]?.getBoundingClientRect().width || 1;
-      const exactScale = headerIconSize / currentIconSize;
-
-      textSegments.forEach((segment) => {
-        if (segment) gsap.set(segment, { opacity: 0 });
-      });
+      const exactScale = targetIconSize / currentIconSize;
 
       if (progress < 0.3) {
         const moveProgress = progress / 0.3;
-        const containerMoveY = -window.innerHeight * 0.3 * moveProgress;
+        const containerMoveY = -window.innerHeight * 0.28 * moveProgress;
+
+        cleanupDuplicates();
+        placeholders.forEach(ph => ph.classList.remove('is-docked'));
+        textSegments.forEach(seg => gsap.set(seg, { opacity: 0 }));
 
         if (progress < 0.15) {
           const headerProgress = progress / 0.15;
           gsap.set(heroHeader, {
-            transform: `translateY(${-50 * headerProgress}px)`,
+            transform: `translateY(${-40 * headerProgress}px)`,
             opacity: 1 - headerProgress,
           });
         } else {
-          gsap.set(heroHeader, { transform: 'translateY(-50px)', opacity: 0 });
-        }
-
-        if (duplicateIcons) {
-          duplicateIcons.forEach((d) => d.parentNode?.removeChild(d));
-          duplicateIcons = null;
+          gsap.set(heroHeader, { transform: 'translateY(-40px)', opacity: 0 });
         }
 
         gsap.set(animatedIconsContainer, { x: 0, y: containerMoveY, scale: 1, opacity: 1 });
@@ -349,43 +359,42 @@ function setupKineticStorytelling() {
       } else if (progress < 0.6) {
         const scaleProgress = (progress - 0.3) / 0.3;
 
-        gsap.set(heroHeader, { transform: 'translateY(-50px)', opacity: 0 });
-
-        if (duplicateIcons) {
-          duplicateIcons.forEach((d) => d.parentNode?.removeChild(d));
-          duplicateIcons = null;
-        }
+        cleanupDuplicates();
+        placeholders.forEach(ph => ph.classList.remove('is-docked'));
+        textSegments.forEach(seg => gsap.set(seg, { opacity: 0 }));
+        gsap.set(heroHeader, { transform: 'translateY(-40px)', opacity: 0 });
 
         const containerRect = animatedIconsContainer.getBoundingClientRect();
-        const deltaX = (window.innerWidth / 2 - (containerRect.left + containerRect.width / 2)) * scaleProgress;
-        const deltaY = (window.innerHeight / 2 - (containerRect.top + containerRect.height / 2)) * scaleProgress;
+        const heroRect = heroSection.getBoundingClientRect();
+        const deltaX = (heroRect.width / 2 - (containerRect.left - heroRect.left + containerRect.width / 2)) * scaleProgress;
+        const deltaY = (heroRect.height / 2 - (containerRect.top - heroRect.top + containerRect.height / 2)) * scaleProgress;
 
         gsap.set(animatedIconsContainer, {
           x: deltaX,
-          y: -window.innerHeight * 0.3 + deltaY,
+          y: -window.innerHeight * 0.28 + deltaY,
           scale: 1 + (exactScale - 1) * scaleProgress,
           opacity: 1,
         });
 
         iconElements.forEach((icon) => { if (icon) gsap.set(icon, { x: 0, y: 0 }); });
 
-      } else if (progress < 0.75) {
-        const moveProgress = (progress - 0.6) / 0.15;
+      } else if (progress < 0.78) {
+        const moveProgress = (progress - 0.6) / 0.18;
 
-        gsap.set(heroHeader, { transform: 'translateY(-50px)', opacity: 0 });
+        gsap.set(heroHeader, { transform: 'translateY(-40px)', opacity: 0 });
+        placeholders.forEach(ph => ph.classList.remove('is-docked'));
 
+        const heroRect = heroSection.getBoundingClientRect();
         const containerRect = animatedIconsContainer.getBoundingClientRect();
-        const deltaX = window.innerWidth / 2 - (containerRect.left + containerRect.width / 2);
-        const deltaY = window.innerHeight / 2 - (containerRect.top + containerRect.height / 2);
+        const deltaX = heroRect.width / 2 - (containerRect.left - heroRect.left + containerRect.width / 2);
+        const deltaY = heroRect.height / 2 - (containerRect.top - heroRect.top + containerRect.height / 2);
 
         gsap.set(animatedIconsContainer, {
           x: deltaX,
-          y: -window.innerHeight * 0.3 + deltaY,
+          y: -window.innerHeight * 0.28 + deltaY,
           scale: exactScale,
           opacity: 0,
         });
-
-        iconElements.forEach((icon) => { if (icon) gsap.set(icon, { x: 0, y: 0 }); });
 
         if (!duplicateIcons) {
           duplicateIcons = [];
@@ -394,12 +403,12 @@ function setupKineticStorytelling() {
               const duplicate = icon.cloneNode(true);
               duplicate.className = 'duplicate-kinetic-icon';
               Object.assign(duplicate.style, {
-                position: 'fixed',
-                width: headerIconSize + 'px',
-                height: headerIconSize + 'px',
+                position: 'absolute',
+                width: targetIconSize + 'px',
+                height: targetIconSize + 'px',
                 zIndex: '50',
               });
-              document.body.appendChild(duplicate);
+              heroSection.appendChild(duplicate);
               duplicateIcons.push(duplicate);
             }
           });
@@ -408,12 +417,12 @@ function setupKineticStorytelling() {
         duplicateIcons?.forEach((duplicate, index) => {
           if (index < placeholders.length && iconElements[index]) {
             const iconRect = iconElements[index].getBoundingClientRect();
-            const startX = iconRect.left + iconRect.width / 2;
-            const startY = iconRect.top + iconRect.height / 2;
+            const startX = iconRect.left - heroRect.left;
+            const startY = iconRect.top - heroRect.top;
 
             const targetRect = placeholders[index].getBoundingClientRect();
-            const targetX = targetRect.left + targetRect.width / 2;
-            const targetY = targetRect.top + targetRect.height / 2;
+            const targetX = targetRect.left - heroRect.left;
+            const targetY = targetRect.top - heroRect.top;
 
             const moveX = targetX - startX;
             const moveY = targetY - startY;
@@ -422,29 +431,22 @@ function setupKineticStorytelling() {
             let currentY = moveProgress < 0.5 ? moveY * (moveProgress / 0.5) : moveY;
             if (moveProgress >= 0.5) currentX = moveX * ((moveProgress - 0.5) / 0.5);
 
-            duplicate.style.left = startX + currentX - headerIconSize / 2 + 'px';
-            duplicate.style.top = startY + currentY - headerIconSize / 2 + 'px';
+            duplicate.style.left = startX + currentX + 'px';
+            duplicate.style.top = startY + currentY + 'px';
             duplicate.style.opacity = '1';
             duplicate.style.display = 'block';
           }
         });
 
       } else {
+        // Phase 4: Lock and illuminate
         gsap.set(heroHeader, { transform: 'translateY(-100px)', opacity: 0 });
         gsap.set(animatedIconsContainer, { opacity: 0 });
-
-        duplicateIcons?.forEach((duplicate, index) => {
-          if (index < placeholders.length) {
-            const targetRect = placeholders[index].getBoundingClientRect();
-            duplicate.style.left = targetRect.left + 'px';
-            duplicate.style.top = targetRect.top + 'px';
-            duplicate.style.opacity = '1';
-            duplicate.style.display = 'block';
-          }
-        });
+        cleanupDuplicates();
+        placeholders.forEach(ph => ph.classList.add('is-docked'));
 
         animationOrder.forEach((item, randomIndex) => {
-          const segStart = 0.75 + randomIndex * 0.04;
+          const segStart = 0.78 + randomIndex * 0.035;
           const segProgress = gsap.utils.mapRange(segStart, segStart + 0.02, 0, 1, progress);
           gsap.set(item.segment, { opacity: Math.max(0, Math.min(1, segProgress)) });
         });

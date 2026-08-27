@@ -666,44 +666,36 @@ img { display: block; max-width: 100%; }
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #faf8f5;
+  background: radial-gradient(circle at 50% 45%, #fffefb 0%, #f7eee2 55%, #ecdcc8 100%);
   color: var(--ink);
   padding: 24px;
 }
 
-/* Dynamic Ambient Background Slider */
-.kinetic-bg-wrap {
+/* Luxury Ambient Background Glow & Watermark */
+.kinetic-ambient-glow {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(circle at 20% 20%, rgba(217, 155, 56, 0.08) 0%, transparent 60%),
+              radial-gradient(circle at 80% 80%, rgba(169, 79, 92, 0.06) 0%, transparent 60%);
   z-index: 0;
-  overflow: hidden;
 }
-.kinetic-bg-slide {
+.kinetic-mandala-watermark {
   position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transition: opacity 1.2s ease-in-out;
-  transform: scale(1.05);
-}
-.kinetic-bg-slide.is-active {
-  opacity: 1;
-}
-.kinetic-bg-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: radial-gradient(circle at 50% 50%, rgba(250, 248, 245, 0.72) 0%, rgba(250, 248, 245, 0.88) 60%, rgba(245, 238, 228, 0.96) 100%);
-  backdrop-filter: blur(4px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(75vw, 650px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px dashed rgba(217, 155, 56, 0.15);
+  background: radial-gradient(circle, rgba(255, 250, 240, 0.5) 0%, transparent 70%);
 }
 
 /* Initial Hero Header */
 .kinetic-hero-header {
   position: absolute;
-  top: 15vh;
+  top: 14vh;
   left: 0;
   right: 0;
   text-align: center;
@@ -724,7 +716,7 @@ img { display: block; max-width: 100%; }
   margin: 0 0 10px;
   font: 600 clamp(32px, 4.5vw, 64px)/1.05 var(--display);
   letter-spacing: -0.04em;
-  color: var(--ink);
+  color: var(--wine);
 }
 .journey-title em {
   color: var(--rose);
@@ -748,21 +740,21 @@ img { display: block; max-width: 100%; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  width: min(90vw, 750px);
+  gap: clamp(8px, 1.5vw, 16px);
+  width: min(90vw, 720px);
   z-index: 10;
   will-change: transform, opacity;
 }
 .kinetic-icon-card {
   flex: 1;
   aspect-ratio: 1;
-  border-radius: 14px;
+  border-radius: 16px;
   overflow: hidden;
   background: #ffffff;
-  box-shadow: 0 10px 25px rgba(41, 27, 37, 0.12), 0 2px 6px rgba(0,0,0,0.06);
-  border: 2px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 12px 28px rgba(41, 27, 37, 0.14), 0 2px 6px rgba(0,0,0,0.06);
+  border: 2px solid rgba(255, 255, 255, 0.95);
   will-change: transform;
-  transition: box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .kinetic-icon-card img {
   width: 100%;
@@ -792,24 +784,53 @@ img { display: block; max-width: 100%; }
 .kinetic-animated-text {
   position: relative;
   z-index: 15;
-  max-width: min(90vw, 1100px);
+  max-width: min(92vw, 1150px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
   text-align: center;
-  font: 600 clamp(24px, 4.2vw, 56px)/1.35 var(--display);
+  font: 600 clamp(24px, 3.8vw, 52px)/1.35 var(--display);
   letter-spacing: -0.03em;
   color: var(--ink);
 }
+.kinetic-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
 .kinetic-text-segment {
   opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.25s ease;
 }
 .kinetic-placeholder-icon {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(38px, 4.2vw, 60px);
+  height: clamp(38px, 4.2vw, 60px);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1.5px solid var(--marigold);
+  box-shadow: 0 4px 14px rgba(111, 44, 66, 0.18);
   vertical-align: middle;
-  width: clamp(35px, 4.5vw, 62px);
-  height: clamp(35px, 4.5vw, 62px);
-  margin: 0 8px -6px;
-  border-radius: 12px;
-  visibility: hidden;
+  margin: 0 4px;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.kinetic-placeholder-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.kinetic-placeholder-icon.is-docked {
+  opacity: 1;
+  transform: scale(1);
 }
 .photo-journey-heading h2 { margin: 15px 0; font: 500 clamp(46px,6.2vw,92px)/.9 var(--display); letter-spacing: -.065em; }
 .photo-journey-heading em { color: var(--rose); }
