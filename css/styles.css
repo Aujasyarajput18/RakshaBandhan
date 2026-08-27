@@ -1951,29 +1951,159 @@ img { display: block; max-width: 100%; }
   border-color: var(--marigold);
 }
 
-/* Ambient Corner Diyas */
-.sanctum-diya {
+/* Top Royal Festive Toran Drapery */
+.finale-toran-drape {
   position: absolute;
-  bottom: 4vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.85;
+  display: flex;
+  justify-content: center;
+}
+.toran-garland {
+  width: min(120vw, 1400px);
+  min-width: 900px;
+  height: auto;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+}
+
+/* Grand Rotating Celestial Background Mandala */
+.finale-grand-mandala {
+  position: absolute;
+  width: min(130vw, 1250px);
+  aspect-ratio: 1;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url('../assets/images/ornaments/mandala.svg') center / contain no-repeat;
+  opacity: 0.14;
+  filter: drop-shadow(0 0 60px rgba(217, 155, 56, 0.4));
+  pointer-events: none;
+  animation: slowSpin 65s linear infinite;
+  z-index: 1;
+}
+
+/* Flanking Side Memory Vignettes */
+.finale-side-vignette {
+  position: absolute;
+  top: 50%;
+  z-index: 4;
+  pointer-events: auto;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+.vignette-left {
+  left: clamp(24px, 4vw, 70px);
+  transform: translateY(-50%) rotate(-3.5deg);
+}
+.vignette-right {
+  right: clamp(24px, 4vw, 70px);
+  transform: translateY(-50%) rotate(3.5deg);
+}
+.finale-side-vignette:hover {
+  transform: translateY(calc(-50% - 8px)) rotate(0deg) scale(1.05);
+}
+
+.vignette-polaroid {
+  width: clamp(190px, 16vw, 240px);
+  background: rgba(255, 250, 240, 0.95);
+  border-radius: 12px;
+  padding: 10px 10px 14px;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(217, 155, 56, 0.4);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.polaroid-pin {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background: var(--marigold);
+  color: #1a0b18;
+  border-radius: 50%;
+  font-size: 11px;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+.polaroid-img-box {
+  width: 100%;
+  aspect-ratio: 4/3;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #ecd9bf;
+}
+.polaroid-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.polaroid-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+.vignette-badge {
+  font: 700 9px/1 var(--mono);
+  letter-spacing: 0.12em;
+  color: var(--wine);
+}
+.vignette-quote {
+  margin: 0;
+  font: 500 italic 12px/1.35 var(--display);
+  color: var(--ink);
+}
+
+/* Decorative Corner Accents */
+.sanctum-corner {
+  position: absolute;
+  bottom: 3.5vh;
+  z-index: 3;
+  pointer-events: none;
+}
+.corner-left {
+  left: clamp(20px, 3.5vw, 60px);
+}
+.corner-right {
+  right: clamp(20px, 3.5vw, 60px);
+}
+.corner-item-wrap {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+.corner-thali {
+  width: clamp(60px, 7vw, 95px);
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.5));
+}
+.corner-sweets {
+  width: clamp(55px, 6.5vw, 85px);
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.5));
+}
+.corner-diya-wrap {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  pointer-events: none;
-  z-index: 2;
 }
-.diya-left {
-  left: 4vw;
-}
-.diya-right {
-  right: 4vw;
-}
-.diya-right img {
-  transform: scaleX(-1);
-}
-.sanctum-diya img {
-  width: clamp(56px, 6vw, 84px);
+.corner-diya {
+  width: clamp(48px, 5.2vw, 70px);
   filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.45));
 }
+.corner-right .corner-diya {
+  transform: scaleX(-1);
+}
+
 .diya-flame-halo {
   position: absolute;
   top: -14px;
@@ -1983,6 +2113,10 @@ img { display: block; max-width: 100%; }
   background: radial-gradient(circle, rgba(217, 155, 56, 0.9) 0%, transparent 70%);
   filter: blur(6px);
   animation: auraPulse 1.8s infinite alternate ease-in-out;
+}
+
+@media (max-width: 1200px) {
+  .finale-side-vignette { display: none; }
 }
 
 @media (max-width: 760px) {

@@ -140,6 +140,8 @@ function hydrateStory(config) {
   const signoff = document.getElementById('finale-signoff');
   if (signoff) signoff.innerHTML = `Forever your brother, <strong>${escapeHtml(brother)}</strong>`;
   setText('finale-sister-name', sister.toUpperCase());
+  setImage('finale-left-img', photos[0]?.url || 'assets/images/demo/img1.svg', 'Childhood memory');
+  setImage('finale-right-img', photos[photos.length - 1]?.url || 'assets/images/demo/img6.svg', 'Recent memory');
 
   return { sister, brother };
 }
@@ -732,6 +734,29 @@ function setupScrollStory() {
     .to('.distance-line-three', { opacity: 1, y: 0, scale: 1, duration: 0.22, ease: 'back.out(1.4)' }, 0.72);
 
   // Chapter 06: Finale (Royal Sacred Celebration Altar)
+  gsap.from('.finale-toran-drape', {
+    y: -40,
+    opacity: 0,
+    duration: 1.2,
+    ease: 'power2.out',
+    scrollTrigger: { trigger: '.finale', start: 'top 80%' }
+  });
+  gsap.from('.vignette-left', {
+    x: -50,
+    rotate: -12,
+    opacity: 0,
+    duration: 1.2,
+    ease: 'back.out(1.2)',
+    scrollTrigger: { trigger: '.finale', start: 'top 70%' }
+  });
+  gsap.from('.vignette-right', {
+    x: 50,
+    rotate: 12,
+    opacity: 0,
+    duration: 1.2,
+    ease: 'back.out(1.2)',
+    scrollTrigger: { trigger: '.finale', start: 'top 70%' }
+  });
   gsap.from('.sanctum-rakhi-altar', {
     scale: 0.7,
     rotate: -15,
