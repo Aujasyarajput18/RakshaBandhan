@@ -74,7 +74,7 @@ img { display: block; max-width: 100%; }
 .word-happy { left: 10.5vw; top: 17vh; color: var(--wine); }
 .word-raksha { right: 8vw; top: 38vh; color: var(--ink); }
 .word-bandhan { left: 15.7vw; bottom: 12vh; color: #8e4b45; }
-.bond-statement { position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%,-45%); margin: 0; color: var(--milk); mix-blend-mode: difference; opacity: 0; text-align: center; font: italic clamp(29px,4.2vw,62px)/1.05 var(--display); }
+.bond-statement { position: absolute; z-index: 10; left: 50%; top: 50%; transform: translate(-50%,-45%); margin: 0; color: var(--wine); opacity: 0; text-align: center; font: 600 italic clamp(32px, 4.8vw, 64px)/1.1 var(--display); letter-spacing: -0.025em; text-shadow: 0 0 25px rgba(255, 250, 240, 0.95), 0 0 45px rgba(255, 250, 240, 0.9), 0 2px 8px rgba(255, 250, 240, 0.85); width: 90%; max-width: 800px; pointer-events: none; }
 .intro-scroll-mark { position: absolute; right: 3.3vw; bottom: 3.8vh; display: grid; justify-items: end; gap: 9px; color: var(--ink); font: 500 9px/1 var(--mono); letter-spacing: .1em; }
 .intro-scroll-mark span { height: 49px; border-left: 1px solid var(--wine); animation: scrollNudge 2s infinite ease-in-out; }
 @keyframes scrollNudge { 50% { transform: translateY(9px); } }
