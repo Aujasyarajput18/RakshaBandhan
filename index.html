@@ -412,10 +412,61 @@
       </div>
     </section>
 
-    <section class="finale" aria-labelledby="finale-title">
-      <div class="finale-diyas" aria-hidden="true"><img src="assets/images/ornaments/diya.svg" alt=""><img src="assets/images/ornaments/diya.svg" alt=""></div>
-      <div class="finale-rakhi" aria-hidden="true"><div class="rakhi-orbit orbit-one"></div><div class="rakhi-orbit orbit-two"></div><img src="assets/images/rakhis/tassel-rakhi.svg" alt=""><span class="rakhi-flower flower-one"></span><span class="rakhi-flower flower-two"></span></div>
-      <p class="eyebrow">05 / always</p><h2 id="finale-title"><span>Some bonds grow older.</span><span>They don't grow weaker.</span></h2><p class="finale-wish">Happy Raksha Bandhan.</p><p class="finale-signoff" id="finale-signoff">Always your brother,<br>Aarav</p><button class="replay" type="button" id="replay-story">Back to the beginning ↑</button>
+    <section class="finale" id="finale" aria-labelledby="finale-title">
+      <div class="finale-ambient-mandala" aria-hidden="true"></div>
+      
+      <!-- Flanking Animated Festive Diyas -->
+      <div class="finale-diyas" aria-hidden="true">
+        <div class="diya-stand left-diya">
+          <div class="diya-flame-glow"></div>
+          <img src="assets/images/ornaments/diya.svg" alt="Diya">
+        </div>
+        <div class="diya-stand right-diya">
+          <div class="diya-flame-glow"></div>
+          <img src="assets/images/ornaments/diya.svg" alt="Diya">
+        </div>
+      </div>
+
+      <!-- Sacred Celestial Rakhi Altar -->
+      <div class="finale-altar">
+        <div class="altar-mandala-spin"></div>
+        <div class="altar-orbit orbit-outer"></div>
+        <div class="altar-orbit orbit-inner"></div>
+        <div class="finale-rakhi-wrap">
+          <img src="assets/images/rakhis/tassel-rakhi.svg" alt="Sacred Rakhi" class="finale-rakhi-img">
+        </div>
+      </div>
+
+      <!-- Chapter Badge -->
+      <div class="finale-badge">
+        <span class="chapter-gold-pill">CHAPTER 06</span>
+        <span class="chapter-label">THE ETERNAL BOND</span>
+      </div>
+
+      <!-- Hero Headline & Wish -->
+      <div class="finale-content">
+        <h2 id="finale-title" class="finale-headline">
+          <span>Some bonds grow older.</span>
+          <em>They only grow stronger.</em>
+        </h2>
+        
+        <div class="finale-wish-card">
+          <div class="wish-sparkle">✦</div>
+          <p class="finale-wish-text">Happy Raksha Bandhan, <span id="finale-sister-name">Ananya</span> 🌸</p>
+          <p class="finale-dedication" id="finale-signoff">Forever your brother, protector & partner in crime,<br><strong>Aarav</strong></p>
+        </div>
+
+        <!-- Interactive Celebration Actions -->
+        <div class="finale-actions">
+          <button class="celebrate-btn" id="celebrate-btn" type="button">
+            <span class="btn-sparkle">✨</span>
+            <span>Celebrate & Send Blessings</span>
+          </button>
+          <button class="replay-btn" id="replay-story" type="button">
+            <span>Read from Beginning ↑</span>
+          </button>
+        </div>
+      </div>
     </section>
   </main>
 

@@ -1701,28 +1701,257 @@ img { display: block; max-width: 100%; }
   }
 }
 
-/* Finale */
-.finale { min-height: 130vh; position: relative; display: grid; justify-items: center; align-content: center; overflow: hidden; padding: 18vh 20px 14vh; text-align: center; background: #eee1ce; }
-.finale::before { content: ''; position: absolute; z-index: 0; width: min(105vw,1150px); aspect-ratio: 1; border: 1px solid rgba(111,44,66,.17); border-radius: 50%; box-shadow: 0 0 0 37px rgba(111,44,66,.035), 0 0 0 74px rgba(111,44,66,.03), 0 0 0 111px rgba(111,44,66,.02); }
-.finale > * { position: relative; z-index: 1; }
-.finale-diyas { position: absolute !important; z-index: 0 !important; inset: auto 8vw 8vh; display: flex; align-items: end; justify-content: space-between; opacity: .92; pointer-events: none; }
-.finale-diyas img { width: clamp(53px, 7vw, 92px); filter: drop-shadow(0 8px 8px rgba(41,27,37,.12)); }
-.finale-diyas img:last-child { transform: scaleX(-1); }
-.finale-rakhi { width: min(420px, 64vw); aspect-ratio: 1; position: relative; display: grid; place-items: center; margin-bottom: -17px; }
-.finale-rakhi img { width: 140%; max-width: none; transform: rotate(7deg); filter: drop-shadow(0 14px 13px rgba(41,27,37,.16)); }
-.rakhi-orbit { position: absolute; border: 1px dashed var(--wine); border-radius: 50%; }
-.orbit-one { inset: 3%; animation: slowSpin 44s linear infinite reverse; }
-.orbit-two { inset: 14%; border-color: var(--marigold); animation: slowSpin 31s linear infinite; }
-.rakhi-flower { position: absolute; width: 14px; height: 14px; background: var(--clay); transform: rotate(45deg); }
-.rakhi-flower::before, .rakhi-flower::after { content: ''; position: absolute; inset: 0; background: inherit; transform: rotate(60deg); }
-.rakhi-flower::after { transform: rotate(-60deg); }
-.flower-one { left: 9%; top: 28%; background: var(--marigold); }
-.flower-two { right: 8%; bottom: 24%; background: var(--rose); }
-.finale h2 { display: grid; gap: 7px; margin: 24px 0; color: var(--wine); font: 500 clamp(38px,5.4vw,82px)/.94 var(--display); letter-spacing: -.065em; }
-.finale h2 span:last-child { color: var(--ink); font-style: italic; }
-.finale-wish { margin: 0; color: var(--rose); font: clamp(32px,4vw,54px)/1 var(--script); }
-.finale-signoff { margin: 28px 0 34px; color: var(--faded); font: italic 18px/1.35 var(--display); }
-.replay { padding: 0 0 4px; border: 0; border-bottom: 1px solid var(--wine); color: var(--wine); background: none; cursor: pointer; letter-spacing: .1em; font: 500 10px/1.4 var(--mono); }
+/* ==========================================================================
+   Chapter 06: The Grand Sacred Finale (Royal Celebration & Blessing Altar)
+   ========================================================================== */
+.finale {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 14vh 24px 12vh;
+  text-align: center;
+  background: radial-gradient(circle at 50% 40%, #fffbf2 0%, #f7edd9 55%, #ecdabf 100%);
+  color: var(--wine);
+}
+
+.finale-ambient-mandala {
+  position: absolute;
+  width: min(110vw, 1100px);
+  aspect-ratio: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.12;
+  background: url('../assets/images/ornaments/mandala.svg') center / contain no-repeat;
+  pointer-events: none;
+  animation: slowSpin 60s linear infinite;
+  z-index: 0;
+}
+
+/* Flanking Animated Festive Diyas */
+.finale-diyas {
+  position: absolute;
+  inset: auto 6vw 6vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 2;
+}
+.diya-stand {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.diya-stand img {
+  width: clamp(54px, 6.5vw, 88px);
+  filter: drop-shadow(0 10px 15px rgba(111, 44, 66, 0.25));
+}
+.right-diya img {
+  transform: scaleX(-1);
+}
+.diya-flame-glow {
+  position: absolute;
+  top: -15px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217, 155, 56, 0.8) 0%, rgba(217, 155, 56, 0) 70%);
+  filter: blur(6px);
+  animation: auraPulse 1.6s infinite alternate ease-in-out;
+}
+
+/* Sacred Celestial Rakhi Altar */
+.finale-altar {
+  position: relative;
+  z-index: 3;
+  width: min(380px, 75vw);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+.altar-mandala-spin {
+  position: absolute;
+  inset: 5%;
+  border-radius: 50%;
+  border: 1px dashed rgba(217, 155, 56, 0.6);
+  box-shadow: 0 0 40px rgba(217, 155, 56, 0.25);
+  animation: slowSpin 36s linear infinite;
+}
+.altar-orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(111, 44, 66, 0.15);
+}
+.orbit-outer {
+  inset: 0%;
+  animation: slowSpin 50s linear infinite reverse;
+}
+.orbit-inner {
+  inset: 15%;
+  border-color: rgba(217, 155, 56, 0.4);
+  animation: slowSpin 25s linear infinite;
+}
+.finale-rakhi-wrap {
+  position: relative;
+  z-index: 2;
+  width: 120%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+}
+.finale-rakhi-wrap:hover {
+  transform: scale(1.08) rotate(3deg);
+  filter: drop-shadow(0 20px 30px rgba(217, 155, 56, 0.5));
+}
+.finale-rakhi-img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 16px 20px rgba(41, 27, 37, 0.2));
+  transform: rotate(4deg);
+}
+
+/* Chapter Badge */
+.finale-badge {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+/* Content & Hero Headline */
+.finale-content {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.finale-headline {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font: 700 clamp(36px, 5.2vw, 76px)/0.96 var(--display);
+  letter-spacing: -0.04em;
+  color: var(--wine);
+}
+.finale-headline em {
+  font-family: var(--display);
+  color: var(--ink);
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Wish & Dedication Card */
+.finale-wish-card {
+  position: relative;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(217, 155, 56, 0.35);
+  box-shadow: 0 10px 30px rgba(111, 44, 66, 0.08);
+  padding: 20px 36px;
+  margin: 6px 0;
+  max-width: 580px;
+}
+.wish-sparkle {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--marigold);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  box-shadow: 0 2px 8px rgba(217, 155, 56, 0.6);
+}
+.finale-wish-text {
+  margin: 4px 0 8px;
+  color: var(--rose);
+  font: 400 clamp(28px, 3.5vw, 46px)/1.1 var(--script);
+}
+.finale-dedication {
+  margin: 0;
+  color: var(--faded);
+  font: 400 clamp(14px, 1.2vw, 17px)/1.5 var(--display);
+}
+.finale-dedication strong {
+  color: var(--wine);
+  font-weight: 600;
+}
+
+/* Interactive Action Buttons */
+.finale-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.celebrate-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #d99b38 0%, #b87a22 100%);
+  color: #ffffff;
+  font: 700 13px/1 var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(217, 155, 56, 0.4);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+.celebrate-btn:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 16px 35px rgba(217, 155, 56, 0.6);
+}
+.btn-sparkle {
+  font-size: 16px;
+  animation: auraPulse 1.5s infinite alternate;
+}
+
+.replay-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 13px 24px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--wine);
+  font: 600 12px/1 var(--mono);
+  letter-spacing: 0.08em;
+  border: 1px solid rgba(111, 44, 66, 0.2);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, border-color 0.3s;
+}
+.replay-btn:hover {
+  transform: translateY(-3px);
+  background: #ffffff;
+  border-color: var(--marigold);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
 
 @media (max-width: 760px) {
   .site-header { padding: 18px 20px; }

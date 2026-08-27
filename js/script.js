@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupAudio(config);
   setupLetter();
   setupTilt();
+  setupCelebration();
   setupReplay();
   setupPetalDust();
   setupScrollProgress();
@@ -139,6 +140,7 @@ function hydrateStory(config) {
   const finalSignoff = cleanText(config.finale?.signoff || config.letter?.signoff, `Always your brother, ${brother}`);
   const signoff = document.getElementById('finale-signoff');
   if (signoff) signoff.innerHTML = escapeHtml(finalSignoff).replace(/,\s*/, ',<br>');
+  setText('finale-sister-name', sister);
 
   return { sister, brother };
 }
@@ -730,25 +732,83 @@ function setupScrollStory() {
     .to('.brother-hub', { scale: 1.04, duration: 0.25, ease: 'power2.out' }, 0.66)
     .to('.distance-line-three', { opacity: 1, y: 0, scale: 1, duration: 0.22, ease: 'back.out(1.4)' }, 0.72);
 
-  // Chapter 06: Finale
-  gsap.from('.finale-rakhi', {
-    scale: 0.6,
+  // Chapter 06: Finale (Royal Sacred Celebration Altar)
+  gsap.from('.finale-altar', {
+    scale: 0.65,
+    rotate: -15,
     opacity: 0,
     duration: 1.3,
-    ease: 'back.out(1.3)',
-    scrollTrigger: { trigger: '.finale', start: 'top 72%' }
+    ease: 'back.out(1.4)',
+    scrollTrigger: { trigger: '.finale', start: 'top 75%' }
   });
-  gsap.from('.finale h2 span', {
-    y: 45,
+  gsap.from('.finale-headline > *', {
+    y: 35,
     opacity: 0,
-    stagger: 0.18,
+    stagger: 0.14,
     duration: 0.9,
     ease: 'power3.out',
+    scrollTrigger: { trigger: '.finale', start: 'top 65%' }
+  });
+  gsap.from('.finale-wish-card', {
+    y: 30,
+    scale: 0.92,
+    opacity: 0,
+    duration: 1,
+    ease: 'back.out(1.3)',
     scrollTrigger: { trigger: '.finale', start: 'top 60%' }
+  });
+  gsap.from('.finale-actions', {
+    y: 20,
+    opacity: 0,
+    duration: 0.8,
+    ease: 'power2.out',
+    scrollTrigger: { trigger: '.finale', start: 'top 55%' }
   });
 
   ScrollTrigger.refresh();
   window.addEventListener('load', () => ScrollTrigger.refresh());
+}
+
+/**
+ * Interactive Finale Celebration
+ */
+function setupCelebration() {
+  const celebrateBtn = document.getElementById('celebrate-btn');
+  celebrateBtn?.addEventListener('click', () => {
+    SoundFX.playChime();
+    triggerGrandFestivalConfetti();
+    const altar = document.querySelector('.finale-rakhi-wrap');
+    if (altar && window.gsap) {
+      window.gsap.fromTo(altar, { scale: 1.25, rotate: 10 }, { scale: 1, rotate: 4, duration: 0.8, ease: 'elastic.out(1, 0.4)' });
+    }
+  });
+}
+
+function triggerGrandFestivalConfetti() {
+  if (typeof confetti === 'function') {
+    confetti({
+      particleCount: 80,
+      spread: 100,
+      origin: { y: 0.65 },
+      colors: ['#d99b38', '#a94f5c', '#e6b84f', '#6f2c42', '#2d6a4f']
+    });
+    setTimeout(() => {
+      confetti({
+        particleCount: 50,
+        angle: 60,
+        spread: 70,
+        origin: { x: 0.1, y: 0.7 },
+        colors: ['#d99b38', '#ffffff', '#e6b84f']
+      });
+      confetti({
+        particleCount: 50,
+        angle: 120,
+        spread: 70,
+        origin: { x: 0.9, y: 0.7 },
+        colors: ['#a94f5c', '#ffffff', '#6f2c42']
+      });
+    }, 250);
+  }
 }
 
 /**
