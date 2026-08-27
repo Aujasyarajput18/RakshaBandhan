@@ -194,10 +194,27 @@
       </div>
     </section>
 
-    <section class="photo-journey" aria-label="A journey through photographs">
-      <div class="photo-journey-heading"><p class="eyebrow">Some proof that time has passed</p><h2>and we<br><em>somehow</em> stayed us.</h2></div>
-      <div class="photo-stream" id="photo-stream"></div>
-      <div class="photo-wall-end" aria-hidden="true"><span>still<br>stealing<br>my food.</span><div class="wall-thread"></div></div>
+    <section class="photo-journey" id="photo-journey" aria-label="A journey through photographs">
+      <div class="photo-journey-header">
+        <div class="journey-badge">
+          <span class="chapter-gold-pill">CHAPTER 02</span>
+          <span class="chapter-label">A TIMELINE OF CHAOS</span>
+        </div>
+        <h2 class="journey-title">Some proof that time has passed<br><em>and we somehow stayed us.</em></h2>
+        <p class="journey-subtitle">Hover or tap any memory strip to expand the moment in full focus.</p>
+      </div>
+
+      <!-- Grand Interactive Expanding Memory Reel -->
+      <div class="memory-reel-stage">
+        <div class="memory-reel-container" id="photo-stream">
+          <!-- Populated dynamically via JS with noise texture and hover expansion -->
+        </div>
+      </div>
+
+      <div class="photo-wall-end" aria-hidden="true">
+        <span>still stealing my food.</span>
+        <div class="wall-thread"></div>
+      </div>
     </section>
 
     <section class="remember-section" id="memories" aria-labelledby="remember-title">

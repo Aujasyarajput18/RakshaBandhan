@@ -161,12 +161,36 @@ function makePhotoSet(childhood, memories) {
 function renderPhotoStream(photos) {
   const container = document.getElementById('photo-stream');
   if (!container) return;
+  
   container.innerHTML = photos.map((photo, index) => `
-    <figure class="memory-photo" data-photo="${index}">
-      <img src="${escapeAttr(photo.url)}" alt="Memory ${index + 1}" loading="lazy">
-      <figcaption>${escapeHtml(photo.caption)}</figcaption>
-    </figure>
+    <div class="memory-reel-card ${index === 2 ? 'is-expanded' : ''}" data-index="${index}">
+      <div class="reel-noise-overlay" aria-hidden="true">
+        <svg class="reel-noise-svg" width="100%" height="100%">
+          <filter id="reel-noise-${index}">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/>
+          </filter>
+          <rect width="100%" height="100%" filter="url(#reel-noise-${index})" opacity="0.22"/>
+        </svg>
+      </div>
+      <img src="${escapeAttr(photo.url)}" alt="Memory ${index + 1}" class="reel-img" loading="lazy">
+      <div class="reel-card-overlay">
+        <span class="reel-card-number">0${index + 1}</span>
+        <p class="reel-card-caption">${escapeHtml(photo.caption)}</p>
+      </div>
+    </div>
   `).join('');
+
+  const cards = container.querySelectorAll('.memory-reel-card');
+  cards.forEach((card) => {
+    card.addEventListener('mouseenter', () => {
+      cards.forEach(c => c.classList.remove('is-expanded'));
+      card.classList.add('is-expanded');
+    });
+    card.addEventListener('click', () => {
+      cards.forEach(c => c.classList.remove('is-expanded'));
+      card.classList.add('is-expanded');
+    });
+  });
 }
 
 function renderTimeline(memories, photos) {
