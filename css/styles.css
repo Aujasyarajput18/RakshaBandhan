@@ -1998,60 +1998,388 @@ img { display: block; max-width: 100%; }
 }
 
 @media (max-width: 760px) {
-  .site-header { padding: 18px 20px; }
-  .story-progress { top: 59px; left: 20px; right: 20px; }
-  .sound-toggle span { display: none; }
-  .intro-scene { height: 265vh; }
-  .intro-mandala { width: 150vw; bottom: -47vw; right: -45vw; }
-  .fabric-one { width: 110vw; height: 35vw; left: -49vw; bottom: 19vh; }
-  .fabric-two { width: 100vw; height: 55vw; right: -58vw; top: -19vw; }
-  .festival-words { font-size: clamp(51px, 15vw, 92px); }
-  .word-happy { left: 7vw; top: 23vh; }
-  .word-raksha { right: 5vw; top: 43vh; }
-  .word-bandhan { left: 8vw; bottom: 19vh; }
-  .bond-statement { font-size: 34px; }
-  .thread-cta { width: 255px; }
-  .sister-section { min-height: 130vh; display: block; padding: 11vh 8vw 13vh; }
-  .sister-section .section-index { margin-bottom: 8vh; }
-  .sister-intro { padding-bottom: 31px; }
-  .sister-intro h1 { font-size: clamp(62px, 20vw, 105px); }
-  .portrait-stage { width: min(75vw, 385px); min-height: 490px; margin: 26px auto 0; }
-  .scribble-doodle { left: -12%; font-size: 25px; }
-  .side-annotation { right: 7vw; bottom: 8vh; font-size: 17px; }
-  .photo-journey { min-height: 230vh; padding: 13vh 7vw 10vh; }
-  .photo-stream { min-height: 970px; height: 150vh; margin-top: 20px; }
-  .memory-photo { width: 45vw; padding: 8px 8px 35px; }
-  .memory-photo img { height: 52vw; }
-  .memory-photo:nth-child(1) { left: 2%; top: 8%; }
-  .memory-photo:nth-child(2) { right: 0; top: 22%; }
-  .memory-photo:nth-child(3) { left: 22%; top: 42%; }
-  .memory-photo:nth-child(4) { right: 2%; top: 62%; }
-  .memory-photo:nth-child(5) { left: 4%; top: 78%; }
-  .photo-wall-end { font-size: 45px; margin-top: -30px; }
-  .remember-section { padding: 11vh 8vw 14vh; }
-  .remember-intro { margin-left: 0; }
-  .remember-intro .section-index { margin-bottom: 9vh; }
-  .memory-route { margin-top: 7vh; }
-  .memory-route::before { left: 13px; }
-  .memory-stop { display: block; min-height: 260px; padding: 0 0 0 49px; }
-  .memory-node { position: absolute; top: 17px; left: 4px; }
-  .memory-card, .memory-stop:nth-child(odd) .memory-card { max-width: none; text-align: left; }
-  .memory-stop:nth-child(odd) .memory-card figure { margin-left: 0; }
-  .letter-section { min-height: 140vh; display: block; padding: 12vh 9vw 14vh; }
-  .letter-lead .section-index { margin-bottom: 8vh; }
-  .envelope-wrap { margin-top: 10vh; }
-  .envelope { width: min(80vw, 430px); }
-  .letter-paper { top: 35vh; left: 5vw; right: 5vw; width: auto; min-height: 620px; padding: 61px 30px 53px; }
-  .distance-section { height: 255vh; }
-  .city-card { width: 100px; top: calc(50% - 88px); }
-  .city-card img { width: 100px; height: 132px; }
-  .city-sister { left: 5vw; }
-  .city-brother { right: 5vw; }
-  .distance-line { font-size: clamp(33px, 10vw, 57px); }
-  .finale { min-height: 110vh; }
-  .finale-rakhi { width: 70vw; }
-  .finale-diyas { inset: auto 6vw 5vh; }
-  .finale-diyas img { width: 54px; }
+  /* Component 1: Site Header & Progress */
+  .site-header { padding: 14px 16px; }
+  .story-progress { top: 52px; left: 16px; right: 16px; }
+  .sound-toggle { padding: 5px 10px; font-size: 9px; }
+
+  /* Component 2: Intro Scene */
+  .intro-scene { height: 230vh; }
+  .intro-mandala { width: 140vw; bottom: -40vw; right: -35vw; opacity: 0.1; }
+  .fabric-one { width: 100vw; height: 32vw; left: -40vw; bottom: 18vh; opacity: 0.6; }
+  .fabric-two { width: 95vw; height: 50vw; right: -50vw; top: -16vw; opacity: 0.55; }
+  .festival-words { font-size: clamp(44px, 12.5vw, 76px); }
+  .word-happy { left: 6vw; top: 22vh; }
+  .word-raksha { right: 5vw; top: 40vh; }
+  .word-bandhan { left: 7vw; bottom: 20vh; }
+  .bond-statement { font-size: clamp(24px, 6.2vw, 36px); width: 88%; line-height: 1.2; }
+  .intro-scroll-mark { right: 16px; bottom: 20px; }
+
+  /* Component 3: Threshold Gateway */
+  .threshold { padding: 9vh 4vw 7vh; min-height: 100svh; }
+  .threshold-header { margin-bottom: 2vh; }
+  .threshold-eyebrow { font-size: 9.5px; letter-spacing: 0.16em; margin-bottom: 8px; }
+  .threshold-main-title { font-size: clamp(32px, 9.5vw, 48px); line-height: 1; margin-bottom: 8px; }
+  .threshold-tagline { font-size: 14px; line-height: 1.35; padding: 0 8px; }
+  .threshold-stage-grid {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 420px;
+    gap: 4px;
+    margin: 2vh auto;
+  }
+  .portal-polaroid {
+    width: clamp(92px, 26vw, 125px);
+    padding: 6px 6px 18px;
+    box-shadow: 0 10px 22px rgba(41, 27, 37, 0.14);
+  }
+  .portal-polaroid figcaption {
+    font-size: 10px;
+    bottom: 4px;
+  }
+  .portal-polaroid .polaroid-pin {
+    width: 12px;
+    height: 12px;
+    top: -5px;
+  }
+  .portal-core-wrapper {
+    width: clamp(88px, 24vw, 115px);
+    height: clamp(88px, 24vw, 115px);
+    flex-shrink: 0;
+  }
+  .portal-center-knot {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+  .portal-ring-outer {
+    inset: -6px;
+  }
+  .thread-bridge {
+    flex: 0 1 20px;
+    min-width: 10px;
+    max-width: 24px;
+    height: 24px;
+  }
+  .thread-cta {
+    width: 240px;
+    margin-top: 1.5vh;
+  }
+  .thread-cta-btn {
+    padding: 13px 22px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
+  /* Component 4: Chapter 01: Sister Spotlight */
+  .sister-section {
+    padding: 10vh 5vw 8vh;
+    min-height: auto;
+    display: flex;
+  }
+  .sister-container {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .watermark-number {
+    font-size: clamp(100px, 28vw, 150px);
+    top: 2vh;
+    left: 2vw;
+  }
+  .sister-hero-title {
+    font-size: clamp(36px, 11vw, 54px);
+    white-space: normal;
+    word-break: break-word;
+    margin-bottom: 12px;
+  }
+  .sister-quote-card {
+    padding: 14px 16px 14px 28px;
+    margin-bottom: 20px;
+  }
+  .sister-copy {
+    font-size: 15.5px;
+  }
+  .sister-traits-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .trait-card {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+  .trait-icon {
+    font-size: 20px;
+  }
+  .trait-text strong {
+    font-size: 12px;
+  }
+  .trait-text small {
+    font-size: 10px;
+  }
+  .portrait-stage-luxury {
+    width: min(86vw, 340px);
+    margin: 10px auto 0;
+  }
+  .portrait-filigree-frame {
+    padding: 10px 10px 24px;
+  }
+  /* Component 5: Chapter 02: Kinetic Landing Scroll */
+  .kinetic-hero-header {
+    top: 8vh;
+    padding: 0 16px;
+  }
+  .journey-badge {
+    margin-bottom: 8px;
+  }
+  .journey-title {
+    font-size: clamp(26px, 7.5vw, 42px);
+    margin-bottom: 6px;
+  }
+  .journey-subtitle {
+    font-size: 10px;
+  }
+  .kinetic-animated-icons {
+    bottom: 5vh;
+    width: 92vw;
+    gap: 6px;
+  }
+  .kinetic-icon-card {
+    border-radius: 10px;
+    border-width: 1.5px;
+  }
+  .kinetic-animated-text {
+    font-size: clamp(18px, 5vw, 28px);
+    line-height: 1.35;
+    gap: 10px;
+    padding: 0 12px;
+    max-width: 98vw;
+  }
+  .kinetic-line {
+    gap: 4px 6px;
+  }
+  .kinetic-placeholder-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    margin: 0 2px;
+  }
+  /* Component 6: Chapter 03: The Chronology of Us */
+  .remember-section {
+    padding: 8vh 0;
+    min-height: 100svh;
+  }
+  .remember-header {
+    padding: 0 5vw;
+    margin-bottom: 2.5vh;
+  }
+  .remember-badge {
+    margin-bottom: 10px;
+  }
+  .remember-hero-title {
+    font-size: clamp(32px, 9.5vw, 48px);
+    margin-bottom: 8px;
+  }
+  .remember-subtitle {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+  .remember-scroll-prompt {
+    font-size: 10px;
+  }
+  .memory-horizontal-track {
+    padding: 10px 5vw;
+    gap: 16px;
+  }
+  .memory-slate-card {
+    width: clamp(260px, 78vw, 320px);
+    padding: 14px;
+    border-radius: 16px;
+  }
+  .polaroid-thumb {
+    height: clamp(170px, 46vw, 210px);
+    border-radius: 10px;
+  }
+  .slate-polaroid-frame {
+    padding: 8px 8px 24px;
+  }
+  .slate-polaroid-frame figcaption {
+    font-size: 10px;
+    bottom: 6px;
+  }
+  .memory-meta h3 {
+    font-size: 18px;
+  }
+  .memory-meta p {
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  /* Component 7: Chapter 04: Royal Wax-Sealed Letter */
+  .letter-section {
+    padding: 10vh 5vw 8vh;
+    min-height: auto;
+    display: flex;
+  }
+  .letter-container {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .letter-hero-title {
+    font-size: clamp(32px, 9.5vw, 48px);
+    margin-bottom: 10px;
+  }
+  .letter-subtitle {
+    font-size: 14.5px;
+    margin-bottom: 16px;
+  }
+  .envelope {
+    width: min(88vw, 350px);
+  }
+  .letter-paper {
+    width: min(92vw, 380px);
+    padding: 30px 18px 24px;
+    min-height: 420px;
+    top: -10px;
+  }
+  .letter-salutation {
+    font-size: 22px;
+    margin-bottom: 14px;
+  }
+  .letter-body {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .letter-signoff {
+    font-size: 18px;
+  }
+  /* Component 8: Chapter 05: Unified Global Sibling Hub */
+  .distance-section {
+    height: 230vh;
+  }
+  .distance-narrative-box {
+    top: 9vh;
+    width: 92%;
+  }
+  .distance-line {
+    font-size: clamp(20px, 6vw, 30px);
+    line-height: 1.25;
+  }
+  .distance-stage {
+    margin-top: 6vh;
+    padding: 0 8px;
+    max-width: 440px;
+  }
+  .sibling-hub-card {
+    width: clamp(100px, 28vw, 130px);
+    padding: 8px;
+    border-radius: 12px;
+  }
+  .hub-role-badge {
+    font-size: 7.5px;
+    padding: 2px 5px;
+  }
+  .hub-city-name {
+    font-size: 9px;
+  }
+  .hub-tagline {
+    font-size: 10px;
+    line-height: 1.2;
+  }
+  .hub-time {
+    font-size: 8px;
+  }
+  .distance-conduit {
+    height: 50px;
+    margin: 0 4px;
+  }
+  .conduit-medallion {
+    width: 34px;
+    height: 34px;
+  }
+  .medallion-knot {
+    width: 22px;
+    height: 22px;
+    font-size: 10px;
+  }
+  .medallion-counter {
+    bottom: -20px;
+    font-size: 7.5px;
+  }
+  /* Component 9: Chapter 06: The Grand Sacred Finale */
+  .finale {
+    min-height: 100svh;
+    height: auto;
+    padding: 7vh 4vw 6vh;
+  }
+  .finale-royal-sanctum {
+    gap: 10px;
+    max-width: 95vw;
+  }
+  .finale-badge .chapter-gold-pill {
+    font-size: 10px;
+    padding: 4px 10px;
+  }
+  .finale-badge .chapter-label {
+    font-size: 10px;
+  }
+  .sanctum-rakhi-altar {
+    width: clamp(100px, 26vw, 130px);
+  }
+  .sanctum-headline {
+    font-size: clamp(23px, 6.5vw, 34px);
+    line-height: 1.1;
+  }
+  .sanctum-blessing-slate {
+    padding: 14px 12px 12px;
+    width: 100%;
+    max-width: 390px;
+    border-radius: 16px;
+    gap: 7px;
+  }
+  .sanctum-sacred-crest {
+    font-size: 8px;
+    letter-spacing: 0.12em;
+  }
+  .sanctum-wish-title {
+    font-size: 18px;
+  }
+  .sanctum-quote {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .sanctum-signature {
+    font-size: 9px;
+  }
+  .sanctum-actions {
+    gap: 8px;
+  }
+  .sanctum-celebrate-btn {
+    padding: 13px 20px;
+    font-size: 11px;
+    width: min(270px, 88vw);
+  }
+  .sanctum-top-link {
+    font-size: 9px;
+  }
+  .sanctum-diya {
+    bottom: 10px;
+  }
+  .diya-left {
+    left: 10px;
+  }
+  .diya-right {
+    right: 10px;
+  }
+  .sanctum-diya img {
+    width: 36px;
+  }
+  .diya-flame-halo {
+    width: 20px;
+    height: 20px;
+    top: -8px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
