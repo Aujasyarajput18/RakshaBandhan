@@ -1356,17 +1356,18 @@ img { display: block; max-width: 100%; }
   font: 400 clamp(15px, 1.25vw, 17.5px)/1.6 var(--display);
 }
 .letter-signature {
-  margin: 24px 0 0;
+  margin: 24px 0 6px;
   color: var(--wine);
-  font: 30px/1 var(--script);
+  font: 28px/1.2 var(--script);
 }
 .letter-doodle {
-  position: absolute;
-  right: 20px;
-  bottom: 18px;
+  position: relative;
+  display: block;
+  margin-top: 10px;
   color: var(--moss);
-  font: 16px/1 var(--script);
-  transform: rotate(-6deg);
+  font: 16px/1.3 var(--script);
+  transform: rotate(-3deg);
+  text-align: right;
 }
 
 @media (max-width: 900px) {
@@ -2378,8 +2379,27 @@ img { display: block; max-width: 100%; }
     line-height: 1.55;
     margin-bottom: 14px;
   }
-  .letter-signoff {
-    font-size: 17px;
+  .letter-signature {
+    font-size: 24px;
+    margin: 20px 0 4px;
+    line-height: 1.2;
+  }
+  .letter-doodle {
+    position: relative !important;
+    right: auto !important;
+    bottom: auto !important;
+    display: block;
+    margin-top: 8px;
+    font-size: 14.5px;
+    line-height: 1.3;
+    text-align: right;
+    transform: rotate(-2deg);
+  }
+  .letter-close-btn {
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
   }
 
   /* Component 8: Chapter 05: Unified Global Sibling Hub (Vertical Top-to-Bottom Layout) */
