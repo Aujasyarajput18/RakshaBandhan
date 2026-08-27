@@ -2316,53 +2316,70 @@ img { display: block; max-width: 100%; }
   }
   /* Component 7: Chapter 04: Royal Wax-Sealed Letter */
   .letter-section {
-    padding: 10vh 5vw 8vh;
+    padding: 10vh 5vw 12vh;
     min-height: auto;
     display: flex;
   }
   .letter-container {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 28px;
+    width: 100%;
+  }
+  .letter-lead {
+    align-items: center;
+    text-align: center;
   }
   .letter-hero-title {
     font-size: clamp(32px, 9.5vw, 48px);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
   .letter-subtitle {
-    font-size: 14.5px;
-    margin-bottom: 16px;
-  }
-  .envelope {
-    width: min(88vw, 350px);
-  }
-  .letter-paper {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.92);
-    width: min(92vw, 380px);
-    max-height: 82vh;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    z-index: 200;
-    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.75);
-    border-radius: 12px;
-    padding: 34px 18px 24px;
-  }
-  .letter-paper.is-visible {
-    transform: translate(-50%, -50%) scale(1) !important;
-  }
-  .letter-salutation {
-    font-size: 22px;
+    font-size: 14px;
     margin-bottom: 14px;
   }
+  .envelope-showcase {
+    position: relative;
+    width: 100%;
+    min-height: 460px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .envelope {
+    width: min(88vw, 340px);
+  }
+  .letter-paper {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(30px) scale(0.92);
+    width: min(94vw, 370px);
+    max-height: 520px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: 10;
+    box-shadow: 0 20px 70px rgba(41, 27, 37, 0.35);
+    border-radius: 12px;
+    padding: 34px 18px 24px;
+    opacity: 0;
+    visibility: hidden;
+  }
+  .letter-paper.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0) scale(1) !important;
+  }
+  .letter-salutation {
+    font-size: 21px;
+    margin-bottom: 12px;
+  }
   .letter-body {
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 16px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin-bottom: 14px;
   }
   .letter-signoff {
-    font-size: 18px;
+    font-size: 17px;
   }
 
   /* Component 8: Chapter 05: Unified Global Sibling Hub (Centered Symmetrical Stage) */

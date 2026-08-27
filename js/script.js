@@ -862,6 +862,16 @@ function setupLetter() {
     e.stopPropagation();
     toggleLetter(false);
   });
+
+  if (window.ScrollTrigger) {
+    window.ScrollTrigger.create({
+      trigger: '.letter-section',
+      start: 'top bottom',
+      end: 'bottom top',
+      onLeave: () => toggleLetter(false),
+      onLeaveBack: () => toggleLetter(false)
+    });
+  }
 }
 
 function triggerSparkleBurst() {
