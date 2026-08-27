@@ -120,8 +120,8 @@ function hydrateStory(config) {
   const memories = Array.isArray(config.memories) && config.memories.length ? config.memories : [];
   const childhood = Array.isArray(config.childhoodPhotos) && config.childhoodPhotos.length ? config.childhoodPhotos : [];
   const photos = makePhotoSet(childhood, memories);
-  const sisterPhoto = cleanUrl(sisterProfile.photo || config.hero?.sisterPhoto || config.hero?.image || 'assets/images/demo/portrait.svg');
-  const brotherPhoto = cleanUrl(brotherProfile.photo || config.hero?.brotherPhoto || photos.at(-1)?.url || 'assets/images/demo/img6.svg');
+  const sisterPhoto = cleanUrl(sisterProfile.photo || config.hero?.sisterPhoto || config.hero?.image || 'assets/images/model/portrait.jpg');
+  const brotherPhoto = cleanUrl(brotherProfile.photo || config.hero?.brotherPhoto || photos.at(-1)?.url || 'assets/images/model/img6.jpg');
 
   setText('threshold-names', `${sister.toUpperCase()} & ${brother.toUpperCase()}`);
   setText('sister-name', sister.toUpperCase());
@@ -142,19 +142,19 @@ function hydrateStory(config) {
   const signoff = document.getElementById('finale-signoff');
   if (signoff) signoff.innerHTML = `Forever your brother, <strong>${escapeHtml(brother)}</strong>`;
   setText('finale-sister-name', sister.toUpperCase());
-  setImage('finale-left-img', photos[0]?.url || 'assets/images/demo/img1.svg', 'Childhood memory');
-  setImage('finale-right-img', photos[photos.length - 1]?.url || 'assets/images/demo/img6.svg', 'Recent memory');
+  setImage('finale-left-img', photos[0]?.url || 'assets/images/model/img1.jpg', 'Childhood memory');
+  setImage('finale-right-img', photos[photos.length - 1]?.url || 'assets/images/model/img6.jpg', 'Recent memory');
 
   return { sister, brother };
 }
 
 function makePhotoSet(childhood, memories) {
   const fallback = [
-    { url: 'assets/images/demo/img1.svg', caption: 'Before we knew what growing up meant.' },
-    { url: 'assets/images/demo/img2.svg', caption: 'You were annoying then too.' },
-    { url: 'assets/images/demo/img3.svg', caption: 'An excellent partnership in chaos.' },
-    { url: 'assets/images/demo/img4.svg', caption: 'The photo we almost did not take.' },
-    { url: 'assets/images/demo/img5.svg', caption: 'Somehow, you grew up.' }
+    { url: 'assets/images/model/img1.jpg', caption: 'Before we knew what growing up meant.' },
+    { url: 'assets/images/model/img2.jpg', caption: 'You were annoying then too.' },
+    { url: 'assets/images/model/img3.jpg', caption: 'An excellent partnership in chaos.' },
+    { url: 'assets/images/model/img4.jpg', caption: 'The photo we almost did not take.' },
+    { url: 'assets/images/model/img5.jpg', caption: 'Somehow, you grew up.' }
   ];
   const supplied = childhood.map((photo, index) => ({
     url: cleanUrl(photo.url || photo.image || memories[index]?.image || fallback[index % fallback.length].url),
@@ -217,7 +217,7 @@ function renderTimeline(memories, photos) {
       icon: item.icon,
       title: cleanText(memory.title, item.title),
       desc: cleanText(memory.description, item.desc),
-      image: cleanUrl(memory.image || photos[index]?.url || `assets/images/demo/img${index + 1}.svg`)
+      image: cleanUrl(memory.image || photos[index]?.url || `assets/images/model/img${(index % 6) + 1}.jpg`)
     };
   });
 
@@ -305,7 +305,7 @@ function setupKineticStorytelling() {
 
   // Pre-dock images when progress completes
   placeholders.forEach((ph, i) => {
-    const src = iconElements[i]?.querySelector('img')?.src || `assets/images/demo/img${i + 1}.svg`;
+    const src = iconElements[i]?.querySelector('img')?.src || `assets/images/model/img${i + 1}.jpg`;
     const img = ph.querySelector('img');
     if (img) img.src = src;
   });

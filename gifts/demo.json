@@ -1,45 +1,45 @@
 {
   "names": {
-    "sister": "Pooja",
-    "brother": "Aujasya"
+    "sister": "Ananya",
+    "brother": "Aarav"
   },
   "profiles": {
     "sister": {
-      "photo": "assets/images/demo/portrait.svg",
+      "photo": "assets/images/model/portrait.jpg",
       "city": "Mumbai"
     },
     "brother": {
-      "photo": "assets/images/demo/img6.svg",
-      "city": "Delhi"
+      "photo": "assets/images/model/img6.jpg",
+      "city": "London"
     }
   },
   "childhoodPhotos": [
-    { "url": "assets/images/demo/img1.svg", "caption": "Before we knew what growing up meant." },
-    { "url": "assets/images/demo/img2.svg", "caption": "You were annoying then too." },
-    { "url": "assets/images/demo/img3.svg", "caption": "An excellent partnership in chaos." },
-    { "url": "assets/images/demo/img4.svg", "caption": "The photo we almost did not take." },
-    { "url": "assets/images/demo/img5.svg", "caption": "Somehow, you grew up." }
+    { "url": "assets/images/model/img1.jpg", "caption": "Before we knew what growing up meant." },
+    { "url": "assets/images/model/img2.jpg", "caption": "You were annoying then too." },
+    { "url": "assets/images/model/img3.jpg", "caption": "An excellent partnership in chaos." },
+    { "url": "assets/images/model/img4.jpg", "caption": "The photo we almost did not take." },
+    { "url": "assets/images/model/img5.jpg", "caption": "Somehow, you grew up." }
   ],
   "memories": [
-    { "year": "2010", "title": "The first Rakhi", "description": "Before we knew how much of life we would share.", "image": "assets/images/demo/img1.svg" },
-    { "year": "2014", "title": "The big fight", "description": "No one remembers why. Both of us remember winning.", "image": "assets/images/demo/img2.svg" },
-    { "year": "2018", "title": "The year we grew up", "description": "Slightly. At least on paper.", "image": "assets/images/demo/img3.svg" },
-    { "year": "2022", "title": "Different cities", "description": "New routines, same person on speed dial.", "image": "assets/images/demo/img4.svg" },
-    { "year": "2026", "title": "Still us", "description": "A little older. Every bit as connected.", "image": "assets/images/demo/img5.svg" }
+    { "year": "2010", "title": "The first Rakhi", "description": "Before we knew how much of life we would share.", "image": "assets/images/model/img1.jpg" },
+    { "year": "2014", "title": "The big fight", "description": "No one remembers why. Both of us remember winning.", "image": "assets/images/model/img2.jpg" },
+    { "year": "2018", "title": "The year we grew up", "description": "Slightly. At least on paper.", "image": "assets/images/model/img3.jpg" },
+    { "year": "2022", "title": "Different cities", "description": "New routines, same person on speed dial.", "image": "assets/images/model/img4.jpg" },
+    { "year": "2026", "title": "Still us", "description": "A little older. Every bit as connected.", "image": "assets/images/model/img5.jpg" }
   ],
   "letter": {
     "date": "August, 2026",
-    "salutation": "Dearest Pooja,",
+    "salutation": "Dearest Ananya,",
     "bodyParagraphs": [
       "From fighting over the TV remote to sharing midnight treats, having you as my sister is one of life's sweetest gifts.",
       "Thank you for listening to my nonsense, guiding me when I needed it, and having my back in every situation.",
       "No matter where life takes us, this bond stays right here. Happy Raksha Bandhan, always."
     ],
-    "signoff": "Forever your brother, Aujasya"
+    "signoff": "Forever your brother, Aarav"
   },
   "distanceSection": {
     "sisterCity": "Mumbai",
-    "brotherCity": "Delhi"
+    "brotherCity": "London"
   },
   "music": { "enabled": true, "source": "assets/audio/song.mp3" }
 }
