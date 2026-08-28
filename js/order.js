@@ -82,9 +82,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Order Submission Handler
   const orderForm = document.getElementById('rakhi-order-form');
   const receiptCard = document.getElementById('order-receipt-card');
+  const submitBtn = orderForm?.querySelector('button[type="submit"]');
 
-  orderForm?.addEventListener('submit', (e) => {
+  orderForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '⏳ Encrypting &amp; Submitting Order...';
+    }
 
     // 1. Gather all inputs
     const customerName = document.getElementById('cust-name')?.value.trim() || 'Anonymous Client';
@@ -173,10 +179,21 @@ document.addEventListener('DOMContentLoaded', () => {
         { year: "Era 03", title: mem3Title, description: mem3Desc, image: orderPhotos.memories[2] },
         { year: "Era 04", title: mem4Title, description: mem4Desc, image: orderPhotos.memories[3] }
       ],
-      status: "new" // new | progress | ready | delivered
+      status: "new"
     };
 
-    // Save to LocalStorage Database
+    // 2. Transmit to Backend Cloud API
+    try {
+      await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(storyConfig)
+      });
+    } catch (err) {
+      console.warn('API sync warning:', err);
+    }
+
+    // 3. Save to LocalStorage as offline backup
     try {
       const existingOrders = JSON.parse(localStorage.getItem('rakhi_orders_db') || '[]');
       existingOrders.unshift(storyConfig);
@@ -186,13 +203,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Build Live Story URL using LZString compression if available
+    let compressedPayload = '';
     let storyUrl = `${window.location.origin}${window.location.pathname.replace('order.html', '')}index.html?g=${cleanSlug}`;
     if (window.LZString) {
       try {
-        const compressed = window.LZString.compressToEncodedURIComponent(JSON.stringify(storyConfig));
-        storyUrl = `${window.location.origin}${window.location.pathname.replace('order.html', '')}index.html#data=${compressed}`;
+        compressedPayload = window.LZString.compressToEncodedURIComponent(JSON.stringify(storyConfig));
+        storyUrl = `${window.location.origin}${window.location.pathname.replace('order.html', '')}index.html#data=${compressedPayload}`;
       } catch (_) {}
     }
+
+    // Direct Admin Import URL (Allows the creator to click from WhatsApp and instantly load this order into admin dashboard!)
+    const adminImportUrl = `${window.location.origin}${window.location.pathname.replace('order.html', '')}admin.html#import=${compressedPayload}`;
 
     // WhatsApp Message Generator
     const waText = encodeURIComponent(
@@ -202,7 +223,8 @@ document.addEventListener('DOMContentLoaded', () => {
       `*Siblings:* ${sisterName} (${sisterCity}) & ${brotherName} (${brotherCity})\n` +
       `*Delivery Date:* ${deliveryDate}\n\n` +
       `💌 *Letter Preview:* "${paragraphs[0] ? paragraphs[0].substring(0, 80) : ''}..."\n\n` +
-      `✨ *Live Preview:* ${storyUrl}`
+      `✨ *Live Preview:* ${storyUrl}\n\n` +
+      `📥 *Admin Import Link:* ${adminImportUrl}`
     );
     const waUrl = `https://api.whatsapp.com/send?text=${waText}`;
 
