@@ -1,56 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 
-// In-memory runtime cache for serverless warm instances
-let inMemoryOrders = null;
+// In-memory runtime cache for serverless warm instances (clean slate: empty array)
+let inMemoryOrders = [];
 
-// Initial sample seed orders
-const SEED_ORDERS = [
-  {
-    orderId: "RB-pooja-aujasya-1001",
-    createdAt: new Date(Date.now() - 3600000 * 5).toISOString(),
-    customer: {
-      name: "Aujasya Rajput",
-      phone: "+91 98765 43210",
-      email: "aujasya@example.com",
-      deliveryDate: "28th August 2026",
-      note: "Include London distance bridge & royal letter."
-    },
-    names: { sister: "Pooja", brother: "Aujasya" },
-    profiles: {
-      sister: { photo: "assets/images/model/portrait.jpg", city: "Mumbai" },
-      brother: { photo: "assets/images/model/img6.jpg", city: "London" }
-    },
-    hero: {
-      tagline: "Some bonds are tied by a thread. Ours was tied long before the Rakhi.",
-      sisterPhoto: "assets/images/model/portrait.jpg",
-      brotherPhoto: "assets/images/model/img6.jpg"
-    },
-    letter: {
-      salutation: "Dearest Pooja Didi,",
-      bodyParagraphs: [
-        "We've grown up. We've changed. But through everything life has thrown at us, you've remained my biggest support.",
-        "Whenever the world feels overwhelming, knowing that I have you in my corner gives me quiet strength."
-      ],
-      signoff: "Forever your loving brother ❤️, Aujasya"
-    },
-    distanceSection: {
-      enabled: true,
-      sisterCity: "Mumbai",
-      brotherCity: "London",
-      quote: "Different cities. Different lives. Same bond."
-    },
-    childhoodPhotos: [
-      { url: "assets/images/model/img1.jpg", caption: "The Tiny Humans Era" },
-      { url: "assets/images/model/img2.jpg", caption: "The Fighting Era" }
-    ],
-    memories: [
-      { year: "Era 01", title: "The Tiny Humans Era", description: "Stealing toys.", image: "assets/images/model/img1.jpg" },
-      { year: "Era 02", title: "The Fighting Era", description: "Remote fights.", image: "assets/images/model/img2.jpg" }
-    ],
-    status: "delivered"
-  }
-];
+// Initial sample seed orders (0 sample orders for production)
+const SEED_ORDERS = [];
 
 // Cloud Storage Endpoint (Upstash / Vercel KV / Cloud REST DB)
 const CLOUD_KV_URL = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
@@ -133,8 +88,8 @@ async function getAllOrders() {
     return inMemoryOrders;
   }
 
-  // 4. Fallback to SEED
-  inMemoryOrders = [...SEED_ORDERS];
+  // 4. Default empty array
+  inMemoryOrders = [];
   return inMemoryOrders;
 }
 
@@ -145,9 +100,15 @@ async function saveAllOrders(orders) {
   return true;
 }
 
+async function clearAllOrders() {
+  inMemoryOrders = [];
+  writeLocalDb([]);
+  await saveToCloudKV([]);
+  return true;
+}
+
 async function addOrder(newOrder) {
   const orders = await getAllOrders();
-  // Check if duplicate orderId
   const exists = orders.findIndex(o => o.orderId === newOrder.orderId);
   if (exists >= 0) {
     orders[exists] = newOrder;
@@ -181,7 +142,7 @@ async function deleteOrder(orderId) {
 function sanitizeString(str, maxLen = 2000) {
   if (typeof str !== 'string') return '';
   return str
-    .replace(/[<>]/g, '') // Strip angle brackets
+    .replace(/[<>]/g, '')
     .trim()
     .slice(0, maxLen);
 }
@@ -213,10 +174,9 @@ function sanitizeOrderPayload(payload) {
     bodyParagraphs = payload.letter.bodyParagraphs.map(p => sanitizeString(p, 1000)).filter(Boolean);
   }
 
-  // Sanitize photos (allow base64 data urls or internal asset paths)
   const sanitizeImg = (src, fallback) => {
     if (typeof src === 'string' && (src.startsWith('data:image/') || src.startsWith('assets/images/'))) {
-      return src.slice(0, 1500000); // 1.5MB max per image string
+      return src.slice(0, 1500000);
     }
     return fallback;
   };
@@ -281,6 +241,8 @@ function sanitizeOrderPayload(payload) {
 
 module.exports = {
   getAllOrders,
+  saveAllOrders,
+  clearAllOrders,
   addOrder,
   updateOrderStatus,
   deleteOrder,

@@ -1,6 +1,7 @@
 const { verifyToken } = require('./auth');
 const {
   getAllOrders,
+  clearAllOrders,
   addOrder,
   updateOrderStatus,
   deleteOrder,
@@ -87,7 +88,7 @@ module.exports = async function handler(req, res) {
     }
   }
 
-  // DELETE /api/orders (Delete order)
+  // DELETE /api/orders (Delete single order or clear all)
   if (req.method === 'DELETE') {
     try {
       let body = req.body;
@@ -95,6 +96,13 @@ module.exports = async function handler(req, res) {
         try { body = JSON.parse(body); } catch (_) {}
       }
       const orderId = (req.query && req.query.orderId) || (body && body.orderId);
+      const isAll = (req.query && (req.query.all === 'true' || req.query.all === '1')) || (body && body.all === true) || orderId === 'ALL';
+
+      if (isAll) {
+        await clearAllOrders();
+        return res.status(200).json({ success: true, message: 'All client orders cleared successfully' });
+      }
+
       if (!orderId) {
         return res.status(400).json({ error: 'orderId is required' });
       }

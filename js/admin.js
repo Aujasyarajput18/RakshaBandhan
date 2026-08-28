@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const pinError = document.getElementById('pin-error-msg');
   const pinCard = document.getElementById('pin-card');
   const btnLogout = document.getElementById('btn-admin-logout');
+  const btnClearAll = document.getElementById('btn-clear-all');
 
   let pollInterval = null;
   let cachedOrders = [];
@@ -51,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      // 1. Send authentication request to backend API
       const res = await fetch('/api/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -65,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (pinError) pinError.style.display = 'none';
         await checkAuth();
       } else {
-        // Fallback check for local offline development
         if (enteredPin === "1818" || enteredPin === "admin2026" || enteredPin === "rakhi2026") {
           sessionStorage.setItem('rakhi_admin_unlocked', 'true');
           sessionStorage.setItem('rakhi_admin_token', 'local_authenticated_token');
@@ -76,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     } catch (err) {
-      // Offline fallback
       if (enteredPin === "1818" || enteredPin === "admin2026") {
         sessionStorage.setItem('rakhi_admin_unlocked', 'true');
         sessionStorage.setItem('rakhi_admin_token', 'local_authenticated_token');
@@ -96,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pinError) pinError.style.display = 'block';
     if (pinCard) {
       pinCard.classList.remove('shake-anim');
-      void pinCard.offsetWidth; // Trigger reflow
+      void pinCard.offsetWidth;
       pinCard.classList.add('shake-anim');
     }
     if (pinInput) {
@@ -113,6 +111,24 @@ document.addEventListener('DOMContentLoaded', () => {
     location.reload();
   });
 
+  // Clear All Orders History
+  btnClearAll?.addEventListener('click', async () => {
+    if (confirm('⚠️ Are you sure you want to permanently delete ALL client orders history? This cannot be undone.')) {
+      cachedOrders = [];
+      localStorage.removeItem('rakhi_orders_db');
+      renderTableAndKPIs();
+
+      const token = getAuthToken();
+      try {
+        await fetch('/api/orders?all=true', {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+      } catch (_) {}
+      alert('🧹 All client order history has been deleted.');
+    }
+  });
+
   // Handle URL Hash Import (#import=<compressed_order_payload>)
   async function handleHashImport() {
     const hash = window.location.hash;
@@ -124,15 +140,13 @@ document.addEventListener('DOMContentLoaded', () => {
           if (jsonStr) {
             const order = JSON.parse(jsonStr);
             if (order && order.orderId) {
-              // Send to cloud backend
               await fetch('/api/orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(order)
               });
-              // Clear hash
               history.replaceState(null, document.title, window.location.pathname);
-              alert(`🎉 Success! Order ${order.orderId} (${order.customer?.name}) was automatically imported into the cloud database!`);
+              alert(`🎉 Success! Order ${order.orderId} (${order.customer?.name}) was automatically imported!`);
             }
           }
         } catch (err) {
@@ -142,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Fetch all orders from Cloud API + Local Backup
+  // Fetch all orders from Cloud API
   async function fetchAndRenderOrders() {
     const token = getAuthToken();
     let cloudOrders = null;
@@ -159,28 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     } catch (_) {}
 
-    // Merge with LocalStorage
-    const localOrders = JSON.parse(localStorage.getItem('rakhi_orders_db') || '[]');
-    let allOrders = cloudOrders || localOrders;
-
-    if (cloudOrders && localOrders.length) {
-      // Merge unique by orderId
-      const map = new Map();
-      cloudOrders.forEach(o => map.set(o.orderId, o));
-      localOrders.forEach(o => {
-        if (!map.has(o.orderId)) {
-          map.set(o.orderId, o);
-          // Sync missing order back to cloud
-          fetch('/api/orders', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(o)
-          }).catch(() => {});
-        }
-      });
-      allOrders = Array.from(map.values());
-    }
-
+    const allOrders = cloudOrders !== null ? cloudOrders : JSON.parse(localStorage.getItem('rakhi_orders_db') || '[]');
     cachedOrders = allOrders;
     localStorage.setItem('rakhi_orders_db', JSON.stringify(allOrders));
     renderTableAndKPIs();
@@ -245,10 +238,10 @@ document.addEventListener('DOMContentLoaded', () => {
       tbody.innerHTML = `
         <tr>
           <td colspan="5">
-            <div class="empty-state-box">
-              <div class="empty-icon">🪔</div>
-              <h3>No Orders Found</h3>
-              <p style="margin-top:4px;">No customer orders match your current filter criteria.</p>
+            <div class="empty-state-box" style="text-align:center;padding:48px 20px;">
+              <div class="empty-icon" style="font-size:48px;margin-bottom:12px;">🪔</div>
+              <h3 style="font-family:var(--font-display);color:var(--gold-light);font-size:1.3rem;">No Active Client Orders</h3>
+              <p style="color:var(--text-muted);font-size:0.88rem;margin-top:6px;">Your orders database is clean. When a customer submits via <strong>/order.html</strong>, it will appear here in real-time!</p>
             </div>
           </td>
         </tr>
@@ -331,7 +324,6 @@ document.addEventListener('DOMContentLoaded', () => {
           localStorage.setItem('rakhi_orders_db', JSON.stringify(cachedOrders));
           renderTableAndKPIs();
           
-          // Send update to server
           const token = getAuthToken();
           fetch('/api/orders', {
             method: 'PATCH',
@@ -370,7 +362,6 @@ document.addEventListener('DOMContentLoaded', () => {
           localStorage.setItem('rakhi_orders_db', JSON.stringify(cachedOrders));
           renderTableAndKPIs();
 
-          // Send delete to server
           const token = getAuthToken();
           fetch(`/api/orders?orderId=${encodeURIComponent(id)}`, {
             method: 'DELETE',
@@ -423,7 +414,6 @@ document.addEventListener('DOMContentLoaded', () => {
           cachedOrders = parsed;
           localStorage.setItem('rakhi_orders_db', JSON.stringify(parsed));
           renderTableAndKPIs();
-          // Sync all to server
           const token = getAuthToken();
           for (const ord of parsed) {
             fetch('/api/orders', {
